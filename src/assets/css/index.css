@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+    margin: 0;
+    height: 100%;
+
+    overflow-y: hidden;
+}
+
+.hero {
+    background-color: #0b1121; /* fallback */
+    background-image: url('../img/lol.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hero-overlay {
+    background: linear-gradient(180deg, #082032 0.01%, rgba(0,0,0, 0) 90%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.hero-grid {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(148 163 184 / 0.15)'><path d='M0 .5H31.5V32'/></svg>");
+    background-repeat: repeat;
+    background-size: unset;
+    background-blend-mode: screen;
+}
+
+.fadein {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 1s linear;
+}
+
+.fadeout  {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 1s, opacity 1s linear;
+}
+
+@layer utilities {
+    @variants responsive {
+        .text-shadow {
+            text-shadow: 2px 2px 4px black;
+        }
+        .text-shadow-sm {
+            text-shadow: 2px 2px 8px rgba(0,0,0, 0.4);
+        }
+        .text-shadow-md {
+            text-shadow: 4px 4px 8px black;
+        }
+        .text-shadow-lg {
+            text-shadow: 2px 2px 8px black;
+        }
+        .text-shadow-none {
+            text-shadow: none;
+        }
+    } 
+}
