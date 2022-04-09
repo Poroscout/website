@@ -14,12 +14,13 @@ export default function Hero() {
         </h1>
         <p className="text-gray-200 text-lg">Poroscout can help you <RotatingText className="text-yellow-400 font-semibold" text={[
           "check a player's stats",
-          "view ranked details",
-          "view match history and details",
           "view champion builds",
-          "find out what's the current meta",
+          "view match history and details",
           "find the latest patch notes",
-          "view player masteries"
+          "view player masteries",
+          "find out what champions are meta",
+          "see how a player is performing",
+          "automatically receieve patch notes"
         ]}/>.</p>
 
         <div className="w-full text-center pt-2">
