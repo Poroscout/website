@@ -61,3 +61,8 @@ html, body {
         }
     } 
 }
+
+.image-shadow {
+    -webkit-filter: drop-shadow(5px 5px 5px rgba(2,2,2, 0.3));
+    filter: drop-shadow(5px 5px 5px rgba(2,2,2, 0.3));
+}
