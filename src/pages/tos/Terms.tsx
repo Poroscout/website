@@ -8,7 +8,7 @@ function TermsOfService() {
 
       <div className="space-y-1">
         <h1 className="text-2xl text-center">Terms of Use and Privacy Policy</h1>
-        <p className="text-center italic">Updated: 4/25/2022 at 9:00 EST</p>
+        <p className="text-center italic">Updated: 4/25/2022 at 9:45 EST</p>
       </div>
       
       <section>
