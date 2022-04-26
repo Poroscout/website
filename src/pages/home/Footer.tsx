@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -8,7 +9,8 @@ export default function Footer() {
         <a className="text-blue-300" href="https://github.com/ItzDerock">Github</a> •{" "}
         <a className="text-blue-300" href="https://ko-fi.com/derock">Donate</a> •{" "}
         <a className="text-blue-300" href="mailto:derock@derock.dev">Email</a> •{" "}
-        <a className="text-blue-300" href="/terms">Terms</a>
+        {/* <a className="text-blue-300" href="/terms">Terms</a> */}
+        <Link to="/terms" className="text-blue-300">Terms</Link>
       </p>
     </footer>
   );

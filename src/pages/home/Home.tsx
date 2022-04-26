@@ -6,10 +6,6 @@ import Hero from "./Hero";
 // import "../../assets/css/home.scoped.css";
 
 function Home() {
-  useEffect(() => {
-    console.log('asdf')
-  }, []);
-
   return (
     <div className="hero w-screen h-screen overflow-hidden">
       <div className="hero-grid w-screen h-screen overflow-hidden">
