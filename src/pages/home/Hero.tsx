@@ -25,7 +25,10 @@ export default function Hero() {
 
         <div className="w-full text-center pt-2">
           <div className="space-x-3 sm:space-x-6">
-            <a className="bg-league hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded whitespace-nowrap" href="https://discord.com/api/oauth2/authorize?client_id=913190001007804426&permissions=537151488&scope=bot%20applications.commands">
+            <a className="bg-league hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded whitespace-nowrap" onClick={(ev) => {
+              // @ts-ignore
+              window.plausible("Invite Link Click")
+            }} href="https://discord.com/api/oauth2/authorize?client_id=913190001007804426&permissions=537151488&scope=bot%20applications.commands">
               <FontAwesomeIcon icon={["fas", "user-plus"]} />
               <span className="ml-2">Invite</span>
             </a>
