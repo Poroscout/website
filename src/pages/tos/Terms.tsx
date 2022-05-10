@@ -2,7 +2,7 @@ import Header from "./Header";
 import "../../assets/css/tos.css";
 import Footer from "./Footer";
 
-const lastUpdated = new Date("2022-04-26T16:56:01.736Z");
+const lastUpdated = new Date("2022-05-10T17:15:08.351Z");
 
 function TermsOfService() {
   return (
@@ -88,6 +88,9 @@ function TermsOfService() {
             harassing, abusive, racist, sexist, or otherwise objectionable.
           </li>
         </ul>
+
+        <br />
+        <p>We reserve the right to deny any user access to the bot or any support methods for any reason.</p>
       </section>
 
       <section>
@@ -100,6 +103,11 @@ function TermsOfService() {
             using the /link command)
           </li>
           <li>Anonymous website and bot usage data.</li>
+          <li>If linked, daily statistics of the linked League account's lp, rank, division, and tier.</li>
+          <ul className="list-disc mx-8">
+            <li>LP History data is <strong>not</strong> directly linked to your Discord account, instead it is linked to your League account's PUUID.</li>
+            <li>This means, in the unlikely event that our LP history database gets breached, there is no way to draw a line between your Discord and League account.</li>
+          </ul>
           <li>
             Your League of Legends account data (rank, past matches, profile,
             etc) is stored but is not directly linked to your Discord Account.
@@ -107,18 +115,18 @@ function TermsOfService() {
         </ul>
         <br />
         <p>
-          Your data is stored securly in our database. Stored data is also{" "}
+          Your data is stored securly in our database. Stored data <i>that is personally identifying</i> (meaning it can be connected to your Discord ID) is also{" "}
           <strong>encrypted</strong> for added protection.
           <br /> In the unlikely event of a data breach, we will send a
           notification in our Discord server that includes the extent of the
-          data breach.
+          data breach as soon as we are aware of the situation.
         </p>
         <br />
         <p>
-          As per Discord's guidelines, any personal identifying information you
-          provide will only be stored for 30 days.
+          As per Discord's guidelines, any personally identifying information you
+          provide will only be stored for 30 days. (inc: linked accounts)
           <br /> It will automatically be deleted after 30 days (processed at
-          midnight EST).
+          midnight UTC).
         </p>
         <br />
         <p>
