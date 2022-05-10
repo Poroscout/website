@@ -9,6 +9,7 @@ import {
 import Home from './pages/home/Home';
 import TermsOfService from './pages/tos/Terms';
 import Redirect from './components/Redirect';
+import FourOhFour from './pages/404/404';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/invite" element={<Redirect to={"https://discord.com/api/oauth2/authorize?client_id=913190001007804426&permissions=537151488&scope=bot%20applications.commands"} />} />
         <Route path="/terms" element={<TermsOfService />} />
         <Route index element={<Home />} />
+        <Route path="*" element={<FourOhFour />} />
       </Routes>
     </Router>
   );
