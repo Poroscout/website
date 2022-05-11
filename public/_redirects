@@ -1,2 +1,3 @@
 /graphs/* https://porogen.derock.dev/lpgraph/:splat 200
+/mmr/* https://porogen.derock.dev/mmr/:splat 200
 /*  /index.html 200
