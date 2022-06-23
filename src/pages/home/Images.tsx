@@ -34,7 +34,7 @@ export default function Images() {
         //     </div>
         //     <FontAwesomeIcon icon="fa-solid fa-caret-right" className="text-white text-left m-auto ml-4 h-20 opacity-40 hidden sm:block" />
         // </div>
-        <Carousel className="max-w-32 mt-5 w-80 sm:w-[60vw] m-auto" autoPlay infiniteLoop interval={5000} showThumbs={false} emulateTouch transitionTime={800} showArrows showIndicators={false} swipeable>
+        <Carousel className="max-w-32 mt-5 w-80 sm:w-[60vw] m-auto" autoPlay infiniteLoop interval={5000} showThumbs={false} emulateTouch transitionTime={800} showArrows showIndicators={false} swipeable stopOnHover={false}>
             {
                 images.map(([src, alt], index) => (
                     <div className="h-[60vh] w-auto block" key={index}>
