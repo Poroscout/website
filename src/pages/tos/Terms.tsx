@@ -1,8 +1,9 @@
 import Header from "./Header";
 import "../../assets/css/tos.css";
 import Footer from "./Footer";
+import ExternalLink from "../../components/ExternalLink";
 
-const lastUpdated = new Date("2022-05-10T17:15:08.351Z");
+const lastUpdated = new Date("2022-06-24T01:02:31.335Z");
 
 function TermsOfService() {
   return (
@@ -31,24 +32,24 @@ function TermsOfService() {
           Policy of the bot.
           <br /> You also agree that you will use this bot in a manner that
           complies with the Discord's{" "}
-          <a href="https://discord.com/terms" className="text-blue-800">
+          <ExternalLink href="https://discord.com/terms">
             Terms of Service
-          </a>{" "}
+          </ExternalLink>{" "}
           and{" "}
-          <a href="https://discord.com/guidelines" className="text-blue-800">
+          <ExternalLink href="https://discord.com/guidelines">
             Community Guidelines
-          </a>
+          </ExternalLink>
           .
           <br /> We take no responsibility for any actions or omissions of the
           bot and are not liable for individuals who use the bot to break any of
           Discord's{" "}
-          <a href="https://discord.com/terms" className="text-blue-800">
+          <ExternalLink href="https://discord.com/terms">
             Terms of Service
-          </a>{" "}
+          </ExternalLink>{" "}
           or{" "}
-          <a href="https://discord.com/guidelines" className="text-blue-800">
+          <ExternalLink href="https://discord.com/guidelines">
             Community Guidelines
-          </a>
+          </ExternalLink>
           .
         </p>
         <br />
@@ -68,13 +69,13 @@ function TermsOfService() {
           </ul>
           <li>
             You will not use the bot in a manner that may violate Discord's{" "}
-            <a href="https://discord.com/terms" className="text-blue-800">
+            <ExternalLink href="https://discord.com/terms">
               Terms of Service
-            </a>{" "}
+            </ExternalLink>{" "}
             or{" "}
-            <a href="https://discord.com/guidelines" className="text-blue-800">
+            <ExternalLink href="https://discord.com/guidelines">
               Community Guidelines
-            </a>
+            </ExternalLink>
             .
           </li>
           <li>
@@ -103,6 +104,16 @@ function TermsOfService() {
             using the /link command)
           </li>
           <li>Anonymous website and bot usage data.</li>
+          <li>
+            In the event the bot malfunctions when a command gets invoked, the error along with context information will be sent over to{" "}
+            <ExternalLink href="https://sentry.io">Sentry.io</ExternalLink> to be analyzed by our team.
+            <ul className="list-disc mx-8">
+              <li className="font-semibold">Data includes the following:</li>
+              <li>User, Guild, and Channel ID</li>
+              <li>Command Name</li>
+              <li>Command Options if applicable</li>
+            </ul>
+          </li>
           <li>If linked, daily statistics of the linked League account's lp, rank, division, and tier.</li>
           <ul className="list-disc mx-8">
             <li>LP History data is <strong>not</strong> directly linked to your Discord account, instead it is linked to your League account's PUUID.</li>
@@ -115,7 +126,14 @@ function TermsOfService() {
         </ul>
         <br />
         <p>
-          Your data is stored securly in our database. Stored data <i>that is personally identifying</i> (meaning it can be connected to your Discord ID) is also{" "}
+          Throughout this page, you will see the term: <i>personally identifying information</i> (
+            <ExternalLink href="https://www.dol.gov/general/ppii">PII</ExternalLink>
+            ) used.
+          <br /> In the case of the bot, data that is PII is data that can link directly to your Discord account's ID, which includes your linked League of Legends account name and region.
+        </p>
+        <br />
+        <p>
+          Your data is stored securly in our database. Stored data <i>that is personally identifying</i> is also{" "}
           <strong>encrypted</strong> for added protection.
           <br /> In the unlikely event of a data breach, we will send a
           notification in our Discord server that includes the extent of the
@@ -135,9 +153,9 @@ function TermsOfService() {
           <br /> To unlink your League of Legends username, region, and ID from
           your Discord account, you can run <strong>/unlink</strong>.
           <br /> Have any questions? Feel free to email us at{" "}
-          <a href="mailto:derock@derock.dev" className="font-bold">
+          <ExternalLink href="mailto:derock@derock.dev" className="font-bold">
             derock@derock.dev
-          </a>
+          </ExternalLink>
           .
         </p>
         <br />
