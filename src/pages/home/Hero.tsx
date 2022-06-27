@@ -32,7 +32,7 @@ export default function Hero() {
               <FontAwesomeIcon icon={["fas", "user-plus"]} />
               <span className="ml-2">Invite</span>
             </a>
-            <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded whitespace-nowrap" href="https://porodocs.derock.dev/">
+            <a className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded whitespace-nowrap" href="https://docs.poroscout.gg/">
               <FontAwesomeIcon icon={["fas", "book"]} />
               <span className="hidden sm:inline-block ml-2">Documentation</span>
               <span className="sm:hidden ml-2">Docs</span>
