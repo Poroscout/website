@@ -1,7 +1,8 @@
 {
-  "name": "poroscout.derock.devv2",
-  "version": "0.1.0",
-  "private": true,
+  "name": "poroscout.gg",
+  "version": "1.0.0",
+  "private": false,
+  "license": "GNU GPLv3",
   "dependencies": {
     "@craco/craco": "^6.4.3",
     "@fortawesome/fontawesome": "^1.1.8",
