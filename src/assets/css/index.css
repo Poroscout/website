@@ -40,23 +40,21 @@ html, body {
 }
 
 @layer utilities {
-    @variants responsive {
-        .text-shadow {
-            text-shadow: 2px 2px 4px black;
-        }
-        .text-shadow-sm {
-            text-shadow: 2px 2px 8px rgba(0,0,0, 0.4);
-        }
-        .text-shadow-md {
-            text-shadow: 4px 4px 8px black;
-        }
-        .text-shadow-lg {
-            text-shadow: 2px 2px 8px black;
-        }
-        .text-shadow-none {
-            text-shadow: none;
-        }
-    } 
+    .text-shadow {
+        text-shadow: 2px 2px 4px black;
+    }
+    .text-shadow-sm {
+        text-shadow: 2px 2px 8px rgba(0,0,0, 0.4);
+    }
+    .text-shadow-md {
+        text-shadow: 4px 4px 8px black;
+    }
+    .text-shadow-lg {
+        text-shadow: 2px 2px 8px black;
+    }
+    .text-shadow-none {
+        text-shadow: none;
+    }
 }
 
 .image-shadow {
