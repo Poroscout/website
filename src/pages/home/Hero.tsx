@@ -13,7 +13,7 @@ export default function Hero() {
           Bot.
         </h1>
         <p className="text-gray-200 text-lg">Poroscout can help you <RotatingText className="text-yellow-400 font-semibold" text={[
-          "check a player's stats",
+          "check player stats",
           "view champion builds",
           "view match history and details",
           "find the latest patch notes",
