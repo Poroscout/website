@@ -1,4 +1,5 @@
-import { RouteProps } from "react-router-dom";
+import React from "react";
+import { Route, RouteProps } from "react-router-dom";
 import Redirect from "./Redirect";
 
 export type RedirectRouteProps = RouteProps & {
@@ -6,5 +7,5 @@ export type RedirectRouteProps = RouteProps & {
 }
 
 export default function RedirectRoute(props: RedirectRouteProps) {
-    return <Redirect to={props.to} />;
+    return <Route {...props} element={<Redirect to={props.to} />} />;
 }
