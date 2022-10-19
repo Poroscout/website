@@ -143,7 +143,7 @@ function TermsOfService() {
         <p>
           As per Discord's guidelines, any personally identifying information you
           provide will only be stored for 30 days. (inc: linked accounts)
-          <br /> It will automatically be deleted after 30 days (processed at
+          <br /> It will automatically be deleted after 30 days since your last command was ran (processed at
           midnight UTC).
         </p>
         <br />
