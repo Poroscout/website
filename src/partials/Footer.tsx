@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer(props: { withBorder?: boolean }) {
   return (
     <footer className="bg-slate-900 px-8">
@@ -50,9 +52,11 @@ export default function Footer(props: { withBorder?: boolean }) {
             <h3 className="text-lg font-bold">Company</h3>
             <ul className="mt-4 space-y-4">
               <li>
-                <a href="/terms" className="text-slate-200 hover:text-white">
-                  Terms of Service & Privacy Policy
-                </a>
+                <Link href="/terms">
+                  <span className="text-slate-200 hover:text-white">
+                    Terms of Service & Privacy Policy
+                  </span>
+                </Link>
               </li>
               <li>
                 <a href="https://ko-fi.com/derock" className="text-slate-200 hover:text-white">
