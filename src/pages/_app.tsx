@@ -30,7 +30,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           property="og:image"
-          content="https://poroscout.gg/poroxmoba.png"
+          content="https://poroscout.gg/poroxmoba.webp"
         />
         <meta
           property="og:url"
