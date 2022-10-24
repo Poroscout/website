@@ -18,7 +18,15 @@ export default defineNextConfig({
 
   async rewrites() {
     return [
-
+      // plausible
+      {
+        source: "/js/script.outbound.js",
+        destination: "https://plausible.io/js/plausible.outbound-links.js",
+      },
+      {
+        source: "/api/log",
+        destination: "https://stats.derock.dev/api/event",
+      }
     ]
   }
 });

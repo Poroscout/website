@@ -53,7 +53,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <Script
         defer
         data-domain="poroscout.gg"
-        src="https://stats.derock.dev/js/script.outbound-links.js"
+        src="/js/script.outbound.js"
+        data-api="/api/log"
       />
 
       <Component {...pageProps} />
