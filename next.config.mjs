@@ -18,15 +18,7 @@ export default defineNextConfig({
 
   async rewrites() {
     return [
-      {
-        source: "/invite",
-        destination: "https://discord.com/oauth2/authorize?client_id=913190001007804426&permissions=537151488&scope=bot%20applications.commands"
-      },
 
-      {
-        source: "/discord",
-        destination: "https://discord.com/invite/dvvH6knvsG"
-      }
     ]
   }
 });

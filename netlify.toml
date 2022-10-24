@@ -4,3 +4,15 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# redirects
+
+[[redirects]]
+  from = "/invite"
+  to = "https://discord.com/oauth2/authorize?client_id=913190001007804426&permissions=537151488&scope=bot%20applications.commands"
+  status = 301
+
+[[redirects]]
+  from = "/discord"
+  to = "https://discord.com/invite/dvvH6knvsG"
+  status = 301
