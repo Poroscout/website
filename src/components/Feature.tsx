@@ -1,3 +1,4 @@
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import useScreenDimensions from "../hooks/dimentions";
 import link from "../styles/link";
@@ -6,7 +7,7 @@ type FeatureProps = {
   title: string | React.ReactNode;
   command?: string;
   description: string | React.ReactNode;
-  image: string;
+  image: string | StaticImageData;
   imageAlt: string;
 
   direction?: "ltr" | "rtl";
@@ -26,12 +27,10 @@ export function Feature(props: FeatureProps) {
       direction === "ltr" ? "fade-right" : "fade-left"
     }>
       <div className="relative w-full">
-        {/* i cant get next/image working */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={props.image}
           alt={props.imageAlt}
-          className="drop-shadow-md"
+          className="drop-shadow-md h-full"
         />
       </div>
     </div>,

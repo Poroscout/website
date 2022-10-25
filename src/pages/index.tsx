@@ -76,7 +76,7 @@ const Home: NextPage<HomeProps> = (props) => {
               </ul>
             </>
           }
-          image={champions.src}
+          image={champions}
           imageAlt="Image showing /champion, /counters, and /synergies"
           direction="ltr"
         />
@@ -97,7 +97,7 @@ const Home: NextPage<HomeProps> = (props) => {
               well as your position on a normal distribution curve.
             </>
           }
-          image={graphs.src}
+          image={graphs}
           imageAlt="Image showing /graph mmr, /graph lp, and /mmr commands."
           direction="rtl"
           alternateBG
@@ -121,7 +121,7 @@ const Home: NextPage<HomeProps> = (props) => {
               </ul>
             </>
           }
-          image={match.src}
+          image={match}
           imageAlt="Image showing /matches command."
         />
 
@@ -146,7 +146,7 @@ const Home: NextPage<HomeProps> = (props) => {
             </>
           }
 
-          image={profile.src}
+          image={profile}
           imageAlt="Image showing /profile command."
 
           direction="rtl"
@@ -166,7 +166,7 @@ const Home: NextPage<HomeProps> = (props) => {
               channel to automatically receive patch note updates on patch day.
             </>
           }
-          image={patchnotes.src}
+          image={patchnotes}
           imageAlt="Image showing PoroScout sending latest patchnotes."
         />
 
