@@ -30,7 +30,7 @@ export default function GradientImage(props: GraidentImageProps) {
         {/* gradient overlay */}
         <div className="w-screen bg-opacity-50 bg-gradient-to-b from-transparent to-slate-900 py-64">
           {/* content (centered) */}
-          <div className="flex justify-center items-center min-h-[40vh]">
+          <div className="flex justify-center items-center min-h-[30vh]">
             {props.children}
           </div>
         </div>
