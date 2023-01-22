@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import React from "react";
-import useScreenDimensions from "../hooks/dimentions";
+// import useScreenDimensions from "../hooks/dimentions";
 import link from "../styles/link";
 
 type FeatureProps = {
@@ -18,14 +18,16 @@ export function Feature(props: FeatureProps) {
   let direction = props.direction ?? "ltr";
 
   // if screen is too small, set to ltr
-  const dimentions = useScreenDimensions();
-  if(dimentions.width < 768) direction = "ltr";
+  // const dimentions = useScreenDimensions();
+  // if (dimentions.width < 768) direction = "ltr";
 
   const elements = [
     // image
-    <div className="h-full md:w-[50%]" key="image" data-aos={
-      direction === "ltr" ? "fade-right" : "fade-left"
-    }>
+    <div className="h-full md:w-[50%]" key="image"
+    // data-aos={
+    //   direction === "ltr" ? "fade-right" : "fade-left"
+    // }
+    >
       <div className="relative w-full">
         <Image
           src={props.image}
@@ -36,9 +38,11 @@ export function Feature(props: FeatureProps) {
     </div>,
 
     // text
-    <div className="w-full md:w-[50%]" key="text" data-aos={
-      direction === "ltr" ? "fade-left" : "fade-right"
-    }>
+    <div className="w-full md:w-[50%]" key="text"
+    // data-aos={
+    //   direction === "ltr" ? "fade-left" : "fade-right"
+    // }
+    >
       <div className="mx-7 lg:mx-0 pt-2 text-left">
         <h2 className="text-slate-400 font-bold tracking-normal uppercase text-sm">
           {props.command}

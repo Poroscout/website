@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState, useEffect } from "react";
 
@@ -12,7 +14,7 @@ export default function BigNumberStatCard(props: StatCardProps) {
   const [number, setNumber] = useState(0);
 
   useEffect(() => {
-    if(props.number === undefined) return;
+    if (props.number === undefined) return;
 
     const amountToChange = props.number / 30;
 

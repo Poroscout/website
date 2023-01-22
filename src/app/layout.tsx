@@ -1,26 +1,27 @@
 import "../styles/globals.css";
-import type { AppType } from "next/dist/shared/lib/utils";
-import aos from "aos";
-import "aos/dist/aos.css";
-import { Fragment, useEffect } from "react";
-import Head from "next/head";
-import Script from "next/script";
+// import aos from "aos";
+// import "aos/dist/aos.css";
+import { ReactNode, Suspense } from "react";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
-  useEffect(() => {
-    aos.init({
-      once: true,
-      disable:
-        /bot|crawler|spider|crawling/i.test(navigator.userAgent) ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-      duration: 600,
-      easing: "ease-out-sine",
-    });
-  }, []);
+const MyApp = ({
+  children
+}: {
+  children: ReactNode
+}) => {
+  // useEffect(() => {
+  //   aos.init({
+  //     once: true,
+  //     disable:
+  //       /bot|crawler|spider|crawling/i.test(navigator.userAgent) ||
+  //       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  //     duration: 600,
+  //     easing: "ease-out-sine",
+  //   });
+  // }, []);
 
   return (
-    <Fragment>
-      <Head>
+    <html>
+      <head>
         {/* meta */}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -47,18 +48,22 @@ const MyApp: AppType = ({ Component, pageProps }) => {
 
         {/* icon */}
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </head>
 
-      {/* tracking */}
-      <Script
-        defer
-        data-domain="poroscout.gg"
-        src="/js/script.outbound.js"
-        data-api="/api/log"
-      />
+      <body>
+        <Suspense>
+          {children}
+        </Suspense>
 
-      <Component {...pageProps} />
-    </Fragment>
+        {/* tracking */}
+        <script
+          defer
+          data-domain="poroscout.gg"
+          src="/js/script.outbound.js"
+          data-api="/api/log"
+        />
+      </body>
+    </html>
   );
 };
 
