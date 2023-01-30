@@ -15,7 +15,7 @@ type FeatureProps = {
 };
 
 export function Feature(props: FeatureProps) {
-  let direction = props.direction ?? "ltr";
+  const direction = props.direction ?? "ltr";
 
   // if screen is too small, set to ltr
   // const dimentions = useScreenDimensions();
