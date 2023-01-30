@@ -1,5 +1,4 @@
 import { css } from "@emotion/css";
-import { NextPage } from "next";
 import colors from "tailwindcss/colors";
 import Footer from "../partials/Footer";
 import TermsHero from "../partials/terms/TermsHero";
@@ -11,7 +10,7 @@ const termStyles = css`
   }
 `
 
-const TermsOfServices: NextPage = () => {
+const TermsOfServices = () => {
   return (
     <>
       <TermsHero />

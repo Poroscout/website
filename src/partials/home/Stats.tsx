@@ -1,14 +1,10 @@
 import CountingNumber from "../../components/CountingNumber";
+import { getBotStats } from "../../lib/stats";
 
-type StatCardProps = {
-  stats: {
-    guilds?: number;
-    users?: number;
-    linked_accounts?: number;
-  };
-};
+export default async function StatCards() {
+  // get stats
+  const stats = await getBotStats();
 
-export default function StatCards(props: StatCardProps) {
   return (
     <section className="absolute top-[-9rem] w-full mx-auto py-12 sm:px-6 lg:px-8 space-y-4 left-[50%] translate-x-[-50%]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -19,7 +15,7 @@ export default function StatCards(props: StatCardProps) {
               className="text-4xl font-bold leading-tight tracking-tighter text-white mb-2"
               data-aos="fade-up"
             >
-              <CountingNumber number={props.stats.guilds} />+
+              <CountingNumber number={stats.guilds} />+
             </div>
             <div
               className="text-lg text-gray-400"
@@ -35,7 +31,7 @@ export default function StatCards(props: StatCardProps) {
               className="text-4xl font-bold leading-tight tracking-tighter text-white mb-2"
               data-aos="fade-up"
             >
-              <CountingNumber number={props.stats.users} />+
+              <CountingNumber number={stats.users} />+
             </div>
             <div
               className="text-lg text-gray-400"
@@ -51,7 +47,7 @@ export default function StatCards(props: StatCardProps) {
               className="text-4xl font-bold leading-tight tracking-tighter text-white mb-2"
               data-aos="fade-up"
             >
-              <CountingNumber number={props.stats.linked_accounts} />+
+              <CountingNumber number={stats.linked_accounts} />+
             </div>
             <div
               className="text-lg text-gray-400"

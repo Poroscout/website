@@ -16,6 +16,10 @@ export default defineNextConfig({
   reactStrictMode: true,
   swcMinify: true,
 
+  experimental: {
+    appDir: true
+  },
+
   async rewrites() {
     return [
       // plausible

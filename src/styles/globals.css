@@ -13,6 +13,24 @@ main {
   background-color: theme("colors.slate.900");
 }
 
+/* bullet point class */
+@layer utilities {
+  .bullet {
+    @apply list-none;
+  }
+
+  .bullet li::before {
+    @apply inline-block align-middle h-auto w-auto;
+    padding-top: 2px;
+    margin-right: 0.25rem;
+    content: url("data:image/svg+xml,%3Csvg width='20' height='20' style='margin-top: auto; margin-bottom: auto;' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.5 13.5L4.5 10.5L3.5 11.5L7.5 15.5L16.5 6.5L15.5 5.5L7.5 13.5Z' fill='lightgreen'/%3E%3C/svg%3E%0A"); 
+  }
+
+  .bullet li {
+    margin-left: 0.5rem;
+  }
+}
+
 /* Custom AOS distance */
 @media screen {
   html:not(.no-js) [data-aos="fade-up"] {
