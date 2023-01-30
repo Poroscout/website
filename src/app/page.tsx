@@ -20,6 +20,7 @@ const Home: NextPage = () => {
 
       <main className="bg-slate-900">
         <div className="relative h-16 mx-auto max-w-7xl justify-center md:mb-0 mb-60">
+          {/* @ts-expect-error Server Component */}
           <StatCards />
         </div>
 
