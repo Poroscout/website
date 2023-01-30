@@ -1,24 +1,12 @@
 import "../styles/globals.css";
-// import aos from "aos";
-// import "aos/dist/aos.css";
 import { ReactNode, Suspense } from "react";
+import AOS from "../partials/AOS";
 
 const MyApp = ({
   children
 }: {
   children: ReactNode
 }) => {
-  // useEffect(() => {
-  //   aos.init({
-  //     once: true,
-  //     disable:
-  //       /bot|crawler|spider|crawling/i.test(navigator.userAgent) ||
-  //       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  //     duration: 600,
-  //     easing: "ease-out-sine",
-  //   });
-  // }, []);
-
   return (
     <html>
       <head>
@@ -53,6 +41,7 @@ const MyApp = ({
       <body>
         <Suspense>
           {children}
+          <AOS />
         </Suspense>
 
         {/* tracking */}

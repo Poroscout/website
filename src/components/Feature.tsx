@@ -24,9 +24,9 @@ export function Feature(props: FeatureProps) {
   const elements = [
     // image
     <div className="h-full md:w-[50%]" key="image"
-    // data-aos={
-    //   direction === "ltr" ? "fade-right" : "fade-left"
-    // }
+      data-aos={
+        direction === "ltr" ? "fade-right" : "fade-left"
+      }
     >
       <div className="relative w-full">
         <Image
@@ -39,9 +39,9 @@ export function Feature(props: FeatureProps) {
 
     // text
     <div className="w-full md:w-[50%]" key="text"
-    // data-aos={
-    //   direction === "ltr" ? "fade-left" : "fade-right"
-    // }
+      data-aos={
+        direction === "ltr" ? "fade-left" : "fade-right"
+      }
     >
       <div className="mx-7 lg:mx-0 pt-2 text-left">
         <h2 className="text-slate-400 font-bold tracking-normal uppercase text-sm">

@@ -1,9 +1,9 @@
 import CountingNumber from "../../components/CountingNumber";
 import { getBotStats } from "../../lib/stats";
 
-export default function StatCards() {
+export default async function StatCards() {
   // get stats
-  const stats = getBotStats();
+  const stats = await getBotStats();
 
   return (
     <section className="absolute top-[-9rem] w-full mx-auto py-12 sm:px-6 lg:px-8 space-y-4 left-[50%] translate-x-[-50%]">
