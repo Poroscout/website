@@ -8,7 +8,7 @@ const MyApp = ({
   children: ReactNode
 }) => {
   return (
-    <html>
+    <html lang="en">
       <head>
         {/* meta */}
         <meta charSet="utf-8" />
