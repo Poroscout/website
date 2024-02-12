@@ -173,7 +173,8 @@ const TermsOfServices = () => {
             <br />
             <p>
               PoroScout will never share any personal identifying information
-              publicly without your concent unless required by law.
+              publicly without your concent unless required by law unless
+              otherwise stated in this document.
               <br /> To unlink your League of Legends username, region, and ID
               from your Discord account, you can run <strong>/unlink</strong>.
               <br /> Have any questions? Feel free to email us at{" "}
