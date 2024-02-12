@@ -1,14 +1,14 @@
 import { css } from "@emotion/css";
 import colors from "tailwindcss/colors";
-import Footer from "../partials/Footer";
-import TermsHero from "../partials/terms/TermsHero";
-import link from "../styles/link";
+import Footer from "../../partials/Footer";
+import TermsHero from "../../partials/terms/TermsHero";
+import link from "../../styles/link";
 
 const termStyles = css`
   * > h2 {
     color: ${colors.white};
   }
-`
+`;
 
 const TermsOfServices = () => {
   return (
@@ -16,7 +16,9 @@ const TermsOfServices = () => {
       <TermsHero />
 
       <main className="bg-slate-900 my-16">
-        <div className={`max-w-7xl mx-6 lg:mx-auto text-gray-200 space-y-5 ${link} ${termStyles}`}>
+        <div
+          className={`max-w-7xl mx-6 lg:mx-auto text-gray-200 space-y-5 ${link} ${termStyles}`}
+        >
           <section>
             <h2 className="mb-2 text-lg font-semibold">Usage Agreement:</h2>
             <p>
@@ -25,25 +27,14 @@ const TermsOfServices = () => {
               Privacy Policy of the bot.
               <br /> You also agree that you will use this bot in a manner that
               complies with the Discord&apos;s{" "}
-              <a href="https://discord.com/terms">
-                Terms of Service
-              </a>{" "}
-              and{" "}
-              <a href="https://discord.com/guidelines">
-                Community Guidelines
-              </a>
+              <a href="https://discord.com/terms">Terms of Service</a> and{" "}
+              <a href="https://discord.com/guidelines">Community Guidelines</a>
               .
               <br /> We take no responsibility for any actions or omissions of
               the bot and are not liable for individuals who use the bot to
               break any of Discord&apos;s{" "}
-              <a href="https://discord.com/terms">
-                Terms of Service
-              </a>{" "}
-              or{" "}
-              <a href="https://discord.com/guidelines">
-                Community Guidelines
-              </a>
-              .
+              <a href="https://discord.com/terms">Terms of Service</a> or{" "}
+              <a href="https://discord.com/guidelines">Community Guidelines</a>.
             </p>
             <br />
             <p>By using the bot you agree to the following:</p>
@@ -61,11 +52,9 @@ const TermsOfServices = () => {
                 <li>Abusing any bugs or exploits in the bot.</li>
               </ul>
               <li>
-                You will not use the bot in a manner that may violate Discord&apos;s{" "}
-                <a href="https://discord.com/terms">
-                  Terms of Service
-                </a>{" "}
-                or{" "}
+                You will not use the bot in a manner that may violate
+                Discord&apos;s{" "}
+                <a href="https://discord.com/terms">Terms of Service</a> or{" "}
                 <a href="https://discord.com/guidelines">
                   Community Guidelines
                 </a>
@@ -103,8 +92,8 @@ const TermsOfServices = () => {
               <li>
                 In the event the bot malfunctions when a command gets invoked,
                 the error along with context information will be sent over to{" "}
-                <a href="https://sentry.io">Sentry.io</a>{" "}
-                to be analyzed by our team.
+                <a href="https://sentry.io">Sentry.io</a> to be analyzed by our
+                team.
                 <ul className="list-disc mx-8">
                   <li className="font-semibold">
                     Data includes the following:
@@ -115,8 +104,8 @@ const TermsOfServices = () => {
                 </ul>
               </li>
               <li>
-                If linked, daily statistics of the linked League account&apos;s lp,
-                rank, division, and tier.
+                If linked, daily statistics of the linked League account&apos;s
+                lp, rank, division, and tier.
               </li>
               <ul className="list-disc mx-8">
                 <li>
@@ -138,15 +127,31 @@ const TermsOfServices = () => {
             </ul>
             <br />
             <p>
+              Furthermore, PoroScout will send the following information to our
+              third-party partner Leagues.gg:
+            </p>
+            <ul className="list-disc mx-6">
+              <li>Discord ID and Username.</li>
+              <li>Command usage data (the names of commands used).</li>
+            </ul>
+            <p>
+              This data is used to provide us with insights on how the bot is
+              being used and to help us improve the bot. The data that is sent
+              is under the{" "}
+              <a href="https://leagues.gg/en/legal/privacy">
+                Leagues.gg Privacy Policy
+              </a>
+              .
+            </p>
+            <br />
+            <p>
               Throughout this page, you will see the term:{" "}
               <i>personally identifying information</i> (
-              <a href="https://www.dol.gov/general/ppii">
-                PII
-              </a>
+              <a href="https://www.dol.gov/general/ppii">PII</a>
               ) used.
               <br /> In the case of the bot, data that is PII is data that can
-              link directly to your Discord account&apos;s ID, which includes your
-              linked League of Legends account name and region.
+              link directly to your Discord account&apos;s ID, which includes
+              your linked League of Legends account name and region.
             </p>
             <br />
             <p>
@@ -172,10 +177,7 @@ const TermsOfServices = () => {
               <br /> To unlink your League of Legends username, region, and ID
               from your Discord account, you can run <strong>/unlink</strong>.
               <br /> Have any questions? Feel free to email us at{" "}
-              <a
-                href="mailto:derock@derock.dev"
-                className="font-bold"
-              >
+              <a href="mailto:derock@derock.dev" className="font-bold">
                 derock@derock.dev
               </a>
               .
@@ -193,11 +195,11 @@ const TermsOfServices = () => {
           <section>
             <h2 className="mb-2 text-lg font-semibold">Affiliation:</h2>
             <p>
-              PoroScout isn&apos;t endorsed by Riot Games and doesn&apos;t reflect the
-              views or opinions of Riot Games or anyone officially involved in
-              producing or managing Riot Games properties. Riot Games, and all
-              associated properties are trademarks or registered trademarks of
-              Riot Games, Inc.
+              PoroScout isn&apos;t endorsed by Riot Games and doesn&apos;t
+              reflect the views or opinions of Riot Games or anyone officially
+              involved in producing or managing Riot Games properties. Riot
+              Games, and all associated properties are trademarks or registered
+              trademarks of Riot Games, Inc.
             </p>
             <br />
             <p>

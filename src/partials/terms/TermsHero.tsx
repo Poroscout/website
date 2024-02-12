@@ -1,8 +1,8 @@
-import GradientImage from "../../components/GradientImage";
-import lolImage from "../../assets/lol.webp";
 import Link from "next/link";
+import lolImage from "../../assets/lol.webp";
+import GradientImage from "../../components/GradientImage";
 
-const lastUpdated = new Date("2022-06-24T01:02:31.335Z");
+const lastUpdated = new Date("2024-02-12T20:01:50.190Z");
 
 export default function TermsHero() {
   return (

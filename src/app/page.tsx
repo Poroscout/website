@@ -15,12 +15,10 @@ import { CallToAction } from "../partials/home/CallToAction";
 const Home: NextPage = () => {
   return (
     <>
-
       <HomeHero />
 
       <main className="bg-slate-900">
-        <div className="relative h-16 mx-auto max-w-7xl justify-center md:mb-0 mb-60">
-          {/* @ts-expect-error Server Component */}
+        <div className="relative h-16 mx-auto max-w-7xl justify-center md:mb-0 mb-60 z-20">
           <StatCards />
         </div>
 
@@ -100,7 +98,8 @@ const Home: NextPage = () => {
           description={
             <>
               With the <SlashCommand>/profile</SlashCommand> command, you can
-              lookup a summoner&apos;s profile and display the following information:
+              lookup a summoner&apos;s profile and display the following
+              information:
               <ul className="bullet">
                 <li>Summoner Level</li>
                 <li>Ranked Solo/Duo and Flex stats</li>
@@ -108,16 +107,13 @@ const Home: NextPage = () => {
                 <li>Recent & Live Games</li>
                 <li>and more...</li>
               </ul>
-
               <br />
-              And with the <SlashCommand>/mastery</SlashCommand> command, you can
-              lookup a summoner&apos;s top 10 mastered champions.
+              And with the <SlashCommand>/mastery</SlashCommand> command, you
+              can lookup a summoner&apos;s top 10 mastered champions.
             </>
           }
-
           image={profile}
           imageAlt="Image showing /profile command."
-
           direction="rtl"
           alternateBG
         />
