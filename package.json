@@ -6,6 +6,7 @@
   "packageManager": "pnpm@8.6.0+",
   "scripts": {
     "build": "next build",
+    "build:cf": "pnpm dlx @cloudflare/next-on-pages && cp _redirects .vercel/output/static",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
@@ -17,9 +18,11 @@
     "next": "14.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sharp": "^0.33.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.8.6",
     "@types/aos": "^3.0.7",
     "@types/node": "20.11.17",
     "@types/react": "18.2.55",

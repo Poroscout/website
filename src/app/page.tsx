@@ -12,6 +12,8 @@ import profile from "../assets/features/profile.webp";
 import SlashCommand from "../components/SlashCommand";
 import { CallToAction } from "../partials/home/CallToAction";
 
+export const runtime = "edge";
+
 const Home: NextPage = () => {
   return (
     <>
