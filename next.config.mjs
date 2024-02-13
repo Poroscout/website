@@ -1,3 +1,5 @@
+import BundleAnalyzer from "@next/bundle-analyzer";
+
 /**
  * Don't be scared of the generics here.
  * All they do is to give us autocompletion when using this.
@@ -7,7 +9,9 @@
  * @constraint {{import('next').NextConfig}}
  */
 function defineNextConfig(config) {
-  return config;
+  return BundleAnalyzer({
+    enabled: process.env.ANALYZE === "true",
+  })(config);
 }
 
 export default defineNextConfig({

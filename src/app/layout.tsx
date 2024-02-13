@@ -1,12 +1,8 @@
-import "../styles/globals.css";
 import { ReactNode, Suspense } from "react";
 import AOS from "../partials/AOS";
+import "../styles/globals.css";
 
-const MyApp = ({
-  children
-}: {
-  children: ReactNode
-}) => {
+const MyApp = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en">
       <head>
@@ -39,8 +35,8 @@ const MyApp = ({
       </head>
 
       <body>
+        {children}
         <Suspense>
-          {children}
           <AOS />
         </Suspense>
 

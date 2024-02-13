@@ -9,9 +9,6 @@ export type GraidentImageProps = {
 export default function GradientImage(props: GraidentImageProps) {
   return (
     // background image
-    // <div className={`overflow-hidden bg-cover bg-center bg-no-repeat`} style={{
-    // backgroundImage: `url(${props.image.src})`,
-    // }}>
     <div className={`relative overflow-hidden bg-cover bg-center bg-no-repeat`}>
       {/* overlay with grid */}
       <div
@@ -27,12 +24,13 @@ export default function GradientImage(props: GraidentImageProps) {
       </div>
 
       <Image
-        placeholder="blur"
+        fill
         src={props.image}
         alt="League of Legends logo"
-        layout="fill"
-        objectFit="cover"
-        className="z-0"
+        className="z-0 object-cover"
+        placeholder="blur"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+        priority
       />
     </div>
   );
