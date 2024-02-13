@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "GPL-3.0",
-  "packageManager": "pnpm@8.6.0+",
+  "packageManager": "pnpm@8.6.0",
   "scripts": {
     "build": "next build",
     "build:cf": "pnpm dlx @cloudflare/next-on-pages && cp _redirects .vercel/output/static",
