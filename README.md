@@ -1,8 +1,13 @@
-# Poroscout Website
-Welcome to the repo behind https://poroscout.gg
+# Astro with Tailwind
 
-> ⚠️ Please do not use the github issue system to report *bot* errors.  
-> If there's an issue with the website, then you're at the right place.  
-> If you need support with the discord bot, please join our [support server](https://discord.gg/dvvH6knvsG)
+```sh
+pnpm create astro@latest -- --template with-tailwindcss
+```
 
-[License](https://choosealicense.com/licenses/gpl-3.0/)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/with-tailwindcss)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/with-tailwindcss)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/with-tailwindcss/devcontainer.json)
+
+Astro comes with [Tailwind](https://tailwindcss.com) support out of the box. This example showcases how to style your Astro project with Tailwind.
+
+For complete setup instructions, please see our [Tailwind Integration Guide](https://docs.astro.build/en/guides/integrations-guide/tailwind).

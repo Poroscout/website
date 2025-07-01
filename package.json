@@ -1,43 +1,24 @@
 {
-  "name": "poroscout.gg",
-  "version": "0.1.0",
-  "private": true,
-  "license": "GPL-3.0",
-  "packageManager": "pnpm@8.6.0",
+  "name": "poroscout-website",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "build": "next build",
-    "build:cf": "pnpm dlx @cloudflare/next-on-pages && cp _redirects .vercel/output/static",
-    "dev": "next dev",
-    "lint": "next lint",
-    "start": "next start"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@babel/core": "^7.23.9",
-    "@emotion/css": "^11.11.2",
-    "aos": "^2.3.4",
-    "next": "14.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sharp": "^0.33.2",
-    "zod": "^3.22.4"
-  },
-  "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.8.6",
-    "@next/bundle-analyzer": "^14.1.0",
-    "@types/aos": "^3.0.7",
-    "@types/node": "20.11.17",
-    "@types/react": "18.2.55",
-    "@types/react-dom": "18.2.19",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "autoprefixer": "^10.4.17",
-    "eslint": "8.56.0",
-    "eslint-config-next": "14.1.0",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "5.3.3"
-  },
-  "ct3aMetadata": {
-    "initVersion": "5.8.5"
+    "@astrojs/mdx": "^4.3.0",
+    "@astrojs/react": "^4.3.0",
+    "@tailwindcss/vite": "^4.1.3",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "astro": "^5.10.1",
+    "canvas-confetti": "^1.9.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.3"
   }
 }
