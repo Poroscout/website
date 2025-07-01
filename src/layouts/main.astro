@@ -1,5 +1,8 @@
 ---
 import "../styles/global.css";
+
+import { Font } from "astro:assets";
+
 const { content } = Astro.props;
 
 export interface Props {
@@ -20,6 +23,10 @@ const description =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" />
 
+    <!-- fonts -->
+    <Font cssVariable="--font-montserrat" preload />
+    <Font cssVariable="--font-inter" preload />
+
     <!-- seo tags -->
     <meta name="theme-color" content="#3c82f6" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -33,6 +40,7 @@ const description =
 
     <link rel="canonical" href="https://poroscout.gg/" />
     <meta name="robots" content="index, follow" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- page details -->
     <title>{content.title}</title>

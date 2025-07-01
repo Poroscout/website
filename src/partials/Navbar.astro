@@ -1,0 +1,96 @@
+---
+import { Image } from "@unpic/astro";
+import PoroScoutLogo from "../assets/logo.webp";
+
+type NavbarItem = {
+  href: string;
+  label: string;
+};
+
+const navbarItems = [
+  { href: "/about", label: "About" },
+  { href: "/wiki", label: "Wiki" },
+  { href: "/news", label: "News" },
+] satisfies NavbarItem[];
+---
+
+<div
+  class="top-0 left-0 right-0 text-white fixed transition-all duration-700 font-body"
+  id="navbar"
+>
+  <nav class="max-w-7xl mx-auto flex flex-row justify-between p-4 gap-8">
+    <ul class="flex flex-row justify-between items-center max-w-xl grow">
+      <li>
+        <a href="/">
+          <span class="sr-only">PoroScout Home</span>
+          <Image
+            src={PoroScoutLogo}
+            alt="PoroScout Logo"
+            width={40}
+            height={40}
+            class="h-10 w-10"
+          />
+        </a>
+      </li>
+
+      {
+        navbarItems.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- search bar -->
+    <div class="flex items-center gap-4 relative">
+      <form class="flex items-center">
+        <input
+          type="text"
+          placeholder="Search Wiki"
+          class="h-full focus:outline-none border border-gray-700/60 rounded-lg px-6 py-4 focus:ring-2 focus:ring-blue-500 bg-gray-400/20 pl-14"
+        />
+
+        <svg
+          class="absolute left-6 pointer-events-none"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 256 256"
+          ><g fill="currentColor"
+            ><path
+              d="M192 112a80 80 0 1 1-80-80a80 80 0 0 1 80 80"
+              opacity="0.2"></path><path
+              d="m229.66 218.34l-50.06-50.06a88.21 88.21 0 1 0-11.32 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"
+            ></path></g
+          ></svg
+        >
+      </form>
+
+      <!-- add button -->
+      <a
+        href="/add"
+        class="bg-gradient-to-r from-blue-500 to-blue-400 from-65% text-white px-6 py-4 rounded-lg hover:from-orange-700 hover:to-orange-600 transition-colors"
+      >
+        Add PoroScout
+      </a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  // On scroll, change from transparent to solid background
+  const navbar = document.getElementById("navbar");
+
+  window.addEventListener("scroll", () => {
+    if (!navbar) return;
+
+    if (window.scrollY > 0) {
+      navbar.classList.add("bg-gray-900", "bg-opacity-90");
+      navbar.classList.remove("bg-transparent");
+    } else {
+      navbar.classList.remove("bg-gray-900", "bg-opacity-90");
+      navbar.classList.add("bg-transparent");
+    }
+  });
+</script>

@@ -1,25 +1,46 @@
 ---
-import '../styles/global.css';
-// Component Imports
-import Button from '../components/Button.astro';
+import "../styles/global.css";
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import MainLayout from "../layouts/main.astro";
+import { Image } from "@unpic/astro";
+import HeroBackground from "../assets/spelltheif-lux.jpg";
+import Navbar from "../partials/Navbar.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
+<MainLayout
+  content={{
+    title: "Welcome to PoroScout",
+  }}
+>
+  <div>
+    <Image
+      src={HeroBackground}
+      alt="Piltover background"
+      layout="fullWidth"
+      height={1900}
+      class="max-h-screen"
+      priority
+      placeholder="lqip"
+    />
+    <div class="absolute inset-0 flex flex-col justify-center bg-black/30">
+      <Navbar />
 
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
-	</body>
-</html>
+      <div class="max-w-7xl w-full mx-auto text-primary font-display">
+        <h2 class="text-lg font-semibold uppercase text-gray-300">
+          Piltover's Finest
+        </h2>
+        <h1
+          class="text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-b from-primary to-gray-400 from-70%"
+        >
+          League of Legends
+          <br />Discord Bot
+        </h1>
+        <p class="mb-6">
+          Your ultimate chat companion for tracking player statistics, champion
+          builds, and more!
+        </p>
+        <!-- <Button href="/explore" label="Explore Now" /> -->
+      </div>
+    </div>
+  </div>
+</MainLayout>

@@ -1,14 +1,45 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig, fontProviders } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@astrojs/react";
+import mdx from "@astrojs/mdx";
+import { imageService } from "@unpic/astro/service";
 
-import react from '@astrojs/react';
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-      plugins: [tailwindcss()]
-	},
+  site: "https://poroscout.gg",
 
-  integrations: [react()]
+  vite: {
+    plugins: [tailwindcss()],
+  },
+
+  image: {
+    service: imageService({
+      placeholder: "blurhash",
+    }),
+  },
+
+  // integrations: [react()]
+  experimental: {
+    fonts: [
+      {
+        provider: fontProviders.google(),
+        name: "Montserrat",
+        cssVariable: "--font-montserrat",
+        fallbacks: ["sans-serif"],
+        weights: ["600", "900"],
+      },
+      {
+        provider: fontProviders.google(),
+        name: "Inter",
+        cssVariable: "--font-inter",
+        fallbacks: ["sans-serif"],
+        weights: ["400"],
+      },
+    ],
+  },
+
+  integrations: [mdx(), sitemap()],
 });
