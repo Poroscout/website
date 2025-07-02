@@ -29,7 +29,7 @@ export default defineConfig({
         name: "Montserrat",
         cssVariable: "--font-montserrat",
         fallbacks: ["sans-serif"],
-        weights: ["600", "900"],
+        weights: ["500", "600", "900"],
       },
       {
         provider: fontProviders.google(),

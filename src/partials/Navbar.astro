@@ -12,11 +12,21 @@ const navbarItems = [
   { href: "/wiki", label: "Wiki" },
   { href: "/news", label: "News" },
 ] satisfies NavbarItem[];
+
+export interface Props {
+  forceBackground?: boolean;
+}
+
+const props = Astro.props;
 ---
 
 <div
-  class="top-0 left-0 right-0 text-white fixed transition-all duration-700 font-body"
+  class={"top-0 left-0 right-0 text-white fixed transition-all duration-700 font-body" +
+    (props.forceBackground
+      ? " bg-gray-950/40 backdrop-blur-lg"
+      : " bg-transparent")}
   id="navbar"
+  data-disable-script={props.forceBackground ? "true" : "false"}
 >
   <nav class="max-w-7xl mx-auto flex flex-row justify-between p-4 gap-8">
     <ul class="flex flex-row justify-between items-center max-w-xl grow">
@@ -78,19 +88,27 @@ const navbarItems = [
   </nav>
 </div>
 
+<!-- so tailwind compiler picks up on the classes -->
+<!-- <div class="bg-gray-950/40 backdrop-blur-lg"></div> -->
+
 <script>
   // On scroll, change from transparent to solid background
   const navbar = document.getElementById("navbar");
 
-  window.addEventListener("scroll", () => {
+  if (navbar && navbar.dataset.disableScript !== "true") {
+    window.addEventListener("scroll", updateNavbarBackground);
+    updateNavbarBackground();
+  }
+
+  function updateNavbarBackground() {
     if (!navbar) return;
 
-    if (window.scrollY > 0) {
-      navbar.classList.add("bg-gray-900", "bg-opacity-90");
+    if (window.scrollY > 0 || navbar.dataset.forceBackground === "true") {
+      navbar.classList.add("bg-gray-950/40", "backdrop-blur-lg");
       navbar.classList.remove("bg-transparent");
     } else {
-      navbar.classList.remove("bg-gray-900", "bg-opacity-90");
+      navbar.classList.remove("bg-gray-950/40", "backdrop-blur-lg");
       navbar.classList.add("bg-transparent");
     }
-  });
+  }
 </script>

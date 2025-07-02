@@ -1,0 +1,50 @@
+---
+import "../styles/post.css";
+
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "./main.astro";
+import Navbar from "../partials/Navbar.astro";
+import GradientHeader from "../components/GradientHeader.astro";
+import Background from "../assets/lol.webp";
+
+export interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const props = Astro.props;
+---
+
+<MainLayout
+  content={{
+    title: props.post.data.title,
+    description: props.post.data.description,
+  }}
+>
+  <GradientHeader image={Background}>
+    <header class="text-primary font-display max-w-5xl">
+      <h1 class="text-5xl font-bold text-balance leading-[1.125]">
+        {props.post.data.title}
+      </h1>
+      <p class="text-lg text-gray-300 mt-2 font-medium">
+        {props.post.data.description}
+      </p>
+      <p class="text-gray-400 text-md mb-4">
+        {
+          props.post.data.pubDate.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
+        }
+      </p>
+    </header>
+  </GradientHeader>
+
+  <Navbar forceBackground />
+
+  <main class="max-w-5xl mx-auto px-4 mt-24">
+    <article class="post text-primary">
+      <slot />
+    </article>
+  </main>
+</MainLayout>
