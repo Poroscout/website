@@ -1,10 +1,23 @@
 ---
 import "../styles/global.css";
 
-import MainLayout from "../layouts/main.astro";
+import MainLayout from "../layouts/Main.astro";
 import { Image } from "@unpic/astro";
-import HeroBackground from "../assets/spelltheif-lux.jpg";
 import Navbar from "../partials/Navbar.astro";
+import { getCollection } from "astro:content";
+import ImageCard from "../components/ImageCard.astro";
+import Statistics from "./_components/Statistics.astro";
+
+import HeroBackground from "../assets/spelltheif-lux.jpg";
+import PoroReading from "../assets/poro-read.jpg";
+
+const latestBlog = await getCollection("blog").then(
+  (post) =>
+    post.sort(
+      (a, b) =>
+        new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+    )[0],
+);
 ---
 
 <MainLayout
@@ -12,20 +25,30 @@ import Navbar from "../partials/Navbar.astro";
     title: "Welcome to PoroScout",
   }}
 >
-  <div>
+  <!-- Hero -->
+  <div class="relative">
     <Image
       src={HeroBackground}
       alt="Piltover background"
-      layout="fullWidth"
       height={1900}
-      class="max-h-screen"
       priority
       placeholder="lqip"
+      unstyled
+      class="w-full h-screen object-cover"
     />
-    <div class="absolute inset-0 flex flex-col justify-center bg-black/30">
-      <Navbar />
 
-      <div class="max-w-7xl w-full mx-auto text-primary font-display">
+    <!-- fade to black -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/30 to-gray-950 from-70%"
+    >
+    </div>
+
+    <div
+      class="absolute inset-0 flex flex-col py-96 w-full h-screen justify-center"
+    >
+      <Navbar class="z-50" />
+
+      <div class="max-w-7xl w-full mx-auto text-primary font-display pb-24">
         <h2 class="text-lg font-semibold uppercase text-gray-300">
           Piltover's Finest
         </h2>
@@ -41,6 +64,53 @@ import Navbar from "../partials/Navbar.astro";
         </p>
         <!-- <Button href="/explore" label="Explore Now" /> -->
       </div>
+
+      <!-- latest blog -->
+      <section
+        class="absolute bottom-0 pb-8 px-8 w-full flex flex-row overflow-x-auto justify-center max-h-[30vh]"
+      >
+        <div
+          class="flex flex-row justify-end max-w-7xl gap-4 w-full mx-auto [&>*]:shadow-lg"
+        >
+          <ImageCard
+            image={latestBlog.data.cover}
+            title={latestBlog.data.title}
+            subtitle={latestBlog.data.description}
+            tooltip={latestBlog.data.pubDate.toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          >
+            <a
+              href={`/blog/${latestBlog.id}`}
+              class="absolute inset-0"
+              data-astro-prefetch></a>
+          </ImageCard>
+
+          <ImageCard
+            image={PoroReading}
+            title="Wiki"
+            subtitle="Check out all of PoroScout's features and commands in our wiki!"
+          >
+            <a href="/wiki" class="absolute inset-0" data-astro-prefetch></a>
+          </ImageCard>
+        </div>
+      </section>
     </div>
   </div>
+
+  <Statistics />
+
+  <!-- footer (todo) -->
+  <footer class="max-w-5xl mx-auto text-center text-gray-400 py-8 mt-[50rem]">
+    <p>
+      © {new Date().getFullYear()} PoroScout. All rights reserved.
+    </p>
+    <p>
+      <a href="/privacy" class="text-primary hover:underline">Privacy Policy</a>
+      |
+      <a href="/terms" class="text-primary hover:underline">Terms of Service</a>
+    </p>
+  </footer>
 </MainLayout>

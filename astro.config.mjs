@@ -10,6 +10,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://poroscout.gg",
+  prefetch: true,
 
   vite: {
     plugins: [tailwindcss()],
@@ -30,6 +31,8 @@ export default defineConfig({
         cssVariable: "--font-montserrat",
         fallbacks: ["sans-serif"],
         weights: ["500", "600", "900"],
+        styles: ["normal"],
+        subsets: ["latin"],
       },
       {
         provider: fontProviders.google(),
@@ -38,8 +41,16 @@ export default defineConfig({
         fallbacks: ["sans-serif"],
         weights: ["400"],
       },
+      {
+        provider: fontProviders.google(),
+        name: "Karla",
+        cssVariable: "--font-karla",
+        fallbacks: ["sans-serif"],
+        weights: ["400", "700"],
+        styles: ["normal", "italic"],
+      },
     ],
   },
 
-  integrations: [mdx(), sitemap()],
+  integrations: [sitemap(), mdx()],
 });

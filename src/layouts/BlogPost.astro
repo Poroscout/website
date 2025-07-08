@@ -2,7 +2,7 @@
 import "../styles/post.css";
 
 import type { CollectionEntry } from "astro:content";
-import MainLayout from "./main.astro";
+import MainLayout from "./Main.astro";
 import Navbar from "../partials/Navbar.astro";
 import GradientHeader from "../components/GradientHeader.astro";
 import Background from "../assets/lol.webp";
@@ -42,7 +42,7 @@ const props = Astro.props;
 
   <Navbar forceBackground />
 
-  <main class="max-w-5xl mx-auto px-4 mt-24">
+  <main class="max-w-4xl mx-auto px-4 mt-10">
     <article class="post text-primary">
       <slot />
     </article>

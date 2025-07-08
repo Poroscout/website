@@ -1,0 +1,65 @@
+---
+import "../styles/post.css";
+
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "../layouts/Main.astro";
+import Navbar from "../partials/Navbar.astro";
+import GradientHeader from "../components/GradientHeader.astro";
+import Background from "../assets/lol.webp";
+import { getCollection } from "astro:content";
+import ImageCard from "../components/ImageCard.astro";
+
+// fetch all news posts
+const posts = await getCollection("blog").then((posts) =>
+  posts.sort(
+    (a, b) =>
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+  ),
+);
+---
+
+<MainLayout
+  content={{
+    title: "PoroScout - News",
+    description:
+      "Stay updated with the latest news and updates from PoroScout, the ultimate League of Legends Discord bot.",
+  }}
+>
+  <GradientHeader image={Background}>
+    <header class="text-primary font-display max-w-5xl">
+      <h1 class="text-5xl font-bold text-balance leading-[1.125]">
+        Latest News
+      </h1>
+      <p class="text-lg text-gray-300 mt-2 font-medium">
+        Stay updated with the latest news and updates from PoroScout, the
+        ultimate League of Legends Discord bot.
+      </p>
+      <!-- <p class="text-gray-400 text-md mb-4">
+
+      </p> -->
+    </header>
+  </GradientHeader>
+
+  <Navbar forceBackground />
+
+  <main
+    class="max-w-5xl mx-auto px-4 mt-10 grid grid-cols-1 md:grid-cols-2 gap-6"
+  >
+    {
+      posts.map((post) => (
+        <ImageCard
+          image={post.data.cover ?? Background}
+          title={post.data.title}
+          subtitle={post.data.description}
+          tooltip={post.data.pubDate.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+        >
+          <a href={`/blog/${post.id}`} class="absolute inset-0" />
+        </ImageCard>
+      ))
+    }
+  </main>
+</MainLayout>

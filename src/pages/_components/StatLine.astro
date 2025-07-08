@@ -1,0 +1,29 @@
+---
+import { twMerge } from "tailwind-merge";
+
+export interface Props {
+  id?: string;
+  class?: string;
+}
+---
+
+<div class={twMerge("relative group", Astro.props.class)} id={Astro.props.id}>
+  <!-- hidden text to take up the space the absolute text needs -->
+  <span class="invisible whitespace-nowrap">
+    <slot />
+  </span>
+
+  <div
+    class="absolute top-0 whitespace-nowrap font-bold transform -translate-x-1/2 left-1/2"
+  >
+    <span class="text-gray-600 font-semibold" aria-hidden="true"><slot /></span>
+    {" "}
+    <span
+      class="transition-colors [&>span]:transition-colors text-gray-400 [&>span]:text-gray-300 group-data-[active=true]:text-white [&>span]:group-data-[active=true]:text-amber-400"
+    >
+      <slot />
+    </span>
+    {" "}
+    <span class="text-gray-600 font-semibold" aria-hidden="true"><slot /></span>
+  </div>
+</div>

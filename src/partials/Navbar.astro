@@ -1,6 +1,7 @@
 ---
 import { Image } from "@unpic/astro";
 import PoroScoutLogo from "../assets/logo.webp";
+import { twMerge } from "tailwind-merge";
 
 type NavbarItem = {
   href: string;
@@ -15,16 +16,26 @@ const navbarItems = [
 
 export interface Props {
   forceBackground?: boolean;
+  class?: string;
+  sticky?: boolean;
 }
 
-const props = Astro.props;
+const props = {
+  forceBackground: false,
+  sticky: true,
+  ...Astro.props,
+} satisfies Props;
 ---
 
 <div
-  class={"top-0 left-0 right-0 text-white fixed transition-all duration-700 font-body" +
-    (props.forceBackground
-      ? " bg-gray-950/40 backdrop-blur-lg"
-      : " bg-transparent")}
+  class={twMerge(
+    "text-primary transition-all duration-700 font-body" +
+      (props.forceBackground
+        ? " bg-gray-950/40 backdrop-blur-lg"
+        : " bg-transparent"),
+    props.sticky && "top-0 left-0 right-0 fixed",
+    props.class,
+  )}
   id="navbar"
   data-disable-script={props.forceBackground ? "true" : "false"}
 >

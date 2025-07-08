@@ -7,7 +7,7 @@
   h4,
   h5,
   h6 {
-    @apply text-black dark:text-white mb-2 leading-tight;
+    @apply mb-2 leading-tight font-bold;
   }
 
   h1 {

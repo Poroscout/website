@@ -1,0 +1,68 @@
+---
+import type { ImageMetadata } from "astro";
+import { twMerge } from "tailwind-merge";
+import { Image } from "@unpic/astro";
+
+export interface Props {
+  image: string | ImageMetadata;
+  title: string;
+  subtitle?: string;
+  class?: string;
+  tooltip?: string;
+
+  imageDimensions?: {
+    width: number;
+    height: number;
+  };
+}
+
+const props = {
+  imageDimensions: {
+    width: 512,
+    height: 320,
+  },
+
+  ...Astro.props,
+} satisfies Props;
+---
+
+<div
+  class={twMerge("group relative rounded-lg max-w-lg max-h-80", props.class)}
+>
+  <Image
+    src={props.image}
+    width={props.imageDimensions.width}
+    height={props.imageDimensions.height}
+    alt={props.title}
+    unstyled
+    class="rounded-lg w-full h-full object-cover"
+  />
+
+  <!-- text at bottom -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-transparent group-hover:from-gray-900/60 transition-colors duration-300 to-gray-900/80 rounded-lg p-4 flex flex-col justify-end pointer-events-none"
+  >
+    <div class="pointer-events-auto">
+      <h1 class="text-2xl font-bold text-primary">
+        {props.title}
+      </h1>
+
+      {
+        props.subtitle && (
+          <p class="text-gray-300 text-sm mt-1">{props.subtitle}</p>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- tooltip fly in on hover from top -->
+  {
+    props.tooltip && (
+      <div class="absolute top-0 opacity-0 left-4 right-0 group-hover:top-4 group-hover:opacity-100 transition-all">
+        <p class="text-primary">{props.tooltip}</p>
+      </div>
+    )
+  }
+
+  <slot />
+</div>

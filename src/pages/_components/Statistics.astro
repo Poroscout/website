@@ -1,0 +1,52 @@
+---
+import StatLine from "./StatLine.astro";
+---
+
+<div
+  class="text-xl md:text-4xl lg:text-5xl font-bold font-display flex flex-col gap-4 overflow-hidden"
+>
+  <!-- Stats -->
+  <StatLine id="stats-line-1">
+    AS SEEN IN OVER <span>4,448</span> SERVERS.
+  </StatLine>
+
+  <StatLine id="stats-line-2" class="md:-translate-x-6 lg:-translate-x-12">
+    SPANNING <span>1,000,000</span> USERS WORLDWIDE.
+  </StatLine>
+
+  <StatLine id="stats-line-3" class="md:translate-x-8 lg:translate-x-16">
+    HANDLING DAILY <span>1,000</span> COMMANDS.
+  </StatLine>
+</div>
+
+<script>
+  // when first at bottom 30%, set first data-active=true
+  // when second is within 40% of center of screen, set first data-active=false, second data-active=true
+  // when third is at the top 30% of screen, set second data-active=false, third data-active=true
+  const lines = document.querySelectorAll("[id^='stats-line-']");
+
+  // createIntersectionObserver(lines[0], "-70% 0px 0px 0px");
+  // createIntersectionObserver(lines[1], "-30% 0px -30% 0px");
+  // createIntersectionObserver(lines[2], "-70% 0px");
+  createIntersectionObserver(lines[0], "0px 0px 0px 0px");
+  createIntersectionObserver(lines[1], "0px 0px -30% 0px");
+  createIntersectionObserver(lines[2], "0px 0px -40% 0px");
+
+  function createIntersectionObserver(line: Element, margin: string) {
+    if (!line || !(line instanceof HTMLDivElement)) {
+      console.error("Invalid line element:", line);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          line.setAttribute("data-active", String(entry.isIntersecting));
+        });
+      },
+      { rootMargin: margin },
+    );
+
+    observer.observe(line);
+  }
+</script>

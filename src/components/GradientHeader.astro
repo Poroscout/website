@@ -9,7 +9,7 @@ export interface Props {
 const props = Astro.props;
 ---
 
-<div class={`relative overflow-hidden bg-cover bg-center bg-no-repeat`}>
+<div class="relative bg-cover bg-center bg-no-repeat">
   {/* overlay with grid */}
   <div
     class={`absolute inset-0 bg-repeat bg-[unset] bg-blend-screen`}
@@ -30,12 +30,12 @@ const props = Astro.props;
   </div>
 
   <Image
-    layout="fullWidth"
-    height={600}
+    unstyled
     src={props.image}
     alt="Background image"
     placeholder="lqip"
     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
     priority
+    class="w-full max-h-[35rem] inset-0 object-cover"
   />
 </div>
