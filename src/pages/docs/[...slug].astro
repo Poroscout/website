@@ -2,6 +2,9 @@
 import { getCollection, render, type CollectionEntry } from "astro:content";
 import Navbar from "../../partials/Navbar.astro";
 import MainLayout from "../../layouts/Main.astro";
+import LeftSidebar from "./_components/LeftSidebar.astro";
+
+import "../../styles/post.css";
 
 export async function getStaticPaths() {
   const posts = await getCollection("docs");
@@ -22,203 +25,18 @@ const { Content } = await render(post);
   }}
 >
   <Navbar forceBackground />
-  <div class="mb-16"></div>
+  <div class="mb-20"></div>
 
   <div class="flex min-h-screen">
     <!-- Left Sidebar: Fixed to the left, full height below navbar, scrollable -->
-    <aside
-      class="fixed left-0 w-64 h-[calc(100vh-4rem)] p-4 overflow-y-auto z-40"
-    >
-      <nav>
-        <ul class="space-y-2">
-          <li>
-            <a
-              href="#"
-              class="block py-2 px-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-              >Getting Started</a
-            >
-          </li>
-          <!-- Collapsible menu for Commands -->
-          <li>
-            <button
-              class="flex items-center justify-between w-full py-2 px-3 rounded-lg hover:bg-gray-700 text-left transition-colors duration-200"
-              onclick="toggleMenu(this)"
-            >
-              <span>Commands</span>
-              <!-- SVG icon for collapse/expand indication -->
-              <svg
-                class="w-4 h-4 transform transition-transform duration-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                ><path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"></path></svg
-              >
-            </button>
-            <ul class="pl-4 mt-2 space-y-1 hidden">
-              <!-- Submenu, initially hidden -->
-              <li>
-                <a
-                  href="#"
-                  class="block py-1 px-2 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-                  >/commands/foo</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-1 px-2 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-                  >/commands/bar</a
-                >
-              </li>
-            </ul>
-          </li>
-          <!-- Collapsible menu for Concepts -->
-          <li>
-            <button
-              class="flex items-center justify-between w-full py-2 px-3 rounded-lg hover:bg-gray-700 text-left transition-colors duration-200"
-              onclick="toggleMenu(this)"
-            >
-              <span>Concepts</span>
-              <svg
-                class="w-4 h-4 transform transition-transform duration-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                ><path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"></path></svg
-              >
-            </button>
-            <ul class="pl-4 mt-2 space-y-1 hidden">
-              <li>
-                <a
-                  href="#"
-                  class="block py-1 px-2 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-                  >Concept A</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="block py-1 px-2 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-                  >Concept B</a
-                >
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a
-              href="#"
-              class="block py-2 px-3 rounded-lg hover:bg-gray-700 transition-colors duration-200"
-              >API Reference</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </aside>
+    <LeftSidebar />
 
     <!-- Main Content Area: Takes up remaining space, with margins for fixed sidebars -->
     <main class="flex-1 ml-64 mr-64 p-8 overflow-y-auto">
-      <h1 class="text-4xl font-bold mb-6 text-white">Welcome to the Docs!</h1>
+      <h1 class="text-4xl font-bold mb-6 text-white">{post.data.title}</h1>
 
-      <section id="section1" class="mb-8">
-        <h2 class="text-3xl font-semibold mb-4 text-gray-100">
-          Section One: Introduction
-        </h2>
-        <p class="mb-4 leading-relaxed">
-          This is the introductory section of our documentation. Here you will
-          find an overview of the project and how to get started. Our goal is to
-          provide clear and concise information to help you understand and
-          utilize our services effectively.
-        </p>
-        <p class="mb-4 leading-relaxed">
-          We believe in a user-friendly approach, ensuring that even complex
-          topics are explained in an accessible manner. Feel free to explore the
-          various sections using the navigation on the left.
-        </p>
-      </section>
-
-      <section id="section2" class="mb-8">
-        <h2 class="text-3xl font-semibold mb-4 text-gray-100">
-          Section Two: Key Features
-        </h2>
-        <p class="mb-4 leading-relaxed">
-          Here we highlight the core features that make our product stand out.
-          From robust data handling to intuitive user interfaces, we've designed
-          everything with your needs in mind. Each feature is detailed to give
-          you a comprehensive understanding of its capabilities.
-        </p>
-        <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
-          <li>Feature A: Detailed description of its benefits and usage.</li>
-          <li>Feature B: How it integrates with other parts of the system.</li>
-          <li>Feature C: Advanced configurations and customization options.</li>
-        </ul>
-        <p class="mb-4 leading-relaxed">
-          Our continuous development cycle ensures that new features are
-          regularly added and existing ones are improved based on user feedback
-          and technological advancements.
-        </p>
-      </section>
-
-      <section id="section3" class="mb-8">
-        <h2 class="text-3xl font-semibold mb-4 text-gray-100">
-          Section Three: Advanced Usage
-        </h2>
-        <p class="mb-4 leading-relaxed">
-          For power users and developers, this section delves into more advanced
-          topics. Learn about custom integrations, API endpoints, and best
-          practices for optimizing performance. We provide code examples and
-          detailed explanations to guide you through complex implementations.
-        </p>
-        <pre
-          class="bg-gray-800 p-4 rounded-lg text-sm overflow-x-auto mb-4 text-gray-200"><code>
-function advancedFeatureExample(param
-                  </code></pre>
-        <p class="mb-4 leading-relaxed">
-          Remember to consult the API reference for a complete list of available
-          functions and their parameters. Our community forum is also a great
-          place to ask questions and share your experiences.
-        </p>
-      </section>
-
-      <section id="section4" class="mb-8">
-        <h2 class="text-3xl font-semibold mb-4 text-gray-100">
-          Section Four: Getting Help
-        </h2>
-        <p class="mb-4 leading-relaxed">
-          If you encounter any issues or have questions, our support team is
-          ready to assist you. You can reach out through our dedicated support
-          portal, or by checking our FAQ section for common queries.
-        </p>
-        <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
-          <li>
-            Visit our <a href="#" class="text-blue-400 hover:underline"
-              >Support Portal</a
-            >.
-          </li>
-          <li>
-            Browse the <a href="#" class="text-blue-400 hover:underline"
-              >FAQ Section</a
-            >.
-          </li>
-          <li>
-            Join our <a href="#" class="text-blue-400 hover:underline"
-              >Community Forum</a
-            >.
-          </li>
-        </ul>
-        <p class="mb-4 leading-relaxed">
-          We are committed to providing timely and effective support to ensure
-          your experience with our product is smooth and productive.
-        </p>
+      <section class="post">
+        <Content />
       </section>
     </main>
 
@@ -272,7 +90,7 @@ function advancedFeatureExample(param
     </div>
   </footer>
 
-  <script>
+  <script is:inline>
     /**
      * Toggles the visibility of a submenu and rotates an SVG icon.
      * This function is called when a collapsible menu button is clicked in the left sidebar.
@@ -344,4 +162,4 @@ function advancedFeatureExample(param
       }
     });
   </script>
-</MainLayout>class
+</MainLayout>

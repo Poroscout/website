@@ -96,4 +96,14 @@
   li > p {
     @apply whitespace-pre-wrap inline-block align-top pt-1;
   }
+
+  /* tables */
+  table {
+    @apply border-collapse border border-gray-500;
+  }
+
+  th,
+  td {
+    @apply border border-gray-500 p-2 text-left;
+  }
 }
