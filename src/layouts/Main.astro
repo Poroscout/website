@@ -19,13 +19,22 @@ export interface Props {
 const description =
   content.description ||
   "PoroScout is a League of Legends Discord Bot for tracking player's statistics, match history, ranked information, champion masteries, champion builds, winrates, and more!";
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/poroxmoba.webp", Astro.site).href;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/favicon.svg" />
+
+    <!-- favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- fonts -->
     <Font cssVariable="--font-montserrat" preload />
@@ -33,24 +42,28 @@ const description =
     <Font cssVariable="--font-karla" preload />
     <Font cssVariable="--font-crimson-text" preload />
 
-    <!-- seo tags -->
-    <meta name="theme-color" content="#3c82f6" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta property="og:image" content="https://poroscout.gg/poroxmoba.webp" />
-    <meta property="og:title" content={content.title} />
-    <meta property="og:description" content={description} />
-    <meta
-      property="og:url"
-      content="https://poroscout.gg/?utm_medium=social&utm_source=embed"
-    />
-
-    <link rel="canonical" href="https://poroscout.gg/" />
-    <meta name="robots" content="index, follow" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
-
     <!-- page details -->
     <title>{content.title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#3c82f6" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- open graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PoroScout" />
+    <meta property="og:title" content={content.title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={content.title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
     <slot name="extra-head" />
   </head>

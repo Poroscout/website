@@ -41,8 +41,8 @@ const props = {
   id="navbar"
   data-disable-script={props.forceBackground ? "true" : "false"}
 >
-  <nav class="max-w-7xl mx-auto flex flex-row justify-between p-4 gap-8">
-    <ul class="flex flex-row justify-between items-center max-w-xl grow">
+  <nav class="max-w-7xl mx-auto flex flex-row justify-between items-center p-4 gap-8">
+    <ul class="flex flex-row justify-between items-center max-w-xl grow gap-6">
       <li>
         <a href="/">
           <span class="sr-only">PoroScout Home</span>
@@ -58,15 +58,15 @@ const props = {
 
       {
         navbarItems.map((item) => (
-          <li>
+          <li class="hidden md:block">
             <a href={item.href}>{item.label}</a>
           </li>
         ))
       }
     </ul>
 
-    <!-- search bar (opens command palette) -->
-    <div class="flex items-center gap-4">
+    <!-- desktop: search bar (opens command palette) + add button -->
+    <div class="hidden md:flex items-center gap-4">
       <button
         type="button"
         data-search-trigger
@@ -96,7 +96,86 @@ const props = {
       <!-- add button -->
       <Button class="h-full" variant="teal"> Add Poroscout </Button>
     </div>
+
+    <!-- mobile: hamburger toggle -->
+    <button
+      type="button"
+      id="mobile-menu-toggle"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="md:hidden flex items-center justify-center rounded-lg border border-gray-700/60 bg-gray-400/20 p-2 text-gray-300 transition-colors hover:border-gray-600"
+    >
+      <svg
+        class="block"
+        data-icon-open
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 256 256"
+        fill="currentColor"
+        ><path
+          d="M224 128a8 8 0 0 1-8 8H40a8 8 0 0 1 0-16h176a8 8 0 0 1 8 8M40 72h176a8 8 0 0 0 0-16H40a8 8 0 0 0 0 16m176 112H40a8 8 0 0 0 0 16h176a8 8 0 0 0 0-16"
+        ></path></svg
+      >
+      <svg
+        class="hidden"
+        data-icon-close
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 256 256"
+        fill="currentColor"
+        ><path
+          d="M205.66 194.34a8 8 0 0 1-11.32 11.32L128 139.31l-66.34 66.35a8 8 0 0 1-11.32-11.32L116.69 128L50.34 61.66a8 8 0 0 1 11.32-11.32L128 116.69l66.34-66.35a8 8 0 0 1 11.32 11.32L139.31 128Z"
+        ></path></svg
+      >
+    </button>
   </nav>
+
+  <!-- mobile menu panel -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-gray-700/40 bg-gray-950/60 backdrop-blur-lg"
+  >
+    <ul class="flex flex-col gap-1 p-4">
+      {
+        navbarItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block rounded-lg px-3 py-2 transition-colors hover:bg-gray-400/10"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex flex-col gap-3 p-4 pt-0">
+      <button
+        type="button"
+        data-search-trigger
+        class="group relative flex items-center gap-3 rounded-lg border border-gray-700/60 bg-gray-400/20 py-3 pr-3 pl-12 text-left text-gray-400 transition-colors hover:border-gray-600 hover:text-gray-300"
+      >
+        <svg
+          class="absolute left-4 pointer-events-none"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 256 256"
+          fill="currentColor"
+          ><path
+            d="m229.66 218.34l-50.06-50.06a88.21 88.21 0 1 0-11.32 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"
+          ></path></svg
+        >
+        <span>Search Wiki</span>
+      </button>
+
+      <Button class="w-full" variant="teal"> Add Poroscout </Button>
+    </div>
+  </div>
 </div>
 
 <SearchPalette />
@@ -133,10 +212,43 @@ const props = {
     }
   }
 
-  // Open the command palette from the navbar trigger.
-  const trigger = document.querySelector("[data-search-trigger]");
-  trigger?.addEventListener("click", () => {
-    (window as any).openSearchPalette?.();
+  // Open the command palette from the navbar trigger(s).
+  const triggers = document.querySelectorAll("[data-search-trigger]");
+  triggers.forEach((trigger) =>
+    trigger.addEventListener("click", () => {
+      (window as any).openSearchPalette?.();
+      closeMobileMenu();
+    }),
+  );
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById("mobile-menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const iconOpen = menuToggle?.querySelector("[data-icon-open]");
+  const iconClose = menuToggle?.querySelector("[data-icon-close]");
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.add("hidden");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    iconOpen?.classList.remove("hidden");
+    iconClose?.classList.add("hidden");
+  }
+
+  menuToggle?.addEventListener("click", () => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      mobileMenu?.classList.remove("hidden");
+      menuToggle.setAttribute("aria-expanded", "true");
+      iconOpen?.classList.add("hidden");
+      iconClose?.classList.remove("hidden");
+    }
+  });
+
+  // Close menu when resizing up to desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) closeMobileMenu();
   });
 
 </script>
