@@ -7,7 +7,7 @@ const inviteUserUrl =
   "https://discord.com/oauth2/authorize?client_id=913190001007804426&scope=applications.commands&integration_type=1";
 const supportServerUrl = "/discord";
 
-// Background grid — every documented command, pulled from the docs collection.
+// Background grid: every documented command, pulled from the docs collection.
 const commands = (await getCollection("docs"))
   .filter((d) => d.data.category === "Commands")
   .sort((a, b) => a.data.order - b.data.order);

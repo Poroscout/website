@@ -1,6 +1,6 @@
 @reference "./global.css";
 
-/* Prose styling for the docs/wiki articles — Hextech palette, serif headings. */
+/* Prose styling for the docs/wiki articles, Hextech palette, serif headings. */
 .docs-prose {
   @apply font-body text-[1.05rem] leading-relaxed text-gold-1;
 }

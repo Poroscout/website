@@ -1,0 +1,274 @@
+---
+import Legal from "../layouts/Legal.astro";
+import EmailLink from "../components/EmailLink.astro";
+---
+
+<Legal
+  title="PoroScout - Privacy Policy"
+  description="The Privacy Policy for PoroScout, the League of Legends Discord bot."
+  heading="Privacy Policy"
+  lastUpdated="2026-06-06"
+>
+  <section>
+    <h2>Data Collection</h2>
+    <p>PoroScout collects the following information:</p>
+    <ul>
+      <li>
+        Your <strong>Discord account ID</strong> and your
+        <strong>League of Legends username, region, and ID</strong>
+        (when using the <code>/link</code> command).
+      </li>
+      <li>Anonymous website and bot usage data.</li>
+      <li>
+        In the event the bot malfunctions when a command gets invoked, the error
+        along with context information will be sent over to
+        <a href="https://sentry.io">Sentry.io</a> to be analyzed.
+        <ul>
+          <li><strong>Data includes the following:</strong></li>
+          <li>User, Guild, and Channel ID</li>
+          <li>Command Name</li>
+          <li>Command Options if applicable</li>
+          <li>Error details</li>
+        </ul>
+      </li>
+      <li>
+        If linked, daily statistics of the linked League account's LP, rank,
+        division, and tier.
+        <ul>
+          <li>
+            LP History data is <strong>not</strong> directly linked to your Discord
+            account, instead it is linked to your League account's PUUID.
+          </li>
+          <li>
+            This means, in the unlikely event that our LP history database gets
+            breached, there is no way to draw a line between your Discord and
+            League account.
+          </li>
+        </ul>
+      </li>
+      <li>
+        Your League of Legends account data (rank, past matches, profile, etc.)
+        is stored but is not directly linked to your Discord account.
+      </li>
+    </ul>
+
+    <p>
+      Throughout this page, you will see the term:
+      <i>personally identifying information</i>
+      (<a href="https://www.dol.gov/general/ppii">PII</a>) used. In the case of
+      the bot, data that is PII is data that can link directly to your Discord
+      account's ID, which includes your linked League of Legends account name
+      and region.
+    </p>
+
+    <p>
+      PoroScout will never share any personally identifying information publicly
+      without your consent unless required by law, unless otherwise stated in
+      this document. To unlink your League of Legends username, region, and ID
+      from your Discord account, you can run <code>/unlink</code>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data Retention</h2>
+    <p>Different categories of data are retained for different periods:</p>
+    <ul>
+      <li>
+        <strong>Personally identifying information</strong> (the link between your
+        Discord account and your League account) is retained for
+        <strong>30 days</strong>, as per Discord's guidelines. It is
+        automatically deleted 30 days after your last command was run (processed
+        at midnight UTC). You may also delete it at any time by running
+        <code>/unlink</code>.
+      </li>
+      <li>
+        <strong>LP history data</strong> (linked to your League account's PUUID, not
+        your Discord account) is retained
+        <strong>indefinitely</strong> to provide long-term statistics and graphs.
+      </li>
+      <li>
+        <strong>General League of Legends account data</strong> (rank, past matches,
+        profile, etc.) is cached and retained for as long as the cache remains valid.
+        This data is not linked to your Discord account.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Third-Party Services</h2>
+    <p>
+      PoroScout relies on a number of third-party services to operate. Your
+      <strong>Discord account ID is never shared with any third party</strong>,
+      with the sole exception of error reporting (see below). When data is sent
+      to a third party for League of Legends features, the most that is ever
+      shared are the command options you provide (such as a Riot username or a
+      champion name), and this data is not linked to your Discord account.
+    </p>
+    <ul>
+      <li>
+        <strong><a href="https://sentry.io">Sentry</a></strong>: error
+        reporting. This is the only third party that may receive data linked to
+        your Discord account, and only when a command fails (see the Data
+        Collection section above).
+      </li>
+      <li>
+        <strong><a href="https://www.netlify.com">Netlify</a></strong>: hosts
+        this website. The website is served from Netlify's global network.
+      </li>
+      <li>
+        <strong><a href="https://www.cloudflare.com">Cloudflare</a></strong>:
+        acts as a proxy in front of our infrastructure.
+      </li>
+      <li>
+        <strong><a href="https://plausible.io">Plausible Analytics</a></strong>
+        : self-hosted, privacy-friendly, cookieless website analytics. See the Website
+        Analytics section below.
+      </li>
+      <li>
+        <strong
+          ><a href="https://developer.riotgames.com">Riot Games API</a></strong
+        >: source of League of Legends account and match data. Queries are not
+        linked to your Discord account.
+      </li>
+      <li>
+        <strong><a href="https://mobalytics.gg">Mobalytics</a></strong>: source
+        of additional League of Legends data. Requests are not linked to your
+        Discord account.
+      </li>
+      <li>
+        <strong
+          ><a href="https://www.communitydragon.org/">CommunityDragon</a
+          ></strong
+        >: source of League of Legends game assets and data. Requests are not
+        linked to your Discord account.
+      </li>
+    </ul>
+    <p>
+      Our bot/website may contain links to third-party websites that are not
+      operated by us. We have no control over and assume no responsibility for
+      the content, privacy policies, or practices of any third-party sites or
+      services.
+    </p>
+  </section>
+
+  <section>
+    <h2>Website Analytics</h2>
+    <p>
+      We use <a href="https://plausible.io">Plausible Analytics</a>, hosted on
+      our own infrastructure, to collect anonymous website usage data. Plausible
+      does not use cookies and does not collect any personally identifying
+      information. Website analytics are not associated with your Discord
+      account.
+    </p>
+  </section>
+
+  <section>
+    <h2>Bot Usage Data</h2>
+    <p>
+      We collect anonymous data about how the bot's commands are used. Where
+      this usage data is associated with a Discord account ID, that ID is
+      <strong>hashed</strong> before storage so that it cannot be reversed. However,
+      given a known Discord account ID, the corresponding hashed usage data can still
+      be correlated back to that account.
+    </p>
+  </section>
+
+  <section>
+    <h2>Data Security</h2>
+    <p>
+      Your data is stored on our own bare-metal infrastructure. Stored data
+      <i>that is personally identifying</i> is <strong>encrypted</strong> for added
+      protection. While we take reasonable measures to protect your data, no method
+      of transmission or storage is completely secure, and we cannot guarantee absolute
+      security.
+    </p>
+    <p>
+      In the unlikely event of a data breach, we will post a notification in our
+      Discord server describing the extent of the breach as soon as we are
+      reasonably able to, and in any case within 72 hours of becoming aware of
+      it. Because PoroScout does not collect email addresses, our Discord server
+      and this website are the only channels through which we can notify you.
+    </p>
+  </section>
+
+  <section>
+    <h2>Your Privacy Rights</h2>
+    <p>
+      Depending on where you live, you may have rights over your personal data
+      under laws such as the EU/UK General Data Protection Regulation (GDPR) and
+      the California Consumer Privacy Act (CCPA). These may include the right
+      to:
+    </p>
+    <ul>
+      <li>Access the personal data we hold about you.</li>
+      <li>Request correction of inaccurate data.</li>
+      <li>Request deletion of your data.</li>
+      <li>Request a copy of your data in a portable format.</li>
+      <li>Object to or restrict certain processing of your data.</li>
+    </ul>
+    <p>
+      You can exercise your right to deletion at any time by running
+      <code>/unlink</code>, which removes the link between your Discord and
+      League accounts. For any other request, or to delete other data we may
+      hold, contact us using the email in the Questions section below. We do not
+      <strong>sell</strong> your personal data to anyone.
+    </p>
+  </section>
+
+  <section>
+    <h2>Children's Privacy</h2>
+    <p>
+      PoroScout is not directed at children under the age of 13, and we do not
+      knowingly collect personal data from anyone under 13. If you believe that
+      a child under 13 has provided us with personal data, please contact us and
+      we will delete it.
+    </p>
+  </section>
+
+  <section>
+    <h2>International Users</h2>
+    <p>
+      PoroScout's application and database are hosted on bare-metal
+      infrastructure located in Charlotte, North Carolina, United States. This
+      website is served globally through Netlify. If you access PoroScout from
+      outside the United States, you understand that your data will be
+      transferred to, stored, and processed in the United States. By using the
+      bot, you consent to this transfer.
+    </p>
+  </section>
+
+  <section>
+    <h2>Changes to This Policy</h2>
+    <p>
+      We may update this Privacy Policy from time to time. The "Last updated"
+      date at the top of this page reflects the most recent revision. Material
+      changes will be announced in our Discord server. Your continued use of the
+      bot after any changes take effect constitutes your acceptance of the
+      revised policy.
+    </p>
+  </section>
+
+  <section>
+    <h2>Affiliation</h2>
+    <p>
+      PoroScout isn't endorsed by Riot Games and doesn't reflect the views or
+      opinions of Riot Games or anyone officially involved in producing or
+      managing Riot Games properties. Riot Games, and all associated properties
+      are trademarks or registered trademarks of Riot Games, Inc.
+    </p>
+    <p>
+      PoroScout is also not affiliated with Discord. Discord is a registered
+      trademark of Discord, Inc. Any direct connection to Discord and/or its
+      trademark is purely coincidental. We do not claim to have any copyright
+      ownership of Discord and/or its assets.
+    </p>
+  </section>
+
+  <section>
+    <h2>Questions</h2>
+    <p>
+      Have any questions? Feel free to email me at
+      <EmailLink user="derock" domain="derock.dev" />.
+    </p>
+  </section>
+</Legal>

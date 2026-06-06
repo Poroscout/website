@@ -1,0 +1,30 @@
+---
+// Renders an email address without ever putting a scrapable "user@domain"
+// string in the HTML source. The parts are stored separately and joined
+// client-side into a real mailto link. Falls back to an obfuscated,
+// human-readable form when JavaScript is disabled.
+interface Props {
+  user: string;
+  domain: string;
+}
+
+const { user, domain } = Astro.props;
+---
+
+<span class="email-link" data-user={user} data-domain={domain}>
+  <noscript>{user} [at] {domain}</noscript>
+</span>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".email-link").forEach((el) => {
+    const user = el.dataset.user;
+    const domain = el.dataset.domain;
+    if (!user || !domain) return;
+
+    const address = `${user}@${domain}`;
+    const anchor = document.createElement("a");
+    anchor.href = `mailto:${address}`;
+    anchor.textContent = address;
+    el.replaceChildren(anchor);
+  });
+</script>

@@ -34,7 +34,36 @@
   --blur-card: 6px;
 }
 
-/* Shiki (css-variables theme) — Hextech-tinted syntax highlighting */
+/* Legal pages (terms of service, privacy policy) prose */
+.legal {
+  @apply space-y-10 text-[0.95rem] leading-relaxed text-gray-300;
+}
+.legal h2 {
+  @apply font-display text-2xl font-bold text-gold-1 mb-4;
+}
+.legal h3 {
+  @apply font-subhead text-xs font-semibold tracking-[0.2em] uppercase text-gold-2 mt-6 mb-2;
+}
+.legal p {
+  @apply mb-4;
+}
+.legal a {
+  @apply text-hex-teal underline underline-offset-2 hover:text-hex-teal-dim;
+}
+.legal strong {
+  @apply font-semibold text-gold-1;
+}
+.legal ul {
+  @apply list-disc space-y-1.5 pl-6 my-4 marker:text-gold-4;
+}
+.legal ul ul {
+  @apply my-1.5;
+}
+.legal code {
+  @apply rounded bg-void-2 px-1.5 py-0.5 font-mono text-[0.85em] text-gold-2;
+}
+
+/* Shiki (css-variables theme), Hextech-tinted syntax highlighting */
 :root {
   --astro-code-foreground: #f0e6d2;
   --astro-code-background: transparent;
