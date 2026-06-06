@@ -26,6 +26,9 @@ const docs = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    category: z.string().default("Commands"),
+    order: z.number().default(99),
+    commands: z.array(z.string()).default([]),
   }),
 });
 

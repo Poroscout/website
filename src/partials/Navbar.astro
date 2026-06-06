@@ -3,6 +3,7 @@ import { Image } from "@unpic/astro";
 import PoroScoutLogo from "../assets/logo.webp";
 import { twMerge } from "tailwind-merge";
 import Button from "../components/Button.astro";
+import SearchPalette from "./SearchPalette.astro";
 
 type NavbarItem = {
   href: string;
@@ -11,7 +12,7 @@ type NavbarItem = {
 
 const navbarItems = [
   { href: "/about", label: "About" },
-  { href: "/wiki", label: "Wiki" },
+  { href: "/docs", label: "Wiki" },
   { href: "/news", label: "News" },
 ] satisfies NavbarItem[];
 
@@ -64,15 +65,13 @@ const props = {
       }
     </ul>
 
-    <!-- search bar -->
-    <div class="flex items-center gap-4 relative">
-      <form class="flex items-center">
-        <input
-          type="text"
-          placeholder="Search Wiki"
-          class="h-full focus:outline-none border border-gray-700/60 rounded-lg px-6 py-4 focus:ring-2 focus:ring-blue-500 bg-gray-400/20 pl-14"
-        />
-
+    <!-- search bar (opens command palette) -->
+    <div class="flex items-center gap-4">
+      <button
+        type="button"
+        data-search-trigger
+        class="group relative flex items-center gap-3 rounded-lg border border-gray-700/60 bg-gray-400/20 py-4 pr-3 pl-14 text-left text-gray-400 transition-colors hover:border-gray-600 hover:text-gray-300"
+      >
         <svg
           class="absolute left-6 pointer-events-none"
           xmlns="http://www.w3.org/2000/svg"
@@ -87,13 +86,20 @@ const props = {
             ></path></g
           ></svg
         >
-      </form>
+        <span class="hidden sm:inline">Search Wiki</span>
+        <kbd
+          class="ml-2 hidden shrink-0 rounded border border-gray-600 px-1.5 py-0.5 font-mono text-xs text-gray-400 sm:inline-block"
+          data-search-kbd>⌘K</kbd
+        >
+      </button>
 
       <!-- add button -->
       <Button class="h-full" variant="teal"> Add Poroscout </Button>
     </div>
   </nav>
 </div>
+
+<SearchPalette />
 
 <!-- so tailwind compiler picks up on the classes -->
 <!-- <div class="bg-gray-950/40 backdrop-blur-lg border-b-card-border/[0.22]"></div> -->
@@ -125,5 +131,17 @@ const props = {
       navbar.classList.remove(...SCROLL_ACTIVE_CLASSES);
       navbar.classList.add(...SCROLL_INACTIVE_CLASSES);
     }
+  }
+
+  // Open the command palette from the navbar trigger.
+  const trigger = document.querySelector("[data-search-trigger]");
+  trigger?.addEventListener("click", () => {
+    (window as any).openSearchPalette?.();
+  });
+
+  // Show the platform-correct shortcut hint (⌘K on mac, Ctrl K elsewhere).
+  const kbd = document.querySelector("[data-search-kbd]");
+  if (kbd && !/Mac|iPhone|iPad/.test(navigator.platform)) {
+    kbd.textContent = "Ctrl K";
   }
 </script>

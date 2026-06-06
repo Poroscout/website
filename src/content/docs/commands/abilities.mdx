@@ -1,38 +1,44 @@
 ---
-title: Command - Abilities
-description: Get basic information about a champion's abilities.
+title: "/abilities"
+description: Get detailed information about a champion's abilities, stats and lore.
+category: Commands
+order: 3
+commands: ["/abilities"]
 ---
 
-# Usage
+The overview page gives a brief on the champion's lore and base stats: HP, HP regen, mana, mana regen, attack damage, attack speed, crit chance, attack range, movement speed, armor, and magic resist.
+
+Use the select menu at the bottom of the embed to switch between sections: **Overview**, the **Q / W / E / R** abilities, the champion's **Passive**, and **Tips**.
+
+Each ability section (Q, W, E, R and Passive) includes:
+
+- The **name** of the ability.
+- The **description** of the ability.
+- **Cooldown** and mana / resource cost, if applicable.
+- **Scaling** information.
+- Any **active effects or passives** for the ability.
+
+The tips section provides some general advice on how to play against or as the champion.
+
+## Usage
 
 ```text
 /abilities champion:<champion>
 ```
 
-| Argument   | Required | Description                                    |
-| ---------- | -------- | ---------------------------------------------- |
-| `champion` | Yes      | The name of the champion to get abilities for. |
+| Option     | Required | Description                                          |
+| ---------- | -------- | ---------------------------------------------------- |
+| `champion` | Yes      | The champion to look up (autocompletes as you type). |
 
-# Example
+## Example
 
 ![Abilities command](../_images/abilities_command_example.webp)
 
-# Description
+## Extra information
 
-Use the select menu at the bottom to choose between sections: Overview, Q, W, E, R abilities, the champion's Passive, and tips.
+Champions with multiple forms (e.g. Nidalee, Aphelios) get multiple embeds per ability, one for each form, so you can see the full kit in every stance.
 
-The overview page provides a brief about the champion's lore and base stats like HP, HP Regen, Mana, Mana Regen, Attack Damage, Attack Speed, Crit Chance, Attack Range, Movement Speed, Armor, and Magic Resist.
+## Tips
 
-Each ability section (Q, W, E, R and Passive) includes:
-
-- The name of the ability
-- The description of the ability
-- Cooldown and mana/resource cost if applicable
-- Scaling information
-- Description of any active effects or passives for the ability
-
-The tips section will provide some, albeit general, tips on how to play against or as the champion.
-
-# Extra Information
-
-Champions with multiple forms (i.e. Nidalee) will have multiple embeds per ability, one for each form. This allows you to see the abilities for each form of the champion.
+- For builds, runes and win rates instead, use [`/champion`](/docs/commands/champion).
+- Links at the bottom of the embed give you quick access to the fandom and League universe pages.

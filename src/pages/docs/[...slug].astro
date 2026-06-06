@@ -1,165 +1,37 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
-import Navbar from "../../partials/Navbar.astro";
-import MainLayout from "../../layouts/Main.astro";
-import LeftSidebar from "./_components/LeftSidebar.astro";
-
-import "../../styles/post.css";
+import DocsLayout from "../../layouts/Docs.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("docs");
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: post,
+  const entries = await getCollection("docs");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
   }));
 }
 
-const post = Astro.props as CollectionEntry<"docs">;
-const { Content } = await render(post);
+const { entry } = Astro.props as { entry: CollectionEntry<"docs"> };
+const { Content } = await render(entry);
+const { title, description, category } = entry.data;
 ---
 
-<MainLayout
-  content={{
-    title: `${post.data.title} • PoroScout Wiki`,
-    description: post.data.description,
-  }}
->
-  <Navbar forceBackground />
-  <div class="mb-20"></div>
+<DocsLayout title={title} description={description} activeSlug={entry.id}>
+  <article class="max-w-3xl">
+    <header>
+      <Eyebrow>{category}</Eyebrow>
+      <h1
+        class="mt-3 mb-3 font-display text-4xl leading-tight text-gold-1 sm:text-5xl"
+      >
+        {title}
+      </h1>
+      <p class="text-lg text-grey-1">{description}</p>
+    </header>
 
-  <div class="flex min-h-screen">
-    <!-- Left Sidebar: Fixed to the left, full height below navbar, scrollable -->
-    <LeftSidebar />
+    <hr class="my-8 border-0 border-t border-gold-3/15" />
 
-    <!-- Main Content Area: Takes up remaining space, with margins for fixed sidebars -->
-    <main class="flex-1 ml-64 mr-64 p-8 overflow-y-auto">
-      <h1 class="text-4xl font-bold mb-6 text-white">{post.data.title}</h1>
-
-      <section class="post">
-        <Content />
-      </section>
-    </main>
-
-    <!-- Right Sidebar: Fixed to the right, full height below navbar, scrollable -->
-    <aside
-      class="fixed right-0 w-64 h-[calc(100vh-4rem)] p-4 overflow-y-auto shadow-inner z-40 rounded-tl-lg"
-    >
-      <h3 class="text-xl font-semibold mb-4 text-white">On this page</h3>
-      <nav>
-        <!-- This list will be populated dynamically by JavaScript -->
-        <ul class="space-y-2 text-gray-300">
-          <!-- Example placeholder item, will be replaced by JS -->
-          <li>
-            <a
-              href="#section1"
-              class="block hover:text-white py-1 px-2 rounded-lg transition-colors duration-200"
-              >Section One: Introduction</a
-            >
-          </li>
-          <li>
-            <a
-              href="#section2"
-              class="block hover:text-white py-1 px-2 rounded-lg transition-colors duration-200"
-              >Section Two: Key Features</a
-            >
-          </li>
-          <li>
-            <a
-              href="#section3"
-              class="block hover:text-white py-1 px-2 rounded-lg transition-colors duration-200"
-              >Section Three: Advanced Usage</a
-            >
-          </li>
-          <li>
-            <a
-              href="#section4"
-              class="block hover:text-white py-1 px-2 rounded-lg transition-colors duration-200"
-              >Section Four: Getting Help</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </aside>
-  </div>
-
-  <!-- Footer: Full width, dark background, centered text -->
-  <footer class="w-full bg-gray-900 p-6 text-center text-gray-400 rounded-t-lg">
-    <div class="container mx-auto">
-      <p>&copy; 2025 Docs Site. All rights reserved.</p>
-      <p class="mt-2">Built with Tailwind CSS.</p>
+    <div class="docs-prose">
+      <Content />
     </div>
-  </footer>
-
-  <script is:inline>
-    /**
-     * Toggles the visibility of a submenu and rotates an SVG icon.
-     * This function is called when a collapsible menu button is clicked in the left sidebar.
-     * @param {HTMLButtonElement} button - The button element that triggers the toggle.
-     */
-    function toggleMenu(button) {
-      // Get the next sibling element, which is expected to be the submenu <ul>
-      const submenu = button.nextElementSibling;
-      // Get the SVG icon within the button (used for the expand/collapse arrow)
-      const svg = button.querySelector("svg");
-
-      // Toggle the 'hidden' class on the submenu to show or hide it
-      submenu.classList.toggle("hidden");
-      // Toggle the 'rotate-180' class on the SVG to animate its rotation (up/down arrow)
-      svg.classList.toggle("rotate-180");
-    }
-
-    /**
-     * Dynamically generates the table of contents for the right sidebar
-     * based on h2 elements found in the main content area.
-     * This ensures the "On this page" section is always up-to-date with the content.
-     * This function runs once the DOM is fully loaded.
-     */
-    document.addEventListener("DOMContentLoaded", () => {
-      const mainContent = document.querySelector("main");
-      const rightSidebarNav = document.querySelector(
-        "aside.fixed.right-0 nav ul",
-      );
-
-      // Ensure both main content and the right sidebar navigation element exist
-      if (mainContent && rightSidebarNav) {
-        // Clear any existing placeholder items in the right sidebar
-        rightSidebarNav.innerHTML = "";
-
-        // Find all h2 elements within the main content area
-        const headings = mainContent.querySelectorAll("h2");
-
-        // Iterate over each h2 heading to create a corresponding link in the TOC
-        headings.forEach((heading) => {
-          // If an h2 doesn't have an ID, generate a simple one from its text content
-          if (!heading.id) {
-            heading.id = heading.textContent
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric with hyphens
-              .replace(/^-*|-*$/g, ""); // Trim leading/trailing hyphens
-          }
-
-          // Create a new list item (<li>) for the table of contents
-          const listItem = document.createElement("li");
-          // Create an anchor tag (<a>) for the link
-          const link = document.createElement("a");
-          link.href = `#${heading.id}`; // Set the href to the heading's ID
-          link.textContent = heading.textContent; // Set the link text to the heading's text
-          // Add Tailwind classes for styling and hover effects
-          link.classList.add(
-            "block",
-            "hover:text-white",
-            "py-1",
-            "px-2",
-            "rounded-lg",
-            "transition-colors",
-            "duration-200",
-          );
-
-          // Append the link to the list item, and the list item to the right sidebar nav
-          listItem.appendChild(link);
-          rightSidebarNav.appendChild(listItem);
-        });
-      }
-    });
-  </script>
-</MainLayout>
+  </article>
+</DocsLayout>

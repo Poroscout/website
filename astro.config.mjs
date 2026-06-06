@@ -14,6 +14,12 @@ export default defineConfig({
   site: "https://poroscout.gg",
   prefetch: true,
 
+  markdown: {
+    shikiConfig: {
+      theme: "css-variables",
+    },
+  },
+
   vite: {
     plugins: [tailwindcss()],
   },

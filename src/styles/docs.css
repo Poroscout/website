@@ -1,0 +1,102 @@
+@reference "./global.css";
+
+/* Prose styling for the docs/wiki articles — Hextech palette, serif headings. */
+.docs-prose {
+  @apply font-body text-[1.05rem] leading-relaxed text-gold-1;
+}
+
+.docs-prose > :first-child {
+  @apply mt-0;
+}
+
+.docs-prose h2 {
+  @apply font-display text-[1.6rem] text-gold-1 mt-10 mb-3 pb-2 border-b border-gold-3/15;
+}
+
+.docs-prose h3 {
+  @apply font-display text-[1.25rem] text-gold-1 mt-8 mb-2;
+}
+
+.docs-prose p {
+  @apply text-gold-1 mb-4;
+}
+
+.docs-prose strong,
+.docs-prose b {
+  @apply font-bold text-gold-1;
+}
+
+.docs-prose a {
+  @apply text-hex-teal underline underline-offset-[3px] decoration-hex-teal/40 hover:text-hex-teal-dim hover:decoration-hex-teal;
+}
+
+.docs-prose ul,
+.docs-prose ol {
+  @apply pl-6 mb-5 space-y-2;
+}
+
+.docs-prose ul {
+  @apply list-disc;
+}
+
+.docs-prose ol {
+  @apply list-decimal;
+}
+
+.docs-prose li {
+  @apply text-gold-1 marker:text-gold-3;
+}
+
+.docs-prose li::marker {
+  color: var(--color-gold-3);
+}
+
+/* inline code */
+.docs-prose :not(pre) > code {
+  @apply bg-hex-teal/10 text-hex-teal border border-hex-teal/30 rounded px-1.5 py-0.5 text-[0.88em] whitespace-nowrap;
+}
+
+/* code blocks */
+.docs-prose pre {
+  @apply bg-void-1/70 border border-gold-4/30 rounded-lg p-5 my-5 overflow-x-auto text-sm leading-relaxed;
+}
+
+.docs-prose pre code {
+  @apply bg-transparent border-0 p-0 text-gold-1 text-sm;
+  white-space: pre;
+}
+
+/* tables */
+.docs-prose table {
+  @apply w-full my-6 text-[0.95rem] border-collapse;
+}
+
+.docs-prose th {
+  @apply text-gold-2 uppercase tracking-wider text-[0.72rem] text-left font-subhead font-semibold pb-3 pr-4 border-b border-gold-3/20;
+}
+
+.docs-prose td {
+  @apply text-gold-1 py-3 pr-4 border-b border-gold-3/10 align-top;
+}
+
+.docs-prose tr:last-child td {
+  @apply border-b-0;
+}
+
+/* blockquote */
+.docs-prose blockquote {
+  @apply border-l-2 border-gold-3 bg-gold-3/[0.06] px-5 py-3 my-5 text-grey-1 rounded-r;
+}
+
+.docs-prose blockquote p {
+  @apply text-grey-1 mb-0;
+}
+
+/* images */
+.docs-prose img {
+  @apply rounded-lg border border-gold-4/30 my-6 max-w-full h-auto;
+}
+
+.docs-prose hr {
+  @apply border-0 border-t border-gold-3/15 my-8;
+}

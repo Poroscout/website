@@ -1,0 +1,74 @@
+---
+import { getCollection } from "astro:content";
+import DocsLayout from "../../layouts/Docs.astro";
+import Eyebrow from "../../components/Eyebrow.astro";
+
+const entries = (await getCollection("docs")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const groups: { category: string; items: typeof entries }[] = [];
+for (const e of entries) {
+  let g = groups.find((x) => x.category === e.data.category);
+  if (!g) {
+    g = { category: e.data.category, items: [] };
+    groups.push(g);
+  }
+  g.items.push(e);
+}
+---
+
+<DocsLayout
+  title="Wiki"
+  description="Documentation and command reference for the PoroScout Discord bot."
+>
+  <div class="max-w-4xl">
+    <header class="mb-10">
+      <Eyebrow>PoroScout Wiki</Eyebrow>
+      <h1
+        class="mt-3 mb-4 font-display text-4xl leading-tight text-gold-1 sm:text-5xl"
+      >
+        Documentation &amp; command reference
+      </h1>
+      <p class="text-lg text-grey-1">
+        Everything PoroScout can do, command by command. Use the search (press
+        <kbd
+          class="rounded border border-gold-5 px-1.5 py-0.5 font-mono text-[0.8rem] text-gold-2"
+          >/</kbd
+        > ) to jump straight to what you need.
+      </p>
+    </header>
+
+    {
+      groups.map((g) => (
+        <section class="mb-10">
+          <h2 class="mb-4 border-b border-gold-3/15 pb-2 font-subhead text-[0.8rem] font-semibold tracking-[0.2em] text-gold-2 uppercase">
+            {g.category}
+          </h2>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {g.items.map((it) => (
+              <a
+                href={`/docs/${it.id}`}
+                class="group rounded-lg border border-gold-4/20 bg-void-2/40 p-6 transition-[transform,border-color] hover:-translate-y-0.5 hover:border-gold-2/60"
+              >
+                <h3 class="mb-1.5 font-display text-xl text-gold-1">
+                  {it.data.title}
+                </h3>
+                <p class="text-[0.95rem] text-grey-1">{it.data.description}</p>
+                {it.data.commands.length > 0 && (
+                  <div class="mt-4 flex flex-wrap gap-2">
+                    {it.data.commands.map((c) => (
+                      <code class="rounded-full border border-hex-teal/30 bg-hex-teal/10 px-2.5 py-0.5 font-mono text-xs text-hex-teal">
+                        {c}
+                      </code>
+                    ))}
+                  </div>
+                )}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</DocsLayout>

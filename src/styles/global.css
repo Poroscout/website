@@ -33,3 +33,18 @@
   --color-card-border: #c89b3c; /* rgb(200 155 60) */
   --blur-card: 6px;
 }
+
+/* Shiki (css-variables theme) — Hextech-tinted syntax highlighting */
+:root {
+  --astro-code-foreground: #f0e6d2;
+  --astro-code-background: transparent;
+  --astro-code-token-constant: #0ac8b9;
+  --astro-code-token-string: #c8aa6e;
+  --astro-code-token-comment: #5b5a56;
+  --astro-code-token-keyword: #178cd6;
+  --astro-code-token-parameter: #f0e6d2;
+  --astro-code-token-function: #0ac8b9;
+  --astro-code-token-string-expression: #c8aa6e;
+  --astro-code-token-punctuation: #a09b8c;
+  --astro-code-token-link: #0397ab;
+}

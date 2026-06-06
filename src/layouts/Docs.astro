@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import MainLayout from "./Main.astro";
+import Navbar from "../partials/Navbar.astro";
+
+import "../styles/docs.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+  activeSlug?: string;
+}
+
+const { title, description, activeSlug } = Astro.props;
+
+const entries = (await getCollection("docs")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Group by category, preserving order.
+const groups: { category: string; items: typeof entries }[] = [];
+for (const e of entries) {
+  let g = groups.find((x) => x.category === e.data.category);
+  if (!g) {
+    g = { category: e.data.category, items: [] };
+    groups.push(g);
+  }
+  g.items.push(e);
+}
+---
+
+<MainLayout
+  content={{
+    title: `${title} • PoroScout Wiki`,
+    description,
+  }}
+>
+  <Navbar forceBackground />
+
+  <div class="mx-auto flex max-w-7xl items-start gap-8 px-4 pt-28 pb-16 lg:gap-14">
+    <aside
+      class="sticky top-28 hidden max-h-[calc(100vh-8rem)] w-64 shrink-0 self-start overflow-y-auto md:block"
+    >
+      <nav class="flex flex-col gap-6" aria-label="Wiki">
+        {
+          groups.map((g) => (
+            <div>
+              <p class="mb-2 font-subhead text-[0.72rem] font-semibold tracking-[0.2em] text-gold-2 uppercase">
+                {g.category}
+              </p>
+              <ul class="grid gap-0.5">
+                {g.items.map((it) => (
+                  <li>
+                    <a
+                      href={`/docs/${it.id}`}
+                      class:list={[
+                        "block rounded-md border-l-2 px-3 py-2 text-[0.95rem] transition-colors",
+                        it.id === activeSlug
+                          ? "border-hex-teal bg-hex-teal/10 text-gold-1"
+                          : "border-transparent text-grey-1 hover:bg-hex-teal/[0.06] hover:text-gold-1",
+                      ]}
+                    >
+                      {it.data.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </nav>
+    </aside>
+
+    <div class="min-w-0 flex-1">
+      <slot />
+    </div>
+  </div>
+</MainLayout>

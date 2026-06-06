@@ -1,0 +1,263 @@
+---
+// Global command-palette search (⌘K / Ctrl+K / "/"). Searches /search.json.
+---
+
+<div
+  class="fixed inset-0 z-[100] hidden items-start justify-center px-4 pt-[12vh]"
+  data-palette
+  role="dialog"
+  aria-modal="true"
+  aria-label="Search the wiki"
+>
+  <!-- backdrop -->
+  <div
+    class="absolute inset-0 bg-void-0/70 backdrop-blur-sm opacity-0 transition-opacity duration-150"
+    data-palette-backdrop
+  >
+  </div>
+
+  <!-- panel -->
+  <div
+    class="relative w-full max-w-xl origin-top scale-95 overflow-hidden rounded-xl border border-gold-4/50 bg-void-1/95 opacity-0 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.85)] backdrop-blur-xl transition-[opacity,transform] duration-150"
+    data-palette-panel
+  >
+    <!-- search input row -->
+    <div class="flex items-center gap-3 border-b border-gold-4/25 px-4">
+      <svg
+        class="h-5 w-5 shrink-0 text-gold-2"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 256 256"
+        fill="currentColor"
+        aria-hidden="true"
+        ><path
+          d="m229.66 218.34l-50.06-50.06a88.21 88.21 0 1 0-11.32 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"
+        ></path></svg
+      >
+      <input
+        type="search"
+        class="min-w-0 flex-1 border-0 bg-transparent py-4 font-body text-base text-gold-1 outline-none placeholder:text-grey-2"
+        placeholder="Search the wiki…  (try “runes”, “mmr”, “patch”)"
+        aria-label="Search the wiki"
+        autocomplete="off"
+        data-palette-input
+      />
+      <kbd
+        class="shrink-0 rounded border border-gold-5 px-1.5 py-0.5 font-mono text-[0.7rem] text-grey-1"
+        >esc</kbd
+      >
+    </div>
+
+    <!-- results -->
+    <ul
+      class="max-h-[55vh] list-none overflow-y-auto p-2"
+      data-palette-results
+    >
+    </ul>
+
+    <!-- footer hints -->
+    <div
+      class="flex items-center gap-4 border-t border-gold-4/25 px-4 py-2.5 text-[0.72rem] text-grey-2"
+    >
+      <span class="flex items-center gap-1.5">
+        <kbd class="rounded border border-gold-5 px-1 font-mono">↑</kbd>
+        <kbd class="rounded border border-gold-5 px-1 font-mono">↓</kbd>
+        to navigate
+      </span>
+      <span class="flex items-center gap-1.5">
+        <kbd class="rounded border border-gold-5 px-1 font-mono">↵</kbd>
+        to open
+      </span>
+    </div>
+  </div>
+</div>
+
+<script>
+  type Entry = {
+    slug: string;
+    title: string;
+    description: string;
+    category: string;
+    commands: string[];
+    body: string;
+  };
+
+  const palette = document.querySelector<HTMLElement>("[data-palette]");
+  const backdrop = palette?.querySelector<HTMLElement>(
+    "[data-palette-backdrop]",
+  );
+  const panel = palette?.querySelector<HTMLElement>("[data-palette-panel]");
+  const input = palette?.querySelector<HTMLInputElement>(
+    "[data-palette-input]",
+  );
+  const list = palette?.querySelector<HTMLUListElement>(
+    "[data-palette-results]",
+  );
+
+  if (palette && backdrop && panel && input && list) {
+    let data: Entry[] = [];
+    let loaded = false;
+    let open = false;
+    let active = 0;
+    let current: Entry[] = [];
+
+    const load = async () => {
+      if (loaded) return;
+      loaded = true;
+      try {
+        const res = await fetch("/search.json");
+        data = await res.json();
+      } catch {
+        /* ignore */
+      }
+    };
+
+    const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const hl = (text: string, q: string) => {
+      if (!q) return text;
+      return text.replace(
+        new RegExp(`(${esc(q)})`, "ig"),
+        '<mark class="rounded-sm bg-gold-3/35 text-gold-1">$1</mark>',
+      );
+    };
+
+    const score = (e: Entry, q: string) => {
+      const ql = q.toLowerCase();
+      let s = 0;
+      if (e.title.toLowerCase().includes(ql)) s += 10;
+      if (e.commands.some((c) => c.toLowerCase().includes(ql))) s += 8;
+      if (e.description.toLowerCase().includes(ql)) s += 5;
+      if (e.body.toLowerCase().includes(ql)) s += 2;
+      return s;
+    };
+
+    const itemHTML = (e: Entry, q: string, i: number) => `
+      <li>
+        <a href="/docs/${e.slug}" data-idx="${i}"
+           class="flex flex-col gap-1 rounded-lg px-3 py-2.5 ${
+             i === active ? "bg-hex-teal/12" : ""
+           }">
+          <span class="flex items-center justify-between gap-3">
+            <span class="font-display text-[1.02rem] text-gold-1">${hl(e.title, q)}</span>
+            <span class="shrink-0 font-subhead text-[0.62rem] uppercase tracking-widest text-gold-2">${e.category}</span>
+          </span>
+          <span class="text-[0.85rem] text-grey-1">${hl(e.description, q)}</span>
+        </a>
+      </li>`;
+
+    const render = (q: string) => {
+      const query = q.trim();
+      current = !query
+        ? data
+        : data
+            .map((e) => ({ e, s: score(e, query) }))
+            .filter((r) => r.s > 0)
+            .sort((a, b) => b.s - a.s)
+            .map((r) => r.e);
+
+      active = 0;
+      if (current.length === 0) {
+        list.innerHTML = `<li class="px-3 py-6 text-center text-sm text-grey-1">No results for “${query}”.</li>`;
+        return;
+      }
+      list.innerHTML = current.map((e, i) => itemHTML(e, query, i)).join("");
+    };
+
+    const paint = () => {
+      list.querySelectorAll<HTMLElement>("a[data-idx]").forEach((a) => {
+        const i = Number(a.dataset.idx);
+        a.classList.toggle("bg-hex-teal/12", i === active);
+        if (i === active) a.scrollIntoView({ block: "nearest" });
+      });
+    };
+
+    const move = (delta: number) => {
+      if (current.length === 0) return;
+      active = (active + delta + current.length) % current.length;
+      paint();
+    };
+
+    const go = () => {
+      const e = current[active];
+      if (e) window.location.href = `/docs/${e.slug}`;
+    };
+
+    const openPalette = async () => {
+      open = true;
+      palette.classList.remove("hidden");
+      palette.classList.add("flex");
+      document.body.style.overflow = "hidden";
+      await load();
+      render(input.value);
+      requestAnimationFrame(() => {
+        backdrop.classList.remove("opacity-0");
+        panel.classList.remove("opacity-0", "scale-95");
+        input.focus();
+        input.select();
+      });
+    };
+
+    const closePalette = () => {
+      open = false;
+      backdrop.classList.add("opacity-0");
+      panel.classList.add("opacity-0", "scale-95");
+      document.body.style.overflow = "";
+      setTimeout(() => {
+        palette.classList.add("hidden");
+        palette.classList.remove("flex");
+      }, 150);
+    };
+
+    // Expose globally so the navbar trigger can open it.
+    (window as any).openSearchPalette = openPalette;
+
+    input.addEventListener("input", () => render(input.value));
+
+    input.addEventListener("keydown", (ev) => {
+      if (ev.key === "ArrowDown") {
+        ev.preventDefault();
+        move(1);
+      } else if (ev.key === "ArrowUp") {
+        ev.preventDefault();
+        move(-1);
+      } else if (ev.key === "Enter") {
+        ev.preventDefault();
+        go();
+      }
+    });
+
+    list.addEventListener("mousemove", (ev) => {
+      const a = (ev.target as HTMLElement).closest<HTMLElement>("a[data-idx]");
+      if (a) {
+        const i = Number(a.dataset.idx);
+        if (i !== active) {
+          active = i;
+          paint();
+        }
+      }
+    });
+
+    backdrop.addEventListener("click", closePalette);
+
+    document.addEventListener("keydown", (ev) => {
+      const tag = (document.activeElement?.tagName || "").toLowerCase();
+      const typing =
+        tag === "input" || tag === "textarea" || tag === "select";
+
+      // Open: Cmd/Ctrl+K, or "/" when not already typing.
+      if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "k") {
+        ev.preventDefault();
+        open ? closePalette() : openPalette();
+        return;
+      }
+      if (ev.key === "/" && !typing && !open) {
+        ev.preventDefault();
+        openPalette();
+        return;
+      }
+      if (ev.key === "Escape" && open) {
+        ev.preventDefault();
+        closePalette();
+      }
+    });
+  }
+</script>
