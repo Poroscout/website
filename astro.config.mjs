@@ -14,6 +14,11 @@ export default defineConfig({
   site: "https://poroscout.gg",
   prefetch: true,
 
+  redirects: {
+    "/discord": "https://discord.gg/dvvH6knvsG",
+    "/invite": "https://discord.com/oauth2/authorize?client_id=913190001007804426&scope=bot+applications.commands&permissions=537259072",
+  },
+
   markdown: {
     shikiConfig: {
       theme: "css-variables",

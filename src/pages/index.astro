@@ -109,7 +109,7 @@ const latestBlog = await getCollection("blog").then(
             title="Wiki"
             subtitle="Check out all of PoroScout's features and commands in our wiki!"
           >
-            <a href="/wiki" class="absolute inset-0" data-astro-prefetch></a>
+            <a href="/docs" class="absolute inset-0" data-astro-prefetch></a>
           </ImageCard>
         </div>
       </section>
@@ -144,7 +144,7 @@ const latestBlog = await getCollection("blog").then(
         ]}
         image={FeatureChampions}
         imageAlt="PoroScout /champion command showing a build, runes and stats"
-        wikiSlug="champion"
+        wikiSlug="commands/champion"
       />
 
       <Divider />
@@ -163,7 +163,7 @@ const latestBlog = await getCollection("blog").then(
         image={FeatureGraphs}
         imageAlt="PoroScout /graph and /mmr commands showing MMR and LP graphs"
         reverse
-        wikiSlug="mmr"
+        wikiSlug={undefined}
       />
 
       <Divider />
@@ -181,7 +181,7 @@ const latestBlog = await getCollection("blog").then(
         ]}
         image={FeatureMatch}
         imageAlt="PoroScout /matches command showing a detailed match breakdown"
-        wikiSlug="matches"
+        wikiSlug="commands/matches"
       />
 
       <Divider />
@@ -200,7 +200,7 @@ const latestBlog = await getCollection("blog").then(
         image={FeatureProfile}
         imageAlt="PoroScout /profile command showing a summoner profile"
         reverse
-        wikiSlug="profile"
+        wikiSlug="commands/profile"
       />
 
       <Divider />
@@ -217,20 +217,9 @@ const latestBlog = await getCollection("blog").then(
         ]}
         image={FeaturePatchnotes}
         imageAlt="PoroScout posting the latest League patch notes"
-        wikiSlug="patchnotes"
+        wikiSlug="commands/patchnotes"
       />
     </div>
   </section>
 
-  <!-- footer (todo) -->
-  <footer class="max-w-5xl mx-auto text-center text-gray-400 py-8 mt-[50rem]">
-    <p>
-      © {new Date().getFullYear()} PoroScout. All rights reserved.
-    </p>
-    <p>
-      <a href="/privacy" class="text-primary hover:underline">Privacy Policy</a>
-      |
-      <a href="/terms" class="text-primary hover:underline">Terms of Service</a>
-    </p>
-  </footer>
 </MainLayout>

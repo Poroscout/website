@@ -55,15 +55,6 @@ for (const e of entries) {
                   {it.data.title}
                 </h3>
                 <p class="text-[0.95rem] text-grey-1">{it.data.description}</p>
-                {it.data.commands.length > 0 && (
-                  <div class="mt-4 flex flex-wrap gap-2">
-                    {it.data.commands.map((c) => (
-                      <code class="rounded-full border border-hex-teal/30 bg-hex-teal/10 px-2.5 py-0.5 font-mono text-xs text-hex-teal">
-                        {c}
-                      </code>
-                    ))}
-                  </div>
-                )}
               </a>
             ))}
           </div>

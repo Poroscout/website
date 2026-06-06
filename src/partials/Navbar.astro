@@ -89,7 +89,7 @@ const props = {
         <span class="hidden sm:inline">Search Wiki</span>
         <kbd
           class="ml-2 hidden shrink-0 rounded border border-gray-600 px-1.5 py-0.5 font-mono text-xs text-gray-400 sm:inline-block"
-          data-search-kbd>⌘K</kbd
+          >Ctrl K</kbd
         >
       </button>
 
@@ -139,9 +139,4 @@ const props = {
     (window as any).openSearchPalette?.();
   });
 
-  // Show the platform-correct shortcut hint (⌘K on mac, Ctrl K elsewhere).
-  const kbd = document.querySelector("[data-search-kbd]");
-  if (kbd && !/Mac|iPhone|iPad/.test(navigator.platform)) {
-    kbd.textContent = "Ctrl K";
-  }
 </script>

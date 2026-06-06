@@ -1,0 +1,52 @@
+---
+title: "Linked Accounts"
+description: Link your League account once, and PoroScout fills in your username automatically for every command that needs it.
+category: Basics
+order: 2
+commands: ["/link", "/unlink"]
+---
+
+By default, most commands ask for a `username` and `region` to look someone up. Linking your account skips that entirely. Once you link, running `/profile` with no arguments pulls up your stats. Same goes for `/matches`, `/live`, `/mastery`, `/challenges stats`, and more.
+
+## Linking an account
+
+```text
+/link username:<RiotID#Tag> region:<region>
+```
+
+| Option     | Required | Description                                |
+| ---------- | -------- | ------------------------------------------ |
+| `username` | Yes      | Your Riot ID in the format `GameName#Tag`. |
+| `region`   | Yes      | The region your account is registered in.  |
+
+PoroScout verifies the account exists before saving it, so a typo or wrong region will return an error rather than saving bad data.
+
+The response is **only visible to you** (ephemeral), so there is no need to worry about posting personal info in a public channel.
+
+## Using a linked account
+
+Any command that has optional `username` and `region` options will fall back to your linked account when you leave them blank. Here is a quick overview of what benefits from a linked account:
+
+| Command             | Without a linked account       | With a linked account |
+| ------------------- | ------------------------------ | --------------------- |
+| `/profile`          | Requires `username` + `region` | No arguments needed   |
+| `/matches`          | Requires `username` + `region` | No arguments needed   |
+| `/live`             | Requires `username` + `region` | No arguments needed   |
+| `/mastery`          | Requires `username` + `region` | No arguments needed   |
+| `/challenges stats` | Requires `username` + `region` | No arguments needed   |
+
+You can still pass a `username` and `region` explicitly if you want to look up someone else, regardless of whether you have an account linked.
+
+## Unlinking an account
+
+```text
+/unlink
+```
+
+This removes the link between your Discord account and your League account. Like `/link`, the response is ephemeral. If you want to switch to a different account, just run `/link` again with your new Riot ID. It will overwrite the existing link.
+
+## Notes
+
+- You need to use your **Riot ID** format: `GameName#Tag`. Legacy summoner name lookups are no longer supported, as Riot deprecated them.
+- Your linked account is tied to your Discord user ID, not to any specific server, so it works everywhere PoroScout is available.
+- Linking does not grant PoroScout any special access to your account. It only stores the Riot ID, region, and PUUID needed to identify you in API requests.

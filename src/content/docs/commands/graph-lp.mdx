@@ -1,0 +1,31 @@
+---
+title: "/graph lp"
+description: Visualize your ranked LP progression over time. A reworked version with per-game tracking and an interactive interface is in development.
+category: Commands
+order: 16
+commands: ["/graph lp"]
+---
+
+import Callout from '../../../components/mdx/Callout.astro'
+
+<Callout type="info">
+  **Coming soon:** A reworked LP tracking system is in development. It will track LP down to a per-game basis and offer an interactive interface both in Discord and on the website. The current version has limited functionality in the meantime.
+</Callout>
+
+`/graph lp` shows a chart of your ranked LP history since you first linked your account. LP is captured automatically in the background, so the graph fills in over time the longer your account stays linked.
+
+## Requirements
+
+You must have a [linked account](/docs/linked-accounts) to use this command. LP tracking starts from the moment you link, so the graph will be empty or sparse until enough games have been played.
+
+## Usage
+
+```text
+/graph lp
+/graph lp username:<RiotID#Tag> region:<region>
+```
+
+| Option     | Required | Description                                                                          |
+| ---------- | -------- | ------------------------------------------------------------------------------------ |
+| `username` | No       | The Riot ID to look up. Leave blank to use your [linked account](/docs/linked-accounts). |
+| `region`   | No       | The region the account is in. Required if providing a username without a link.       |

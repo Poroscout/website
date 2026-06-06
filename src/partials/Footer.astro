@@ -1,0 +1,116 @@
+---
+import { Image } from "@unpic/astro";
+import PoroScoutLogo from "../assets/logo.webp";
+
+const resources = [
+  { label: "Support", href: "/discord" },
+  { label: "Documentation", href: "/docs" },
+  { label: "Invite", href: "/invite" },
+  { label: "GitHub", href: "https://github.com/Poroscout", external: true },
+];
+
+const company = [
+  { label: "Terms of Service", href: "/terms-of-service" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  {
+    label: "Donate",
+    href: "https://github.com/sponsors/itzderock",
+    external: true,
+  },
+  {
+    label: "Developed by Derock",
+    href: "https://derock.dev?ref=poroscout",
+    external: true,
+  },
+];
+---
+
+<footer class="border-t border-gold-5/20 bg-void-1/40">
+  <div class="mx-auto max-w-7xl px-6 py-14">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-3 lg:gap-16">
+      <!-- brand -->
+      <div class="sm:col-span-1">
+        <div class="flex items-center gap-2.5 mb-4">
+          <Image
+            src={PoroScoutLogo}
+            alt="PoroScout Logo"
+            width={28}
+            height={28}
+            class="h-7 w-7"
+          />
+          <span class="font-display text-lg font-bold text-gold-1"
+            >PoroScout</span
+          >
+        </div>
+        <p class="text-[0.85rem] leading-relaxed text-gray-400 mb-5">
+          PoroScout is a Discord bot that provides League of Legends summoner
+          information and statistics.
+        </p>
+        <p class="text-[0.72rem] leading-relaxed text-gray-600">
+          PoroScout isn't endorsed by Riot Games and doesn't reflect the views
+          or opinions of Riot Games or anyone officially involved in producing
+          or managing Riot Games properties. Riot Games, and all associated
+          properties are trademarks or registered trademarks of Riot Games, Inc.
+        </p>
+      </div>
+
+      <!-- resources -->
+      <div>
+        <h3
+          class="mb-4 font-subhead text-[0.72rem] font-semibold tracking-[0.2em] text-gold-2 uppercase"
+        >
+          Resources
+        </h3>
+        <ul class="grid gap-2.5">
+          {
+            resources.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-[0.9rem] text-grey-1 transition-colors hover:text-gold-1"
+                  {...(link.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- company -->
+      <div>
+        <h3
+          class="mb-4 font-subhead text-[0.72rem] font-semibold tracking-[0.2em] text-gold-2 uppercase"
+        >
+          Company
+        </h3>
+        <ul class="grid gap-2.5">
+          {
+            company.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-[0.9rem] text-grey-1 transition-colors hover:text-gold-1"
+                  {...(link.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 border-t border-gold-5/20 pt-6 text-[0.78rem] text-grey-3"
+    >
+      © {new Date().getFullYear()} PoroScout. All rights reserved.
+    </div>
+  </div>
+</footer>
