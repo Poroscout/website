@@ -1,7 +1,35 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-display: var(--font-montserrat);
-  --font-body: var(--font-karla);
+  --font-subhead: var(--font-montserrat);
+  --font-display: var(--font-crimson-text);
+  --font-body: var(--font-libre-baskerville);
   --color-primary: #f5f5f5;
+}
+
+@theme {
+  /* Hextech palette */
+  --color-void-0: #010a13;
+  --color-void-1: #06141f;
+  --color-void-2: #0a1a28;
+  --color-void-3: #0f2436;
+  --color-hex-blue-deep: #091428;
+  --color-hex-blue: #0a323c;
+  --color-hex-teal: #0ac8b9;
+  --color-hex-teal-dim: #0397ab;
+  --color-gold-1: #f0e6d2; /* light text */
+  --color-gold-2: #c8aa6e; /* primary gold */
+  --color-gold-3: #c89b3c; /* rich gold */
+  --color-gold-4: #785a28; /* dark gold / borders */
+  --color-gold-5: #463714;
+  --color-grey-1: #a09b8c;
+  --color-grey-2: #5b5a56;
+  --color-magic: #178cd6;
+  --color-danger: #c44b4b;
+  --color-success: #1fae6a;
+
+  --color-card-top: #0f2436; /* rgb(15 36 54)   */
+  --color-card-bottom: #06141f; /* rgb(6 20 31)    */
+  --color-card-border: #c89b3c; /* rgb(200 155 60) */
+  --blur-card: 6px;
 }

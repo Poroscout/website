@@ -1,0 +1,16 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className, ...rest } = Astro.props;
+---
+
+<p
+  class:list={[
+    "flex justify-start before:content-[''] before:w-[26px] before:h-px before:bg-linear-to-l before:from-gold-3 before:to-transparent text-gold-3 text-[0.7rem] tracking-widest gap-[0.5rem] uppercase items-center",
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</p>

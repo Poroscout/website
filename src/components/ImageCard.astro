@@ -27,7 +27,10 @@ const props = {
 ---
 
 <div
-  class={twMerge("group relative rounded-lg max-w-lg max-h-80", props.class)}
+  class={twMerge(
+    "group relative rounded-lg max-w-lg max-h-80 hover:-translate-y-4 transition-all hover:shadow-2xl border-card-border/[0.22] border-1",
+    props.class,
+  )}
 >
   <Image
     src={props.image}

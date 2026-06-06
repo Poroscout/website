@@ -7,9 +7,17 @@ import Navbar from "../partials/Navbar.astro";
 import { getCollection } from "astro:content";
 import ImageCard from "../components/ImageCard.astro";
 import Statistics from "./_components/Statistics.astro";
+import FeatureRow from "../components/FeatureRow.astro";
+import Divider from "../components/Divider.astro";
 
-import HeroBackground from "../assets/spelltheif-lux.jpg";
+import HeroBackground from "../assets/piltover-wall.png";
 import PoroReading from "../assets/poro-read.jpg";
+
+import FeatureChampions from "../assets/features/champions.webp";
+import FeatureGraphs from "../assets/features/graphs.webp";
+import FeatureMatch from "../assets/features/match.webp";
+import FeaturePatchnotes from "../assets/features/patchnotes.webp";
+import FeatureProfile from "../assets/features/profile.webp";
 
 const latestBlog = await getCollection("blog").then(
   (post) =>
@@ -49,7 +57,9 @@ const latestBlog = await getCollection("blog").then(
       <Navbar class="z-50" />
 
       <div class="max-w-7xl w-full mx-auto text-primary font-display pb-24">
-        <h2 class="text-lg font-semibold uppercase text-gray-300">
+        <h2
+          class="text-lg font-semibold uppercase text-gray-300 tracking-wider"
+        >
           Piltover's Finest
         </h2>
         <h1
@@ -58,7 +68,7 @@ const latestBlog = await getCollection("blog").then(
           League of Legends
           <br />Discord Bot
         </h1>
-        <p class="mb-6">
+        <p class="mb-6 font-body">
           Your ultimate chat companion for tracking player statistics, champion
           builds, and more!
         </p>
@@ -67,7 +77,7 @@ const latestBlog = await getCollection("blog").then(
 
       <!-- latest blog -->
       <section
-        class="absolute bottom-0 pb-8 px-8 w-full flex flex-row overflow-x-auto justify-center max-h-[30vh]"
+        class="absolute bottom-0 pb-8 px-8 w-full flex flex-row overflow-x-auto justify-center lg:max-h-[30vh] pt-12"
       >
         <div
           class="flex flex-row justify-end max-w-7xl gap-4 w-full mx-auto [&>*]:shadow-lg"
@@ -101,6 +111,110 @@ const latestBlog = await getCollection("blog").then(
   </div>
 
   <Statistics />
+
+  <section class="bg-hex-blue-deep">
+    <div class="mx-auto max-w-6xl px-8">
+      <!-- <div class="text-center max-w-[760px] mx-auto" data-reveal>
+        <p class="eyebrow justify-center">What PoroScout does</p>
+        <h2 class="section-title">Pro-grade League data, inside Discord</h2>
+        <p class="lead mx-auto">
+          From champion builds to MMR curves and live match breakdowns —
+          PoroScout pulls accurate, up-to-date data so your squad always shows
+          up prepared.
+        </p>
+      </div> -->
+
+      <FeatureRow
+        id="champion"
+        commands={["/champion", "/counters", "/synergies"]}
+        eyebrow="Partnered with Mobalytics.gg"
+        title="Scout Champion Data"
+        body="Accurate, up-to-date data for any champion in the game, straight from Mobalytics.gg. Lock in the optimal setup before you ever hit the queue."
+        bullets={[
+          "Champion build & runes",
+          "Abilities & skill order",
+          "Win rates, pick rates & ban rates",
+          "Counters & synergies",
+        ]}
+        image={FeatureChampions}
+        imageAlt="PoroScout /champion command showing a build, runes and stats"
+        wikiSlug="champion"
+      />
+
+      <Divider />
+
+      <FeatureRow
+        commands={["/graph lp"]}
+        eyebrow="Tracked hourly"
+        title="Scout Historical Data"
+        body="PoroScout tracks your rank, LP, wins, and losses. View your progression interactively and share your journey with friends."
+        bullets={[
+          "Track Soloq and Flex",
+          "Win / loss history",
+          "Per-match resolution",
+          // "Your position on the normal distribution curve",
+        ]}
+        image={FeatureGraphs}
+        imageAlt="PoroScout /graph and /mmr commands showing MMR and LP graphs"
+        reverse
+        wikiSlug="mmr"
+      />
+
+      <Divider />
+
+      <FeatureRow
+        commands={["/matches"]}
+        eyebrow="Scout match details"
+        title="Break down recent games"
+        body="Look up a summoner's recent games and read the whole story of each match: comps, bans, and per-player performance at a glance."
+        bullets={[
+          "Full team composition & banned champions",
+          "Player KDAs and CS",
+          "Gold difference vs. your lane opponent",
+          "Damage dealt, taken & shielded",
+        ]}
+        image={FeatureMatch}
+        imageAlt="PoroScout /matches command showing a detailed match breakdown"
+        wikiSlug="matches"
+      />
+
+      <Divider />
+
+      <FeatureRow
+        commands={["/profile", "/mastery"]}
+        eyebrow="Scout summoner profiles"
+        title="Know any summoner"
+        body="Pull a complete profile for any summoner, or surface their most-played champions with a single command."
+        bullets={[
+          "Summoner level & ranked Solo/Duo + Flex stats",
+          "Top champions",
+          "Recent & live games",
+          "/mastery - top 10 mastered champions",
+        ]}
+        image={FeatureProfile}
+        imageAlt="PoroScout /profile command showing a summoner profile"
+        reverse
+        wikiSlug="profile"
+      />
+
+      <Divider />
+
+      <FeatureRow
+        commands={["/patchnotes", "/configure"]}
+        eyebrow="Scout patch notes"
+        title="Never miss a patch"
+        body="Get the details on the latest League patch on demand or set a channel with /configure patchnotes to have PoroScout post updates automatically on patch day."
+        bullets={[
+          "Latest patch notes via /patchnotes",
+          "Auto-delivery to a channel of your choice",
+          "Posted the moment a patch drops",
+        ]}
+        image={FeaturePatchnotes}
+        imageAlt="PoroScout posting the latest League patch notes"
+        wikiSlug="patchnotes"
+      />
+    </div>
+  </section>
 
   <!-- footer (todo) -->
   <footer class="max-w-5xl mx-auto text-center text-gray-400 py-8 mt-[50rem]">

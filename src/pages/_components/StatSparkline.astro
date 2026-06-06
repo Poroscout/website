@@ -1,67 +1,94 @@
 ---
-const data = [
-  4676, 4676, 4676, 4676, 4676, 4676, 4676, 4676, 4676, 4676, 4676, 4677, 4677,
-  4677, 4677, 4677, 4678, 4678, 4679, 4679, 4678, 4678, 4679, 4679, 4679, 4679,
-  4679, 4679, 4679, 4679, 4680, 4680, 4680, 4680, 4681, 4681, 4681, 4681, 4681,
-  4681, 4681, 4680, 4680, 4680, 4680, 4680, 4680, 4680, 4680, 4680, 4680, 4680,
-  4680, 4680, 4680, 4680, 4680, 4680, 4680, 4681, 4681, 4681, 4681, 4681, 4681,
-  4682, 4682, 4682, 4681, 4680, 4681, 4681, 4681, 4681, 4682, 4682, 4682, 4682,
-  4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682,
-  4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4683,
-  4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682, 4682,
-  4682, 4683, 4683, 4684, 4684, 4684, 4684, 4684, 4684, 4684, 4683, 4683, 4683,
-  4684, 4685, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686,
-  4686, 4686, 4686, 4686, 4686, 4687, 4687, 4687, 4688, 4688, 4688, 4688, 4688,
-  4688, 4688, 4688, 4688, 4688, 4688, 4688, 4688, 4688, 4688, 4688, 4688, 4688,
-  4688, 4688, 4688, 4688, 4688, 4688, 4689, 4689, 4689, 4689, 4689, 4689, 4689,
-  4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689,
-  4689, 4689, 4689, 4689, 4689, 4689, 4690, 4690, 4689, 4689, 4689, 4689, 4689,
-  4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689, 4689, 4688, 4688, 4688, 4688,
-  4688, 4688, 4689, 4687, 4687, 4687, 4687, 4687, 4687, 4687, 4687, 4687, 4687,
-  4687, 4687, 4686, 4686, 4686, 4686, 4686, 4686, 4687, 4687, 4687, 4687, 4687,
-  4687, 4687, 4687, 4687, 4687, 4687, 4687, 4687, 4687, 4686, 4686, 4686, 4687,
-  4687, 4686, 4686, 4686, 4687, 4687, 4687, 4687, 4685, 4685, 4684, 4684, 4684,
-  4684, 4684, 4684, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685,
-  4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685, 4685,
-  4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686,
-  4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4686, 4685,
-  4685, 4686, 4686, 4687, 4687, 4687, 4687, 4687, 4687, 4687, 4687, 4687,
-];
+import type { BotStats } from "../../data/stats";
 
-function generateSvgPath(data: number[], height = 100, width = 100) {
+interface Props {
+  data: number[];
+}
+
+// Smoothing ratio: 0 = sharp, 1.0 = very loopy
+const CURVE_SMOOTHING = 0.2;
+const GRAPH_RESOLUTION = 60;
+
+function resampleData(data: number[], targetCount: number) {
+  const step = (data.length - 1) / (targetCount - 1);
+  return Array.from({ length: targetCount }, (_, i) => {
+    const index = Math.round(i * step);
+    return data[index];
+  });
+}
+
+function getControlPoint(
+  current: number[],
+  prev: number[],
+  next: number[],
+  reverse: boolean,
+) {
+  const p = prev || current;
+  const n = next || current;
+  const angle = Math.atan2(n[1] - p[1], n[0] - p[0]) + (reverse ? Math.PI : 0);
+  const length =
+    Math.sqrt(Math.pow(n[0] - p[0], 2) + Math.pow(n[1] - p[1], 2)) *
+    CURVE_SMOOTHING;
+
+  return [
+    current[0] + Math.cos(angle) * length,
+    current[1] + Math.sin(angle) * length,
+  ];
+}
+
+function generateSvgPaths(originalData: number[], height = 100, width = 100) {
+  const data = resampleData(originalData, GRAPH_RESOLUTION);
   const PADDING_BOTTOM = 5;
-
   const usableHeight = height - PADDING_BOTTOM;
-  const interval = width / data.length;
+  const interval = width / (data.length - 1);
   const dataMax = Math.max(...data);
   const dataMin = Math.min(...data);
-  const ySlope = usableHeight / (dataMax - dataMin);
+  const ySlope = usableHeight / (dataMax - dataMin || 1);
 
-  // start at bottom left
-  let path = `M 0,${height}`;
+  const points = data.map((count, idx) => [
+    interval * idx,
+    usableHeight - ySlope * (count - dataMin),
+  ]);
 
-  // insert a point for each datapoint
-  for (const [idx, count] of data.entries()) {
-    const x = interval * idx;
-    const y = usableHeight - ySlope * (count - dataMin);
-
-    path += ` L ${x.toFixed(2)},${y.toFixed(2)}`;
+  let curve = "";
+  for (let i = 0; i < points.length - 1; i++) {
+    const current = points[i];
+    const next = points[i + 1];
+    const cps = getControlPoint(current, points[i - 1], next, false);
+    const cpe = getControlPoint(next, current, points[i + 2], true);
+    curve += ` C ${cps[0].toFixed(2)},${cps[1].toFixed(2)} ${cpe[0].toFixed(2)},${cpe[1].toFixed(2)} ${next[0].toFixed(2)},${next[1].toFixed(2)}`;
   }
 
-  // close the shape
-  path += ` L ${width},${height} L 0,${height}`;
-
-  return path;
+  const start = `${points[0][0]},${points[0][1]}`;
+  return {
+    line: `M ${start}${curve}`, // open: just the curve
+    area: `M 0,${height} L ${start}${curve} L ${width},${height} Z`, // closed: fill
+  };
 }
+
+const paths = generateSvgPaths(Astro.props.data);
 ---
 
 <div class="w-full h-full">
   <svg
-    viewBox="0 0 100 100"
-    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 -10 100 110"
     preserveAspectRatio="none"
-    class="w-full h-full fill-inherit"
+    class="w-full h-full text-hex-blue-deep"
   >
-    <path d={generateSvgPath(data)}></path>
+    <defs>
+      <linearGradient id="sparkline-fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="currentColor" stop-opacity="0"></stop>
+        <stop offset="100%" stop-color="currentColor" stop-opacity="1"></stop>
+      </linearGradient>
+    </defs>
+    <path d={paths.area} fill="url(#sparkline-fade)"></path>
+    <path
+      d={paths.line}
+      fill="none"
+      class="stroke-gold-2/[0.25]"
+      stroke-width="2"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      vector-effect="non-scaling-stroke"></path>
   </svg>
 </div>

@@ -1,0 +1,85 @@
+---
+import ScreenshotFrame from "./ScreenshotFrame.astro";
+import Eyebrow from "./Eyebrow.astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  id?: string;
+  commands: string[];
+  eyebrow: string;
+  title: string;
+  body: string;
+  bullets?: string[];
+  image: ImageMetadata;
+  imageAlt: string;
+  reverse?: boolean;
+  wikiSlug?: string;
+}
+
+const {
+  id,
+  commands,
+  eyebrow,
+  title,
+  body,
+  bullets = [],
+  image,
+  imageAlt,
+  reverse = false,
+  wikiSlug,
+} = Astro.props;
+---
+
+<div
+  id={id}
+  data-reveal
+  class="grid grid-cols-2 max-md:grid-cols-1 items-center gap-[clamp(2rem,5vw,4.5rem)] max-md:gap-7 py-[clamp(3rem,7vw,5.5rem)]"
+>
+  <div class:list={[reverse && "order-2 max-[820px]:order-none"]}>
+    <div class="flex flex-wrap gap-2 mb-6">
+      {
+        commands.map((c) => (
+          <code class="rounded-full border border-hex-teal/35 bg-hex-teal/10 px-[0.8rem] py-[0.3rem] text-[0.85rem] text-hex-teal">
+            {c}
+          </code>
+        ))
+      }
+    </div>
+
+    <Eyebrow class="mb-3">{eyebrow}</Eyebrow>
+
+    <h3 class="mt-0 mb-4 text-[clamp(1.6rem,3.5vw,2.4rem)]">{title}</h3>
+    <p class="mt-0 mb-5 text-[1.08rem] text-grey-1">{body}</p>
+    {
+      bullets.length > 0 && (
+        <ul class="grid list-none gap-[0.55rem] mt-0 mb-6 p-0">
+          {bullets.map((b) => (
+            <li class="relative pl-[1.6rem] text-gold-1 before:absolute before:left-0 before:top-[0.05em] before:text-[0.75em] before:text-gold-3 before:content-['◆']">
+              {b}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      wikiSlug && (
+        <a
+          class="group inline-flex items-center gap-[0.4rem] font-display tracking-[0.04em] text-gold-2 hover:text-hex-teal"
+          href={`/wiki/${wikiSlug}`}
+        >
+          Read the docs
+          <span
+            class="transition-transform duration-150 ease-[ease] group-hover:translate-x-1"
+            aria-hidden="true"
+          >
+            →
+          </span>
+        </a>
+      )
+    }
+  </div>
+
+  <div>
+    <Image src={image} alt={imageAlt} fit="contain" />
+  </div>
+</div>

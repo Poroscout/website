@@ -1,0 +1,77 @@
+---
+// Hextech-framed screenshot. If `src` resolves it shows the image; otherwise
+// (or on load error) it falls back to a labelled placeholder so the layout
+// holds while real screenshots are dropped into /public/images.
+interface Props {
+  src?: ImageMetadata;
+  alt: string;
+  label?: string;
+  ratio?: string; // e.g. "16 / 10"
+}
+const { src, alt, label, ratio = "16 / 10" } = Astro.props;
+const id = "shot-" + Math.random().toString(36).slice(2, 8);
+---
+
+<figure
+  class="relative m-0 aspect-[var(--ratio)] overflow-hidden rounded-lg border border-card-border/35 bg-[linear-gradient(180deg,rgba(15,36,54,0.6),rgba(6,20,31,0.75))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.8),inset_0_0_60px_-30px_rgba(10,200,185,0.4)]"
+  style={`--ratio:${ratio}`}
+>
+  <div
+    class="absolute top-[6px] left-[6px] z-[2] h-[14px] w-[14px] border-2 border-b-0 border-r-0 border-gold-3"
+  >
+  </div>
+  <div
+    class="absolute top-[6px] right-[6px] z-[2] h-[14px] w-[14px] border-2 border-b-0 border-l-0 border-gold-3"
+  >
+  </div>
+  <div
+    class="absolute bottom-[6px] left-[6px] z-[2] h-[14px] w-[14px] border-2 border-t-0 border-r-0 border-gold-3"
+  >
+  </div>
+  <div
+    class="absolute bottom-[6px] right-[6px] z-[2] h-[14px] w-[14px] border-2 border-t-0 border-l-0 border-gold-3"
+  >
+  </div>
+
+  {
+    src ? (
+      <img
+        id={id}
+        src={src}
+        alt={alt}
+        loading="lazy"
+        class="h-full w-full object-cover"
+      />
+    ) : null
+  }
+
+  <div
+    data-for={id}
+    class:list={[
+      "absolute inset-0 flex flex-col items-center justify-center gap-[0.4rem] p-4 text-center text-grey-1 bg-[repeating-linear-gradient(135deg,rgba(200,155,60,0.04)_0_12px,transparent_12px_24px),radial-gradient(circle_at_50%_40%,rgba(10,200,185,0.12),transparent_60%)]",
+      { hidden: !!src },
+    ]}
+  >
+    <span
+      class="text-[2.4rem] drop-shadow-[0_0_12px_rgba(10,200,185,0.5)]"
+      aria-hidden="true">🐾</span
+    >
+    <span class="font-display text-[1.05rem] tracking-[0.04em] text-gold-1"
+      >{label ?? alt}</span
+    >
+    <span class="text-[0.68rem] uppercase tracking-[0.28em] text-gold-4"
+      >screenshot</span
+    >
+  </div>
+</figure>
+
+<script define:vars={{ id }}>
+  const img = document.getElementById(id);
+  if (img) {
+    const ph = document.querySelector(`[data-for="${id}"]`);
+    img.addEventListener("error", () => {
+      img.style.display = "none";
+      ph?.classList.remove("hidden");
+    });
+  }
+</script>
