@@ -76,11 +76,13 @@ const latestBlog = await getCollection("blog").then(
           Your ultimate chat companion for tracking player statistics, champion
           builds, and more!
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-          <Button href="/explore" label="Explore Now">
+        <div
+          class="flex flex-col sm:flex-row gap-4 items-start sm:items-center"
+        >
+          <Button href="/explore" label="Explore Now" href="/invite">
             <span aria-hidden="true">＋</span> Add to a Server
           </Button>
-          <Button href="/explore" label="Explore Now" variant="ghost">
+          <Button href="/invite-user" label="Explore Now" variant="ghost">
             Add to Your Account
           </Button>
         </div>
@@ -228,5 +230,4 @@ const latestBlog = await getCollection("blog").then(
   </section>
 
   <CTA />
-
 </MainLayout>

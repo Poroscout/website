@@ -41,7 +41,9 @@ const props = {
   id="navbar"
   data-disable-script={props.forceBackground ? "true" : "false"}
 >
-  <nav class="max-w-7xl mx-auto flex flex-row justify-between items-center p-4 gap-8">
+  <nav
+    class="max-w-7xl mx-auto flex flex-row justify-between items-center p-4 gap-8"
+  >
     <ul class="flex flex-row justify-between items-center max-w-xl grow gap-6">
       <li>
         <a href="/">
@@ -94,7 +96,9 @@ const props = {
       </button>
 
       <!-- add button -->
-      <Button class="h-full" variant="teal"> Add Poroscout </Button>
+      <Button class="h-full" variant="teal" href="/invite">
+        Add Poroscout
+      </Button>
     </div>
 
     <!-- mobile: hamburger toggle -->
@@ -173,7 +177,9 @@ const props = {
         <span>Search Wiki</span>
       </button>
 
-      <Button class="w-full" variant="teal"> Add Poroscout </Button>
+      <Button class="w-full" variant="teal" href="/invite">
+        Add Poroscout
+      </Button>
     </div>
   </div>
 </div>
@@ -250,5 +256,4 @@ const props = {
   window.addEventListener("resize", () => {
     if (window.innerWidth >= 768) closeMobileMenu();
   });
-
 </script>

@@ -16,7 +16,10 @@ export default defineConfig({
 
   redirects: {
     "/discord": "https://discord.gg/dvvH6knvsG",
-    "/invite": "https://discord.com/oauth2/authorize?client_id=913190001007804426&scope=bot+applications.commands&permissions=537259072",
+    "/invite":
+      "https://discord.com/oauth2/authorize?client_id=913190001007804426&scope=bot+applications.commands&permissions=537259072",
+    "/invite-user":
+      "https://discord.com/oauth2/authorize?client_id=913190001007804426&integration_type=1&scope=applications.commands",
   },
 
   markdown: {
