@@ -10,6 +10,7 @@ import Statistics from "./_components/Statistics.astro";
 import FeatureRow from "../components/FeatureRow.astro";
 import Divider from "../components/Divider.astro";
 import Button from "../components/Button.astro";
+import CTA from "../components/CTA.astro";
 
 import HeroBackground from "../assets/piltover-wall.png";
 import PoroReading from "../assets/poro-read.jpg";
@@ -221,5 +222,7 @@ const latestBlog = await getCollection("blog").then(
       />
     </div>
   </section>
+
+  <CTA />
 
 </MainLayout>

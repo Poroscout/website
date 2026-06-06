@@ -1,0 +1,134 @@
+---
+import { getCollection } from "astro:content";
+import Eyebrow from "./Eyebrow.astro";
+
+const inviteGuildUrl = "/invite";
+const inviteUserUrl =
+  "https://discord.com/oauth2/authorize?client_id=913190001007804426&scope=applications.commands&integration_type=1";
+const supportServerUrl = "/discord";
+
+// Background grid — every documented command, pulled from the docs collection.
+const commands = (await getCollection("docs"))
+  .filter((d) => d.data.category === "Commands")
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Repeat so the grid always fills the section behind the card.
+const bgCards = [...commands, ...commands, ...commands];
+
+const optBtnBase =
+  "mt-2 inline-flex w-full items-center justify-center font-display uppercase tracking-[0.06em] text-[0.92rem] px-[1.6rem] py-[0.85rem] border rounded-lg transition-[transform_0.12s_ease,box-shadow_0.2s_ease]";
+---
+
+<section
+  class="relative overflow-hidden bg-linear-to-b from-hex-blue-deep to-void-0"
+>
+  <!-- subtle background grid of every command -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 select-none px-6 pt-8 pb-40 opacity-50"
+  >
+    <div
+      class="mx-auto grid max-w-7xl grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3"
+    >
+      {
+        bgCards.map((c) => (
+          <div class="rounded-lg border border-gold-3/15 bg-card-bottom/40 p-4">
+            <code class="font-subhead text-[0.95rem] font-semibold text-hex-teal">
+              {c.data.title}
+            </code>
+            <p class="mt-1.5 line-clamp-2 text-[0.82rem] text-grey-1/80">
+              {c.data.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- radial darken: fades the background cards toward the centered card -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_95%_80%_at_50%_42%,color-mix(in_srgb,var(--color-void-0)_88%,transparent)_0%,transparent_60%)]"
+  >
+  </div>
+
+  <!-- foreground card -->
+  <div class="relative mx-auto max-w-6xl px-6 py-24">
+    <div
+      data-reveal
+      class="relative overflow-hidden rounded-2xl border border-gold-3/40 bg-linear-to-b from-card-top to-card-bottom p-[clamp(2.5rem,6vw,4.5rem)] text-center shadow-[0_40px_120px_-20px_rgba(1,10,19,0.9)] backdrop-blur-[var(--blur-card)]"
+    >
+      <!-- teal glow -->
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute -top-[300px] left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(10,200,185,0.25),transparent_65%)] blur-[40px]"
+      >
+      </div>
+
+      <div class="flex flex-row justify-center">
+        <Eyebrow>Ready up</Eyebrow>
+      </div>
+      <h2 class="relative mt-3 mb-4 text-[clamp(2rem,5vw,3rem)] text-gold-1">
+        Add PoroScout in seconds.
+      </h2>
+      <p class="relative mx-auto mb-0 max-w-xl text-[1.08rem] text-grey-1">
+        Invite the bot to your server for the whole squad, or add it straight to
+        your account and use it in any DM or server. No setup required, just
+        type <code class="text-hex-teal">/</code> and scout.
+      </p>
+
+      <div class="relative my-10 grid gap-5 text-left sm:grid-cols-2">
+        <a
+          href={inviteGuildUrl}
+          target="_blank"
+          rel="noopener"
+          class="group grid gap-2 rounded-xl border border-gold-3/20 bg-void-1/55 p-6 transition-[transform,border-color,background] duration-200 hover:-translate-y-1 hover:border-gold-2 hover:bg-hex-blue/50"
+        >
+          <span class="text-[1.8rem]" aria-hidden="true">🏰</span>
+          <span class="font-display text-xl text-gold-1">Add to a Server</span>
+          <span class="min-h-[2.6em] text-[0.95rem] text-grey-1 max-sm:min-h-0">
+            For your whole community. Allows all users in your server to access
+            PoroScout.
+          </span>
+          <span
+            class={`${optBtnBase} bg-linear-to-b from-hex-teal to-hex-teal-dim text-void-0 border-hex-teal group-hover:shadow-[0_8px_30px_-8px_rgba(10,200,185,0.55)]`}
+          >
+            Invite to Server
+          </span>
+        </a>
+
+        <a
+          href={inviteUserUrl}
+          target="_blank"
+          rel="noopener"
+          class="group grid gap-2 rounded-xl border border-gold-3/20 bg-void-1/55 p-6 transition-[transform,border-color,background] duration-200 hover:-translate-y-1 hover:border-gold-2 hover:bg-hex-blue/50"
+        >
+          <span class="text-[1.8rem]" aria-hidden="true">🧑‍💻</span>
+          <span class="font-display text-xl text-gold-1"
+            >Add to Your Account</span
+          >
+          <span class="min-h-[2.6em] text-[0.95rem] text-grey-1 max-sm:min-h-0">
+            Use PoroScout anywhere: DMs, group chats, any server.
+          </span>
+          <span
+            class={`${optBtnBase} bg-transparent text-gold-1 border-gold-4 group-hover:border-gold-2 group-hover:bg-[rgba(10,200,185,0.06)] group-hover:shadow-[0_8px_30px_-10px_rgba(10,200,185,0.4)]`}
+          >
+            Add to Me
+          </span>
+        </a>
+      </div>
+
+      <p class="relative text-[0.95rem] text-grey-1">
+        Questions? Join the
+        <a
+          href={supportServerUrl}
+          target="_blank"
+          rel="noopener"
+          class="text-gold-2 underline-offset-2 transition-colors hover:text-hex-teal hover:underline"
+        >
+          support server
+        </a>.
+      </p>
+    </div>
+  </div>
+</section>
