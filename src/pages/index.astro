@@ -9,6 +9,7 @@ import ImageCard from "../components/ImageCard.astro";
 import Statistics from "./_components/Statistics.astro";
 import FeatureRow from "../components/FeatureRow.astro";
 import Divider from "../components/Divider.astro";
+import Button from "../components/Button.astro";
 
 import HeroBackground from "../assets/piltover-wall.png";
 import PoroReading from "../assets/poro-read.jpg";
@@ -56,10 +57,8 @@ const latestBlog = await getCollection("blog").then(
     >
       <Navbar class="z-50" />
 
-      <div class="max-w-7xl w-full mx-auto text-primary font-display pb-24">
-        <h2
-          class="text-lg font-semibold uppercase text-gray-300 tracking-wider"
-        >
+      <div class="max-w-7xl w-full mx-auto text-primary font-display pb-32">
+        <h2 class="text-lg font-semibold uppercase text-grey-1 tracking-widest">
           Piltover's Finest
         </h2>
         <h1
@@ -72,15 +71,22 @@ const latestBlog = await getCollection("blog").then(
           Your ultimate chat companion for tracking player statistics, champion
           builds, and more!
         </p>
-        <!-- <Button href="/explore" label="Explore Now" /> -->
+        <div class="flex flex-row space-x-4">
+          <Button href="/explore" label="Explore Now">
+            <span aria-hidden="true">＋</span> Add to a Server
+          </Button>
+          <Button href="/explore" label="Explore Now" variant="ghost">
+            Add to Your Account
+          </Button>
+        </div>
       </div>
 
       <!-- latest blog -->
       <section
-        class="absolute bottom-0 pb-8 px-8 w-full flex flex-row overflow-x-auto justify-center lg:max-h-[30vh] pt-12"
+        class="absolute bottom-8 pb-8 px-8 w-full flex flex-row overflow-x-auto justify-end lg:max-h-[30vh] pt-12"
       >
         <div
-          class="flex flex-row justify-end max-w-7xl gap-4 w-full mx-auto [&>*]:shadow-lg"
+          class="flex flex-row justify-end xl:w-7xl min-[1921px]:max-w-7xl gap-4 w-full mx-auto [&>*]:shadow-lg px-4"
         >
           <ImageCard
             image={latestBlog.data.cover}

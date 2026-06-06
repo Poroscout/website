@@ -1,19 +1,30 @@
 ---
-// Click button, get confetti!
-// Styled by Tailwind :)
+import { twMerge } from "tailwind-merge";
+
+interface Props {
+  variant?: "default" | "ghost" | "teal";
+  href?: string;
+  class?: string;
+  [key: string]: any;
+}
+
+const { variant = "default", href, class: className, ...rest } = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-[0.6rem] font-display tracking-[0.06em] uppercase text-[0.92rem] px-[1.6rem] py-[0.85rem] border cursor-pointer relative rounded-lg transition-[transform_0.12s_ease,box-shadow_0.2s_ease,background_0.2s_ease] hover:-translate-y-0.5 hover:text-void-0";
+
+const variants = {
+  default:
+    "bg-gold-2 text-void-0 border-gold-3 hover:shadow-[0_8px_30px_-8px_rgba(200,155,60,0.55)]",
+  ghost:
+    "bg-transparent text-gold-1 border-gold-4 hover:border-gold-2 hover:text-gold-0 hover:bg-[rgba(10,200,185,0.06)] hover:shadow-[0_8px_30px_-10px_rgba(10,200,185,0.4)]",
+  teal: "bg-linear-to-b from-hex-teal to-hex-teal-dim text-void-0 border-hex-teal hover:shadow-[0_8px_30px_-8px_rgba(200,155,60,0.55)]",
+};
+
+const Tag = href ? "a" : "button";
+const classes = twMerge(base, variants[variant], className);
 ---
 
-<button
-	class="appearance-none py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75"
->
-	<slot />
-</button>
-
-<script>
-	import confetti from 'canvas-confetti';
-	const button = document.body.querySelector('button');
-
-	if (button) {
-		button.addEventListener('click', () => confetti());
-	}
-</script>
+<Tag class={classes} href={href} {...rest}>
+  <slot />
+</Tag>

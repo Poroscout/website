@@ -2,6 +2,7 @@
 import { Image } from "@unpic/astro";
 import PoroScoutLogo from "../assets/logo.webp";
 import { twMerge } from "tailwind-merge";
+import Button from "../components/Button.astro";
 
 type NavbarItem = {
   href: string;
@@ -29,7 +30,7 @@ const props = {
 
 <div
   class={twMerge(
-    "text-primary transition-all duration-700 font-body" +
+    "text-primary transition-all duration-700 font-body border-b border-transparent" +
       (props.forceBackground
         ? " bg-gray-950/40 backdrop-blur-lg"
         : " bg-transparent"),
@@ -89,22 +90,25 @@ const props = {
       </form>
 
       <!-- add button -->
-      <a
-        href="/add"
-        class="bg-gradient-to-r from-blue-500 to-blue-400 from-65% text-white px-6 py-4 rounded-lg hover:from-orange-700 hover:to-orange-600 transition-colors"
-      >
-        Add PoroScout
-      </a>
+      <Button class="h-full" variant="teal"> Add Poroscout </Button>
     </div>
   </nav>
 </div>
 
 <!-- so tailwind compiler picks up on the classes -->
-<!-- <div class="bg-gray-950/40 backdrop-blur-lg"></div> -->
+<!-- <div class="bg-gray-950/40 backdrop-blur-lg border-b-card-border/[0.22]"></div> -->
 
 <script>
   // On scroll, change from transparent to solid background
   const navbar = document.getElementById("navbar");
+
+  const SCROLL_ACTIVE_CLASSES = [
+    "bg-gray-950/40",
+    "backdrop-blur-lg",
+    "border-b-card-border/[0.22]",
+  ];
+
+  const SCROLL_INACTIVE_CLASSES = ["bg-transparent", "border-transparent"];
 
   if (navbar && navbar.dataset.disableScript !== "true") {
     window.addEventListener("scroll", updateNavbarBackground);
@@ -115,11 +119,11 @@ const props = {
     if (!navbar) return;
 
     if (window.scrollY > 0 || navbar.dataset.forceBackground === "true") {
-      navbar.classList.add("bg-gray-950/40", "backdrop-blur-lg");
-      navbar.classList.remove("bg-transparent");
+      navbar.classList.add(...SCROLL_ACTIVE_CLASSES);
+      navbar.classList.remove(...SCROLL_INACTIVE_CLASSES);
     } else {
-      navbar.classList.remove("bg-gray-950/40", "backdrop-blur-lg");
-      navbar.classList.add("bg-transparent");
+      navbar.classList.remove(...SCROLL_ACTIVE_CLASSES);
+      navbar.classList.add(...SCROLL_INACTIVE_CLASSES);
     }
   }
 </script>
