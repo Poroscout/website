@@ -8,10 +8,26 @@ import sitemap from "@astrojs/sitemap";
 
 import icon from "astro-icon";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
+// Output stays "static": the whole site prerenders to the CDN as before.
+// Only the homepage opts into on-demand rendering (prerender = false) so the
+// ISR middleware can cache its HTML in Cloudflare KV. The adapter is what makes
+// a single on-demand route possible without turning the rest dynamic.
 export default defineConfig({
   site: "https://poroscout.gg",
   prefetch: true,
+
+  // imageService "compile": images are optimized at build time via the
+  // workerd image service (no native `sharp`), and the on-demand homepage uses
+  // a passthrough service at runtime. This keeps `sharp` out of the deployed
+  // worker entirely, both the build prerender and runtime run in workerd, so
+  // we must NOT override prerenderEnvironment to "node" (that would drag the
+  // native sharp prerenderer back into the worker bundle).
+  adapter: cloudflare({
+    imageService: "compile",
+  }),
 
   redirects: {
     "/discord": "https://discord.gg/dvvH6knvsG",

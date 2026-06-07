@@ -1,0 +1,19 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "poroscout-website",
+	"compatibility_date": "2026-06-03",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	// main/assets are emitted by @astrojs/cloudflare into dist/ at build time.
+	// This root config only declares bindings + dev settings.
+	"kv_namespaces": [
+		{
+			"binding": "ISR_CACHE",
+			"id": "be894a95109c42a8a4ce08f45bbaf9a2"
+		}
+	],
+	"observability": {
+		"enabled": true
+	}
+}

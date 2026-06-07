@@ -3,12 +3,16 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "gen:lqip": "node scripts/gen-lqip.mjs",
+    "predev": "node scripts/gen-lqip.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/gen-lqip.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.6.1",
     "@astrojs/mdx": "^6.0.2",
     "@astrojs/react": "^5.0.7",
     "@astrojs/sitemap": "^3.7.3",
@@ -25,7 +29,8 @@
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.111",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "wrangler": "^4.98.0"
   },
   "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916"
 }

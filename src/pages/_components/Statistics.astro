@@ -4,7 +4,7 @@ import StatSparkline from "./StatSparkline.astro";
 import StatCard from "./StatCard.astro";
 import { getBotStats } from "../../data/stats";
 
-const stats = await getBotStats();
+const stats = await getBotStats(Astro.locals);
 const formatNumber = (num: number) => Intl.NumberFormat().format(num);
 ---
 

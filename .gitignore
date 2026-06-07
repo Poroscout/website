@@ -2,6 +2,12 @@
 dist/
 # generated types
 .astro/
+# cloudflare / wrangler local state
+.wrangler/
+.dev.vars
+.dev.vars.*
+# generated build-time LQIP placeholders (scripts/gen-lqip.mjs)
+src/data/lqip.json
 
 # dependencies
 node_modules/

@@ -1,4 +1,8 @@
 ---
+// On-demand rendered so the ISR middleware can cache it in KV and revalidate
+// the bot stats hourly. Every other route stays prerendered (static CDN).
+export const prerender = false;
+
 import "../styles/global.css";
 
 import MainLayout from "../layouts/Main.astro";
