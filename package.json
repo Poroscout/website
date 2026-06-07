@@ -16,7 +16,6 @@
     "@types/canvas-confetti": "^1.9.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@unpic/astro": "^1.0.2",
     "astro": "^6.4.4",
     "astro-icon": "^1.1.5",
     "react": "^19.2.7",

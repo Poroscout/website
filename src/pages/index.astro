@@ -2,7 +2,7 @@
 import "../styles/global.css";
 
 import MainLayout from "../layouts/Main.astro";
-import { Image } from "@unpic/astro";
+import BlurImage from "../components/BlurImage.astro";
 import Navbar from "../partials/Navbar.astro";
 import { getCollection } from "astro:content";
 import ImageCard from "../components/ImageCard.astro";
@@ -37,13 +37,11 @@ const latestBlog = await getCollection("blog").then(
 >
   <!-- Hero -->
   <div class="relative">
-    <Image
+    <BlurImage
       src={HeroBackground}
       alt="Piltover background"
       height={1900}
       priority
-      placeholder="lqip"
-      unstyled
       class="w-full h-screen object-cover"
     />
 

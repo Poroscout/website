@@ -2,7 +2,8 @@
 import "../styles/global.css";
 
 import MainLayout from "../layouts/Main.astro";
-import { Image } from "@unpic/astro";
+import { Image } from "astro:assets";
+import BlurImage from "../components/BlurImage.astro";
 import Navbar from "../partials/Navbar.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import CTA from "../components/CTA.astro";
@@ -23,13 +24,11 @@ import PoroMoba from "../assets/poroscout-moba-email.webp";
 >
   <!-- Hero -->
   <div class="relative">
-    <Image
+    <BlurImage
       src={HeroBackground}
       alt="Piltover background"
       height={1200}
       priority
-      placeholder="lqip"
-      unstyled
       class="w-full h-[70vh] min-h-[480px] object-cover opacity-65"
     />
 

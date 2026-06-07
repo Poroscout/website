@@ -1,7 +1,7 @@
 ---
 import type { ImageMetadata } from "astro";
 import { twMerge } from "tailwind-merge";
-import { Image } from "@unpic/astro";
+import { Image } from "astro:assets";
 
 export interface Props {
   image: string | ImageMetadata;
@@ -37,7 +37,6 @@ const props = {
     width={props.imageDimensions.width}
     height={props.imageDimensions.height}
     alt={props.title}
-    unstyled
     class="rounded-lg w-full h-full object-cover"
   />
 

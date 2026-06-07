@@ -29,9 +29,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.17)
-      '@unpic/astro':
-        specifier: ^1.0.2
-        version: 1.0.2(astro@6.4.4(@types/node@25.9.2)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.1))
       astro:
         specifier: ^6.4.4
         version: 6.4.4(@types/node@25.9.2)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.1)
@@ -870,9 +867,6 @@ packages:
   '@types/node@25.9.2':
     resolution: {integrity: sha512-G05zqtJhcDLb8uslf5EjCxXg9G1KQxiV8OS0R26IC//Eoyitzqe8z37I7cqvnZlrlSfgocQRfSn/AHBZJJFyGw==}
 
-  '@types/pngjs@6.0.5':
-    resolution: {integrity: sha512-0k5eKfrA83JOZPppLtS2C7OUtyNAl2wKNxfyYl9Q5g9lPkgBl/9hNyAu6HuEH2J4XmIv2znEpkDd0SaZVxW6iQ==}
-
   '@types/react-dom@19.2.3':
     resolution: {integrity: sha512-jp2L/eY6fn+KgVVQAOqYItbF0VY/YApe5Mz2F0aykSO8gx31bYCZyvSeYxCHKvzHG5eZjc+zyaS5BrBWya2+kQ==}
     peerDependencies:
@@ -895,20 +889,6 @@ packages:
 
   '@ungap/structured-clone@1.3.1':
     resolution: {integrity: sha512-mUFwbeTqrVgDQxFveS+df2yfap6iuP20NAKAsBt5jDEoOTDew+zwLAOilHCeQJOVSvmgCX4ogqIrA0mnyr08yQ==}
-
-  '@unpic/astro@1.0.2':
-    resolution: {integrity: sha512-nA9JwgyEz4fxHWQF1YUbPVqWpR56WN/g2hUHTkHCoHVWq2/sZAeKKYqPoMIkOE760sNhnQL5SDyvk3j5w32Oiw==}
-    peerDependencies:
-      astro: ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0-beta
-
-  '@unpic/core@1.0.3':
-    resolution: {integrity: sha512-aum9YNVUGso7MjGLD0Rp/08kywCGLqZ03/q6VQBFFakDBOXWEc8D4kPGcZ8v5wEnGRex3lE+++bOuucBp3KJ/w==}
-
-  '@unpic/pixels@1.3.0':
-    resolution: {integrity: sha512-Xe3J4KU9m2NWCDZ9iwIIRYFe7VwkWEqGCy4yoKMEkjoxpcQ7TPxD+QmdTphv3yiTmrDMMIWYEEH+j4mT6dILTA==}
-
-  '@unpic/placeholder@0.1.2':
-    resolution: {integrity: sha512-O++tS97biojo5sqn5TeTt+jUjl5gWOdIQuOXe8YluTJWq4L0GM6VuTkaspNpsmxHfioJw/6YBirzOpG4t87l8Q==}
 
   '@vitejs/plugin-react@5.2.0':
     resolution: {integrity: sha512-YmKkfhOAi3wsB1PhJq5Scj3GXMn3WvtQ/JC0xoopuHoXSdmtdStOpFrYaT1kie2YgFBcIe64ROzMYRjCrYOdYw==}
@@ -966,9 +946,6 @@ packages:
     resolution: {integrity: sha512-IMDedajPifLnHNY0X9n8hKxRTQ6/eTHwr5bDo04WnuqxyKw6LYtQywCuuqPZwhl3aBXMvQpJov42GLCwRRdQzw==}
     engines: {node: '>=6.0.0'}
     hasBin: true
-
-  blurhash@2.0.5:
-    resolution: {integrity: sha512-cRygWd7kGBQO3VEhPiTgq4Wc43ctsM+o46urrmPOiuAe+07fzlSB9OJVdpgDL0jPqXUVQ9ht7aq7kxOeJHRK+w==}
 
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
@@ -1382,9 +1359,6 @@ packages:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
-  jpeg-js@0.4.4:
-    resolution: {integrity: sha512-WZzeDOEtTOBK4Mdsar0IqEU5sMr3vSV2RqkAIzUEV2BHnUfKGyswWFPFwK5EeDo93K3FohSHbLAjj0s1Wzd+dg==}
-
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -1796,10 +1770,6 @@ packages:
   pkg-types@2.3.1:
     resolution: {integrity: sha512-y+ichcgc2LrADuhLNAx8DFjVfgz91pRxfZdI3UDhxHvcVEZsenLO+7XaU5vOp0u/7V/wZ+plyuQxtrDlZJ+yeg==}
 
-  pngjs@7.0.0:
-    resolution: {integrity: sha512-LKWqWJRhstyYo9pGvgor/ivk2w94eSjE3RGVuzLGlr3NmD8bf7RcYGze1mNdEHRP6TRP6rMuDHk5t44hnTRyow==}
-    engines: {node: '>=14.19.0'}
-
   postcss@8.5.15:
     resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
     engines: {node: ^10 || ^12 || >=14}
@@ -2078,9 +2048,6 @@ packages:
 
   unist-util-visit@5.1.0:
     resolution: {integrity: sha512-m+vIdyeCOpdr/QeQCu2EzxX/ohgS8KbnPDgFni4dQsfSCtpz8UqDyY5GjRru8PDKuYn7Fq19j1CQ+nJSsGKOzg==}
-
-  unpic@4.2.2:
-    resolution: {integrity: sha512-z6T2ScMgRV2y2H8MwwhY5xHZWXhUx/YxtOCGJwfURSl7ypVy4HpLIMWoIZKnnxQa/RKzM0kg8hUh0paIrpLfvw==}
 
   unstorage@1.17.5:
     resolution: {integrity: sha512-0i3iqvRfx29hkNntHyQvJTpf5W9dQ9ZadSoRU8+xVlhVtT7jAX57fazYO9EHvcRCfBCyi5YRya7XCDOsbTgkPg==}
@@ -3004,10 +2971,7 @@ snapshots:
   '@types/node@25.9.2':
     dependencies:
       undici-types: 7.24.6
-
-  '@types/pngjs@6.0.5':
-    dependencies:
-      '@types/node': 25.9.2
+    optional: true
 
   '@types/react-dom@19.2.3(@types/react@19.2.17)':
     dependencies:
@@ -3031,28 +2995,6 @@ snapshots:
     optional: true
 
   '@ungap/structured-clone@1.3.1': {}
-
-  '@unpic/astro@1.0.2(astro@6.4.4(@types/node@25.9.2)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.1))':
-    dependencies:
-      '@unpic/core': 1.0.3
-      '@unpic/pixels': 1.3.0
-      '@unpic/placeholder': 0.1.2
-      astro: 6.4.4(@types/node@25.9.2)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.61.1)
-      blurhash: 2.0.5
-
-  '@unpic/core@1.0.3':
-    dependencies:
-      unpic: 4.2.2
-
-  '@unpic/pixels@1.3.0':
-    dependencies:
-      '@types/pngjs': 6.0.5
-      jpeg-js: 0.4.4
-      pngjs: 7.0.0
-
-  '@unpic/placeholder@0.1.2':
-    dependencies:
-      blurhash: 2.0.5
 
   '@vitejs/plugin-react@5.2.0(vite@7.3.5(@types/node@25.9.2)(jiti@2.7.0)(lightningcss@1.32.0))':
     dependencies:
@@ -3193,8 +3135,6 @@ snapshots:
   bail@2.0.2: {}
 
   baseline-browser-mapping@2.10.34: {}
-
-  blurhash@2.0.5: {}
 
   boolbase@1.0.0: {}
 
@@ -3708,8 +3648,6 @@ snapshots:
       is-inside-container: 1.0.0
 
   jiti@2.7.0: {}
-
-  jpeg-js@0.4.4: {}
 
   js-tokens@4.0.0: {}
 
@@ -4369,8 +4307,6 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  pngjs@7.0.0: {}
-
   postcss@8.5.15:
     dependencies:
       nanoid: 3.3.12
@@ -4723,7 +4659,8 @@ snapshots:
 
   undici-types@7.18.2: {}
 
-  undici-types@7.24.6: {}
+  undici-types@7.24.6:
+    optional: true
 
   undici@7.27.1: {}
 
@@ -4788,8 +4725,6 @@ snapshots:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1
       unist-util-visit-parents: 6.0.2
-
-  unpic@4.2.2: {}
 
   unstorage@1.17.5:
     dependencies:
