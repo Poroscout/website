@@ -10,18 +10,12 @@ import icon from "astro-icon";
 
 import cloudflare from "@astrojs/cloudflare";
 
-// The Cloudflare adapter runs `astro dev` inside workerd, which trips over CJS
-// deps in the on-demand homepage graph ("module is not defined"). The adapter
-// is only needed to build/deploy the worker, so we skip it for `astro dev` and
-// let the dev server render on-demand routes in Node (as it did pre-adapter).
-// ISR/KV only matter in production anyway — the middleware no-ops in dev.
 const isDevServer = process.argv.includes("dev");
 
+// Unique id for cache invalidation between deployments.
+const BUILD_ID = Date.now().toString(36);
+
 // https://astro.build/config
-// Output stays "static": the whole site prerenders to the CDN as before.
-// Only the homepage opts into on-demand rendering (prerender = false) so the
-// ISR middleware can cache its HTML in Cloudflare KV. The adapter is what makes
-// a single on-demand route possible without turning the rest dynamic.
 export default defineConfig({
   site: "https://poroscout.gg",
   prefetch: true,
@@ -50,6 +44,9 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    define: {
+      __BUILD_ID__: JSON.stringify(BUILD_ID),
+    },
   },
 
   fonts: [

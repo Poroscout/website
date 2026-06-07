@@ -1,5 +1,8 @@
 /// <reference types="astro/client" />
 
+/** Per-build id injected via vite `define` (see astro.config.mjs). */
+declare const __BUILD_ID__: string;
+
 type KVNamespace = import("@cloudflare/workers-types").KVNamespace;
 type ExecutionContext = import("@cloudflare/workers-types").ExecutionContext;
 

@@ -3,6 +3,12 @@ import { ageSeconds, getCached, isFresh, setCached } from "./lib/isr-cache";
 
 /** Only the homepage is ISR-cached. */
 const ISR_PATH = "/";
+/**
+ * Cache key, namespaced by build id (injected via vite define). A new deploy =>
+ * new id => fresh cache, so HTML pointing at the previous build's hashed
+ * /_astro assets (which 404 after redeploy) is never served.
+ */
+const CACHE_KEY = `${__BUILD_ID__}:${ISR_PATH}`;
 /** Seconds before the cached homepage is considered stale (1 hour). */
 const REVALIDATE = 3600;
 
@@ -36,7 +42,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   if (!kv) return next();
 
   try {
-    const cached = await getCached(kv, ISR_PATH);
+    const cached = await getCached(kv, CACHE_KEY);
 
     if (cached && isFresh(cached)) {
       return htmlResponse(cached.html, "HIT", ageSeconds(cached));
@@ -55,7 +61,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const html = await response.text();
 
     if (!locals.statsStale) {
-      ctx?.waitUntil(setCached(kv, ISR_PATH, html, REVALIDATE));
+      ctx?.waitUntil(setCached(kv, CACHE_KEY, html, REVALIDATE));
     }
     return htmlResponse(
       html,
@@ -88,7 +94,7 @@ async function regenerate(
       );
       return;
     }
-    await setCached(kv, ISR_PATH, html, REVALIDATE);
+    await setCached(kv, CACHE_KEY, html, REVALIDATE);
   } catch (error) {
     console.error("[ISR] background regeneration failed:", error);
   }
