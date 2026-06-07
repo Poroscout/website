@@ -61,7 +61,16 @@ const props = {
       {
         navbarItems.map((item) => (
           <li class="hidden md:block">
-            <a href={item.href}>{item.label}</a>
+            <a
+              href={item.href}
+              class="group relative inline-block py-1 transition-colors duration-200 [text-shadow:0_1px_4px_rgb(0_0_0/0.6)] hover:text-hex-teal"
+            >
+              {item.label}
+              <span
+                aria-hidden="true"
+                class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-hex-teal transition-transform duration-300 ease-out group-hover:scale-x-100"
+              />
+            </a>
           </li>
         ))
       }
@@ -148,7 +157,7 @@ const props = {
           <li>
             <a
               href={item.href}
-              class="block rounded-lg px-3 py-2 transition-colors hover:bg-gray-400/10"
+              class="block rounded-lg px-3 py-2 transition-all duration-200 [text-shadow:0_1px_4px_rgb(0_0_0/0.6)] hover:bg-gray-400/10 hover:text-hex-teal hover:translate-x-1"
             >
               {item.label}
             </a>

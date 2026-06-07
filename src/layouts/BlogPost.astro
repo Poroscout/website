@@ -3,9 +3,8 @@ import "../styles/post.css";
 
 import type { CollectionEntry } from "astro:content";
 import MainLayout from "./Main.astro";
-import Navbar from "../partials/Navbar.astro";
-import GradientHeader from "../components/GradientHeader.astro";
-import Background from "../assets/lol.webp";
+import Hero from "../components/Hero.astro";
+import HeroBackground from "../assets/lol.webp";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -20,27 +19,23 @@ const props = Astro.props;
     description: props.post.data.description,
   }}
 >
-  <GradientHeader image={Background}>
-    <header class="text-primary font-display max-w-5xl">
-      <h1 class="text-5xl font-bold text-balance leading-[1.125]">
-        {props.post.data.title}
-      </h1>
-      <p class="text-lg text-gray-300 mt-2 font-medium">
-        {props.post.data.description}
-      </p>
-      <p class="text-gray-400 text-md mb-4">
-        {
-          props.post.data.pubDate.toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })
-        }
-      </p>
-    </header>
-  </GradientHeader>
-
-  <Navbar forceBackground />
+  <Hero image={HeroBackground} alt="League of Legends background" imageClass="opacity-50">
+    <h1 class="text-5xl font-bold text-balance leading-[1.125] max-w-5xl">
+      {props.post.data.title}
+    </h1>
+    <p class="text-lg text-gray-300 mt-2 font-medium">
+      {props.post.data.description}
+    </p>
+    <p class="text-gray-400 text-md mt-1">
+      {
+        props.post.data.pubDate.toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        })
+      }
+    </p>
+  </Hero>
 
   <main class="max-w-4xl mx-auto px-4 mt-10 pb-12">
     <article class="post text-primary">

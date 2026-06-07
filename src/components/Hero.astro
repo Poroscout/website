@@ -1,0 +1,56 @@
+---
+import BlurImage from "./BlurImage.astro";
+import Navbar from "../partials/Navbar.astro";
+import type { ImageMetadata } from "astro";
+import { twMerge } from "tailwind-merge";
+
+export interface Props {
+  image: ImageMetadata;
+  alt: string;
+  imageHeight?: number;
+  /** Height/sizing classes applied to the image + overlay. */
+  size?: string;
+  /** Extra classes for the background image (e.g. opacity). */
+  imageClass?: string;
+  /** Extra classes for the inner content wrapper. */
+  contentClass?: string;
+}
+
+const {
+  image,
+  alt,
+  imageHeight = 1200,
+  size = "h-[60vh] min-h-[420px]",
+  imageClass,
+  contentClass,
+} = Astro.props;
+---
+
+<div class="relative">
+  <BlurImage
+    src={image}
+    alt={alt}
+    height={imageHeight}
+    priority
+    class={twMerge("w-full object-cover", size, imageClass)}
+  />
+
+  <!-- fade to black -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-black/30 to-gray-950 from-70%"
+  >
+  </div>
+
+  <div class={twMerge("absolute inset-0 flex flex-col", size)}>
+    <Navbar class="z-50" />
+
+    <div
+      class={twMerge(
+        "flex grow flex-col justify-center max-w-7xl w-full mx-auto text-primary font-display px-4 sm:px-6 lg:px-8",
+        contentClass,
+      )}
+    >
+      <slot />
+    </div>
+  </div>
+</div>

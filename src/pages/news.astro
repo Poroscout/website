@@ -3,8 +3,7 @@ import "../styles/global.css";
 
 import MainLayout from "../layouts/Main.astro";
 import { Image } from "astro:assets";
-import BlurImage from "../components/BlurImage.astro";
-import Navbar from "../partials/Navbar.astro";
+import Hero from "../components/Hero.astro";
 import Eyebrow from "../components/Eyebrow.astro";
 import ImageCard from "../components/ImageCard.astro";
 
@@ -39,44 +38,21 @@ const [featured, ...rest] = posts;
       "Stay updated with the latest news and updates from PoroScout, the ultimate League of Legends Discord bot.",
   }}
 >
-  <!-- Hero -->
-  <div class="relative">
-    <BlurImage
-      src={HeroBackground}
-      alt="League of Legends background"
-      height={1200}
-      priority
-      class="w-full h-[60vh] min-h-[420px] object-cover opacity-50"
-    />
-
-    <!-- fade to black -->
-    <div
-      class="absolute inset-0 bg-gradient-to-b from-black/30 to-gray-950 from-70%"
+  <Hero image={HeroBackground} alt="League of Legends background" imageClass="opacity-50">
+    <h2
+      class="text-base sm:text-lg font-semibold uppercase text-grey-1 tracking-widest"
     >
-    </div>
-
-    <div class="absolute inset-0 flex flex-col h-[60vh] min-h-[420px]">
-      <Navbar class="z-50" />
-
-      <div
-        class="flex grow flex-col justify-center max-w-7xl w-full mx-auto text-primary font-display px-4 sm:px-6 lg:px-8"
-      >
-        <h2
-          class="text-base sm:text-lg font-semibold uppercase text-grey-1 tracking-widest"
-        >
-          Patch notes &amp; updates
-        </h2>
-        <h1
-          class="text-5xl sm:text-6xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-b from-primary to-gray-400 from-70% leading-[1.125]"
-        >
-          Latest News
-        </h1>
-        <p class="max-w-2xl font-body text-sm sm:text-base text-grey-1">
-          Learn about all the new features and updates.
-        </p>
-      </div>
-    </div>
-  </div>
+      Patch notes &amp; updates
+    </h2>
+    <h1
+      class="text-5xl sm:text-6xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-b from-primary to-gray-400 from-70% leading-[1.125]"
+    >
+      Latest News
+    </h1>
+    <p class="max-w-2xl font-body text-sm sm:text-base text-grey-1">
+      Learn about all the new features and updates.
+    </p>
+  </Hero>
 
   <main class="bg-gray-950">
     <div class="mx-auto max-w-6xl px-6 py-20">
