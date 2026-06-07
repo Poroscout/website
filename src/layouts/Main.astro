@@ -1,8 +1,8 @@
 ---
 import { twMerge } from "tailwind-merge";
+import { Font } from "astro:assets";
 import "../styles/global.css";
 
-import { Font } from "astro:assets";
 import Footer from "../partials/Footer.astro";
 
 const { content } = Astro.props;
@@ -73,12 +73,25 @@ const ogImage = new URL("/poroxmoba.webp", Astro.site).href;
     <slot />
     <Footer />
 
-    <!-- tracking -->
+    <!-- Privacy-friendly analytics by Plausible -->
+
+    <!-- Privacy-friendly analytics by Plausible -->
     <script
-      defer
       is:inline
-      data-domain="poroscout.gg"
-      src="/js/script.outbound.js"
-      data-api="/api/log"></script>
+      async
+      src="https://stats.derock.dev/js/pa-RFK0Ug7n_sQuxPSthF0Lc.js"></script>
+    <script is:inline>
+      ((window.plausible =
+        window.plausible ||
+        function () {
+          (plausible.q = plausible.q || []).push(arguments);
+        }),
+        (plausible.init =
+          plausible.init ||
+          function (i) {
+            plausible.o = i || {};
+          }));
+      plausible.init();
+    </script>
   </body>
 </html>
