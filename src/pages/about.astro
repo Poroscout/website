@@ -1,0 +1,196 @@
+---
+import "../styles/global.css";
+
+import MainLayout from "../layouts/Main.astro";
+import { Image } from "@unpic/astro";
+import Navbar from "../partials/Navbar.astro";
+import Eyebrow from "../components/Eyebrow.astro";
+import CTA from "../components/CTA.astro";
+
+import HeroBackground from "../assets/piltover-arcane.webp";
+import FirstIter from "../assets/poroscout-first-iter.webp";
+import OldLogo from "../assets/poroscout-old-logo.webp";
+import PoroIdentity from "../assets/poroscout-identity.webp";
+import PoroMoba from "../assets/poroscout-moba-email.webp";
+---
+
+<MainLayout
+  content={{
+    title: "PoroScout - About",
+    description:
+      "Learn about PoroScout, the League of Legends Discord bot, and the story behind it.",
+  }}
+>
+  <!-- Hero -->
+  <div class="relative">
+    <Image
+      src={HeroBackground}
+      alt="Piltover background"
+      height={1200}
+      priority
+      placeholder="lqip"
+      unstyled
+      class="w-full h-[70vh] min-h-[480px] object-cover opacity-65"
+    />
+
+    <!-- fade to black -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/30 to-gray-950 from-70%"
+    >
+    </div>
+
+    <div class="absolute inset-0 flex flex-col h-[70vh] min-h-[480px]">
+      <Navbar class="z-50" />
+
+      <div
+        class="flex grow flex-col justify-center max-w-7xl w-full mx-auto text-primary font-display px-4 sm:px-6 lg:px-8"
+      >
+        <h2
+          class="text-base sm:text-lg font-semibold uppercase text-grey-1 tracking-widest"
+        >
+          Piltover's Finest
+        </h2>
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-b from-primary to-gray-400 from-70% leading-[1.125]"
+        >
+          About PoroScout
+        </h1>
+        <p class="max-w-2xl font-body text-sm sm:text-base text-grey-1">
+          The League of Legends scouting party that lives in your Discord
+          server.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- What PoroScout is -->
+  <section class="bg-gray-950">
+    <div class="mx-auto max-w-3xl px-6 py-24">
+      <Eyebrow>What it is</Eyebrow>
+      <h2 class="mt-3 mb-6 font-display text-3xl sm:text-4xl text-gold-1">
+        Pro-grade League data, inside Discord
+      </h2>
+      <div
+        class="space-y-5 font-body text-base sm:text-lg text-grey-1 leading-relaxed [&_a]:text-gold-2 [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors [&_a:hover]:text-hex-teal"
+      >
+        <p>
+          PoroScout is a League of Legends Discord bot that brings champion
+          builds, ranked tracking, match breakdowns, and patch notes straight
+          into the servers and DMs where you and your squad already hang out. No
+          browser tabs, no alt-tabbing, just type
+          <code class="text-hex-teal">/</code> and scout. PoroScout's goal is to facilitate
+          easier conversations about champions or your own performance within Discord.
+        </p>
+        <p>
+          Look up any summoner, lock in the optimal build before champ select,
+          break down a friend's last game, show off your wonderful performance,
+          or defend your inting Sion game. The data is accurate and up to date,
+          pulled from sources like the Riot Games API and Mobalytics, and served
+          back to you in seconds.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section class="bg-hex-blue-deep">
+    <div class="mx-auto max-w-3xl px-6 py-24">
+      <Eyebrow>Why it exists</Eyebrow>
+      <h2 class="mt-3 mb-6 font-display text-3xl sm:text-4xl text-gold-1">
+        Built by a player, for players
+      </h2>
+      <div
+        class="space-y-5 font-body text-base sm:text-lg text-grey-1 leading-relaxed [&_a]:text-gold-2 [&_a]:underline [&_a]:underline-offset-2 [&_a]:transition-colors [&_a:hover]:text-hex-teal"
+      >
+        <p>
+          PoroScout was born in 2021, my freshman year of High School. My
+          friends and I participated in highschool level League tournaments,
+          playing teams from around the state. Our main communication channel?
+          Discord. When it came to scouting our next players, we'd often share
+          OP.GG links in chat, and constantly have to switch in and out from
+          Discord.
+        </p>
+        <p>
+          At the time, an alternative bot did exist, but it was heavily
+          out-of-date and did not provide reliable information on champions. So,
+          one night, I started the work on developing PoroScout, and before
+          long, PoroScout said its first words!
+        </p>
+
+        <Image
+          src={FirstIter}
+          alt="Screenshot from 2021 of PoroScout's /profile command."
+        />
+
+        <p>
+          One of my friends, <a href="https://bardman.dev">Daniel</a> helped give
+          PoroScout it's identity:
+        </p>
+
+        <div class="grid md:grid-cols-2">
+          <Image
+            src={PoroIdentity}
+            alt="The origins of the Piltover theme, as a random conversation on Discord."
+          />
+
+          <Image
+            src={OldLogo}
+            alt="PoroScout's first logo, put together from three elements: League background, binoculars, and a Poro."
+          />
+        </div>
+
+        <p>
+          Before long, PoroScout had all of it's basic commands implemented, but
+          there was one hurdle: providing Champion statistics. Riot's API
+          provides an easy way to fetch player statistics, but does not provide
+          any form of champion statistics.
+        </p>
+        <p>
+          This is why if you go between stat sites, like Mobalytics to U.GG to
+          leagueofgraphs, you will find differences in the data they report for
+          champions. This data must be collected by each site and aggregated.
+        </p>
+        <p>
+          I had coded up my own scraping system. It started from a single
+          player, collected data on their match history, then for each player
+          that they played with, it would scan deeper into those new players'
+          match history. After letting it run overnight, collecting thousands of
+          matches, I took a look at the data.
+        </p>
+        <p>
+          It was all garbage. Turns out, with the amount of champions League
+          has, you need <i>a lot</i> of data to make good generalizations (such as
+          item builds, counters, winrates). So, I pivoted. Why re-invent the wheel
+          when all of these companies already have data. At the time, I used the Mobalytics
+          overlay to help with item builds, so I sent a cold email out to one of the
+          Mobalytics founders. And before you know it, I got a response!
+        </p>
+
+        <Image
+          src={PoroMoba}
+          alt="Email response from Mobalytic's co-founder Bogdan giving the greenlight for PoroScout!"
+        />
+
+        <p>
+          From there, I kept growing PoroScout. Contacting many Discord server
+          administrators to expand PoroScout coverage and build new features.
+        </p>
+
+        <p>
+          What you're using today is the third iteration of that idea, rebuilt
+          from to be faster, cleaner, and lighter than ever. It's an independent
+          project, made and maintained because tracking the climb and scouting
+          the enemy team should be effortless for your whole server, not just
+          the one person with the stats site open.
+        </p>
+        <p>
+          P.S. If you read this far, and want to support the project, a <a
+            href="https://github.com/sponsors/ItzDerock">small donation</a
+          > would be greatly appreciated.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</MainLayout>

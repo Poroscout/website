@@ -106,7 +106,7 @@ const latestBlog = await getCollection("blog").then(
             })}
           >
             <a
-              href={`/blog/${latestBlog.id}`}
+              href={`/post/${latestBlog.data.slug ?? latestBlog.id}`}
               class="absolute inset-0"
               data-astro-prefetch></a>
           </ImageCard>

@@ -1,21 +1,34 @@
 ---
-import "../styles/post.css";
+import "../styles/global.css";
 
-import type { CollectionEntry } from "astro:content";
 import MainLayout from "../layouts/Main.astro";
+import { Image } from "@unpic/astro";
 import Navbar from "../partials/Navbar.astro";
-import GradientHeader from "../components/GradientHeader.astro";
-import Background from "../assets/lol.webp";
-import { getCollection } from "astro:content";
+import Eyebrow from "../components/Eyebrow.astro";
 import ImageCard from "../components/ImageCard.astro";
 
-// fetch all news posts
+import HeroBackground from "../assets/lol.webp";
+import { getCollection } from "astro:content";
+
+// fetch all news posts, newest first
 const posts = await getCollection("blog").then((posts) =>
   posts.sort(
     (a, b) =>
       new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
   ),
 );
+
+const postHref = (post: (typeof posts)[number]) =>
+  `/post/${post.data.slug ?? post.id}`;
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+const [featured, ...rest] = posts;
 ---
 
 <MainLayout
@@ -25,41 +38,127 @@ const posts = await getCollection("blog").then((posts) =>
       "Stay updated with the latest news and updates from PoroScout, the ultimate League of Legends Discord bot.",
   }}
 >
-  <GradientHeader image={Background}>
-    <header class="text-primary font-display max-w-5xl">
-      <h1 class="text-5xl font-bold text-balance leading-[1.125]">
-        Latest News
-      </h1>
-      <p class="text-lg text-gray-300 mt-2 font-medium">
-        Stay updated with the latest news and updates from PoroScout, the
-        ultimate League of Legends Discord bot.
-      </p>
-      <!-- <p class="text-gray-400 text-md mb-4">
+  <!-- Hero -->
+  <div class="relative">
+    <Image
+      src={HeroBackground}
+      alt="League of Legends background"
+      height={1200}
+      priority
+      placeholder="lqip"
+      unstyled
+      class="w-full h-[60vh] min-h-[420px] object-cover opacity-50"
+    />
 
-      </p> -->
-    </header>
-  </GradientHeader>
+    <!-- fade to black -->
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-black/30 to-gray-950 from-70%"
+    >
+    </div>
 
-  <Navbar forceBackground />
+    <div class="absolute inset-0 flex flex-col h-[60vh] min-h-[420px]">
+      <Navbar class="z-50" />
 
-  <main
-    class="max-w-5xl mx-auto px-4 mt-10 grid grid-cols-1 md:grid-cols-2 gap-6"
-  >
-    {
-      posts.map((post) => (
-        <ImageCard
-          image={post.data.cover ?? Background}
-          title={post.data.title}
-          subtitle={post.data.description}
-          tooltip={post.data.pubDate.toLocaleDateString("en-US", {
-            month: "long",
-            day: "numeric",
-            year: "numeric",
-          })}
+      <div
+        class="flex grow flex-col justify-center max-w-7xl w-full mx-auto text-primary font-display px-4 sm:px-6 lg:px-8"
+      >
+        <h2
+          class="text-base sm:text-lg font-semibold uppercase text-grey-1 tracking-widest"
         >
-          <a href={`/blog/${post.id}`} class="absolute inset-0" />
-        </ImageCard>
-      ))
-    }
+          Patch notes &amp; updates
+        </h2>
+        <h1
+          class="text-5xl sm:text-6xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-b from-primary to-gray-400 from-70% leading-[1.125]"
+        >
+          Latest News
+        </h1>
+        <p class="max-w-2xl font-body text-sm sm:text-base text-grey-1">
+          Learn about all the new features and updates.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <main class="bg-gray-950">
+    <div class="mx-auto max-w-6xl px-6 py-20">
+      {
+        featured && (
+          <section>
+            <Eyebrow>Latest release</Eyebrow>
+            <a
+              href={postHref(featured)}
+              data-astro-prefetch
+              class="group mt-4 grid overflow-hidden rounded-2xl border border-gold-3/40 bg-linear-to-b from-card-top to-card-bottom shadow-[0_40px_120px_-20px_rgba(1,10,19,0.9)] backdrop-blur-[var(--blur-card)] transition-[transform,border-color] duration-200 hover:-translate-y-1 hover:border-gold-2 md:grid-cols-2"
+            >
+              <div class="relative aspect-video overflow-hidden md:aspect-auto md:h-full">
+                <Image
+                  src={featured.data.cover ?? HeroBackground}
+                  width={768}
+                  height={480}
+                  alt={featured.data.title}
+                  unstyled
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-card-bottom/60 to-transparent md:bg-gradient-to-r" />
+              </div>
+
+              <div class="flex flex-col justify-center gap-3 p-8 sm:p-10">
+                <p class="font-body text-sm text-hex-teal">
+                  {formatDate(featured.data.pubDate)}
+                </p>
+                <h2 class="font-display text-2xl text-gold-1 sm:text-3xl">
+                  {featured.data.title}
+                </h2>
+                <p class="font-body text-base text-grey-1 leading-relaxed">
+                  {featured.data.description}
+                </p>
+                <span class="mt-2 inline-flex items-center gap-2 font-display text-sm uppercase tracking-[0.06em] text-gold-2 transition-colors group-hover:text-hex-teal">
+                  Read update
+                  <span
+                    aria-hidden="true"
+                    class="transition-transform group-hover:translate-x-1"
+                  >
+                    &rarr;
+                  </span>
+                </span>
+              </div>
+            </a>
+          </section>
+        )
+      }
+
+      {
+        rest.length > 0 && (
+          <section class="mt-20">
+            <Eyebrow>Earlier updates</Eyebrow>
+            <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {rest.map((post) => (
+                <ImageCard
+                  class="max-w-none"
+                  image={post.data.cover ?? HeroBackground}
+                  title={post.data.title}
+                  subtitle={post.data.description}
+                  tooltip={formatDate(post.data.pubDate)}
+                >
+                  <a
+                    href={postHref(post)}
+                    class="absolute inset-0"
+                    data-astro-prefetch
+                  />
+                </ImageCard>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        posts.length === 0 && (
+          <p class="text-center font-body text-grey-1">
+            No news just yet &mdash; check back soon.
+          </p>
+        )
+      }
+    </div>
   </main>
 </MainLayout>
