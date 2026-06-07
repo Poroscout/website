@@ -10,6 +10,13 @@ import icon from "astro-icon";
 
 import cloudflare from "@astrojs/cloudflare";
 
+// The Cloudflare adapter runs `astro dev` inside workerd, which trips over CJS
+// deps in the on-demand homepage graph ("module is not defined"). The adapter
+// is only needed to build/deploy the worker, so we skip it for `astro dev` and
+// let the dev server render on-demand routes in Node (as it did pre-adapter).
+// ISR/KV only matter in production anyway — the middleware no-ops in dev.
+const isDevServer = process.argv.includes("dev");
+
 // https://astro.build/config
 // Output stays "static": the whole site prerenders to the CDN as before.
 // Only the homepage opts into on-demand rendering (prerender = false) so the
@@ -25,9 +32,7 @@ export default defineConfig({
   // worker entirely, both the build prerender and runtime run in workerd, so
   // we must NOT override prerenderEnvironment to "node" (that would drag the
   // native sharp prerenderer back into the worker bundle).
-  adapter: cloudflare({
-    imageService: "compile",
-  }),
+  adapter: isDevServer ? undefined : cloudflare({ imageService: "compile" }),
 
   redirects: {
     "/discord": "https://discord.gg/dvvH6knvsG",

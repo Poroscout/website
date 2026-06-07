@@ -1,5 +1,4 @@
 import { defineMiddleware } from "astro:middleware";
-import { env } from "cloudflare:workers";
 import { ageSeconds, getCached, isFresh, setCached } from "./lib/isr-cache";
 
 /** Only the homepage is ISR-cached. */
@@ -23,12 +22,16 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { request, locals, url } = context;
 
   // Only the homepage GET goes through ISR. Everything else (prerendered
-  // routes at build time, non-GET, other paths) renders normally.
-  if (request.method !== "GET" || url.pathname !== ISR_PATH) {
+  // routes at build time, non-GET, other paths) renders normally. `astro dev`
+  // runs in Node without the adapter, so skip ISR entirely there — `cloudflare:
+  // workers` doesn't exist outside workerd.
+  if (import.meta.env.DEV || request.method !== "GET" || url.pathname !== ISR_PATH) {
     return next();
   }
 
-  const kv = env?.ISR_CACHE;
+  // Lazy import so this module never references `cloudflare:workers` in Node.
+  const { env } = await import(/* @vite-ignore */ "cloudflare:workers");
+  const kv = env?.ISR_CACHE as KVNamespace | undefined;
   const ctx = locals.cfContext;
   if (!kv) return next();
 
