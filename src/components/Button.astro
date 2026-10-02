@@ -11,14 +11,14 @@ interface Props {
 const { variant = "default", href, class: className, ...rest } = Astro.props;
 
 const base =
-  "inline-flex items-center justify-center gap-[0.6rem] font-display tracking-[0.06em] uppercase text-[0.92rem] px-[1.6rem] py-[0.85rem] border cursor-pointer relative rounded-lg transition-[transform_0.12s_ease,box-shadow_0.2s_ease,background_0.2s_ease] hover:-translate-y-0.5 hover:text-void-0";
+  "inline-flex min-h-11 items-center justify-center gap-[0.6rem] font-display tracking-[0.06em] uppercase text-[0.92rem] px-[1.6rem] py-[0.85rem] border cursor-pointer relative rounded-md transition-[transform,box-shadow,background-color,border-color,color] duration-200 hover:-translate-y-0.5";
 
 const variants = {
   default:
     "bg-gold-2 text-void-0 border-gold-3 hover:shadow-[0_8px_30px_-8px_rgba(200,155,60,0.55)]",
   ghost:
-    "bg-transparent text-gold-1 border-gold-4 hover:border-gold-2 hover:text-gold-0 hover:bg-[rgba(10,200,185,0.06)] hover:shadow-[0_8px_30px_-10px_rgba(10,200,185,0.4)]",
-  teal: "bg-linear-to-b from-hex-teal to-hex-teal-dim text-void-0 border-hex-teal hover:shadow-[0_8px_30px_-8px_rgba(200,155,60,0.55)]",
+    "bg-void-0/20 text-gold-1 border-gold-2/60 hover:border-gold-2 hover:text-gold-1 hover:bg-void-1/70",
+  teal: "bg-linear-to-b from-hex-teal to-hex-teal-dim text-void-0 border-hex-teal hover:shadow-[0_8px_30px_-8px_rgba(10,200,185,0.4)]",
 };
 
 const Tag = href ? "a" : "button";

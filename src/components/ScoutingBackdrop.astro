@@ -1,0 +1,91 @@
+<div class="scouting-backdrop" aria-hidden="true" data-scouting-backdrop>
+  <div class="scouting-lines" data-scouting-lines>
+    {
+      ["west", "east"].map((side) => (
+        <svg
+          class={`architecture architecture-${side}`}
+          viewBox="0 0 360 900"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1"
+          focusable="false"
+        >
+          <path d="M24 860V254L180 98L336 254V860" />
+          <path d="M48 860V266L180 134L312 266V860" />
+          <path d="M80 860V288L180 188L280 288V860" />
+          <path d="M112 860V326C112 288 140 258 180 258C220 258 248 288 248 326V860" />
+          <path d="M144 860V354C144 334 160 318 180 318C200 318 216 334 216 354V860" />
+          <path d="M180 24V78M180 146V176M180 200V246" />
+          <path d="M168 86L180 74L192 86L180 98Z" />
+          <path d="M0 450H80M280 450H360M0 462H80M280 462H360" />
+          <path d="M0 654H112M248 654H360" />
+          <path d="M0 666H112M248 666H360" />
+          <path d="M48 780H144M216 780H312" />
+        </svg>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .scouting-backdrop {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 1;
+    height: 58rem;
+    overflow: hidden;
+    pointer-events: none;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black 15%,
+      black 65%,
+      transparent
+    );
+  }
+
+  .scouting-lines {
+    position: absolute;
+    inset: -1rem 0;
+    transform: translateY(var(--scout-drift, 0px));
+  }
+
+  .architecture {
+    position: absolute;
+    top: 0;
+    width: clamp(20rem, 28vw, 26rem);
+    height: 100%;
+    opacity: 0.18;
+  }
+
+  .architecture-west {
+    left: -9rem;
+    color: var(--color-hex-teal-dim);
+  }
+
+  .architecture-east {
+    right: -9rem;
+    color: var(--color-gold-2);
+    transform: scaleX(-1);
+  }
+
+  @media (max-width: 767px) {
+    .scouting-backdrop {
+      height: 64rem;
+    }
+
+    .architecture-west {
+      left: -16rem;
+    }
+
+    .architecture-east {
+      right: -16rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scouting-lines {
+      transform: none;
+    }
+  }
+</style>

@@ -117,6 +117,7 @@ const [featured, ...rest] = posts;
                   <a
                     href={postHref(post)}
                     class="absolute inset-0"
+                    aria-label={`Read ${post.data.title}`}
                     data-astro-prefetch
                   />
                 </ImageCard>

@@ -1,5 +1,4 @@
 ---
-import ScreenshotFrame from "./ScreenshotFrame.astro";
 import Eyebrow from "./Eyebrow.astro";
 import { Image } from "astro:assets";
 
@@ -33,13 +32,13 @@ const {
 <div
   id={id}
   data-reveal
-  class="grid grid-cols-2 max-md:grid-cols-1 items-center gap-[clamp(2rem,5vw,4.5rem)] max-md:gap-7 py-[clamp(3rem,7vw,5.5rem)]"
+  class="grid grid-cols-1 md:grid-cols-2 items-center gap-10 md:gap-16 py-14 md:py-20"
 >
-  <div class:list={[reverse && "order-2 max-[820px]:order-none"]}>
+  <div class:list={["min-w-0", reverse && "md:order-2"]}>
     <div class="flex flex-wrap gap-2 mb-6">
       {
         commands.map((c) => (
-          <code class="rounded-full border border-hex-teal/35 bg-hex-teal/10 px-[0.8rem] py-[0.3rem] text-[0.85rem] text-hex-teal">
+          <code class="rounded-md border border-hex-teal/25 bg-hex-teal/5 px-2.5 py-1 font-mono text-xs text-hex-teal">
             {c}
           </code>
         ))
@@ -48,13 +47,13 @@ const {
 
     <Eyebrow class="mb-3">{eyebrow}</Eyebrow>
 
-    <h3 class="mt-0 mb-4 text-[clamp(1.6rem,3.5vw,2.4rem)]">{title}</h3>
-    <p class="mt-0 mb-5 text-[1.08rem] text-grey-1">{body}</p>
+    <h2 class="mt-0 mb-4 font-display font-bold text-gold-1 text-3xl md:text-4xl leading-tight text-balance">{title}</h2>
+    <p class="mt-0 mb-5 text-[0.95rem] leading-[1.8] text-grey-1">{body}</p>
     {
       bullets.length > 0 && (
         <ul class="grid list-none gap-[0.55rem] mt-0 mb-6 p-0">
           {bullets.map((b) => (
-            <li class="relative pl-[1.6rem] text-gold-1 before:absolute before:left-0 before:top-[0.05em] before:text-[0.75em] before:text-gold-3 before:content-['◆']">
+            <li class="relative pl-5 text-sm leading-relaxed text-gold-1 before:absolute before:left-0 before:top-[0.05em] before:text-[0.65em] before:text-gold-2 before:content-['◆']">
               {b}
             </li>
           ))}
@@ -80,7 +79,29 @@ const {
     }
   </div>
 
-  <div>
-    <Image src={image} alt={imageAlt} fit="contain" />
+  <div class="feature-visual min-w-0" data-feature-visual>
+    <Image src={image} alt={imageAlt} fit="contain" class="w-full h-auto" widths={[400, 600, 900]} sizes="(min-width: 1152px) 512px, (min-width: 768px) 45vw, calc(100vw - 48px)" />
   </div>
 </div>
+
+<style>
+  /* JavaScript prepares only offscreen artwork; the default stays visible. */
+  .feature-visual[data-reveal-state="pending"] :global(img) {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .feature-visual[data-reveal-state="revealed"] :global(img) {
+    transition:
+      opacity 600ms ease-out,
+      transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature-visual[data-reveal-state] :global(img) {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>

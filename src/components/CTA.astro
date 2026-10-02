@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Eyebrow from "./Eyebrow.astro";
+import { Icon } from "astro-icon/components";
 
 const inviteGuildUrl = "/invite";
 const inviteUserUrl = "/invite-user";
@@ -15,7 +16,7 @@ const commands = (await getCollection("docs"))
 const bgCards = [...commands, ...commands, ...commands];
 
 const optBtnBase =
-  "mt-2 inline-flex w-full items-center justify-center font-display uppercase tracking-[0.06em] text-[0.92rem] px-[1.6rem] py-[0.85rem] border rounded-lg transition-[transform_0.12s_ease,box-shadow_0.2s_ease]";
+  "mt-3 inline-flex min-h-11 w-full items-center justify-center font-display uppercase tracking-[0.06em] text-[0.85rem] px-4 py-3 border rounded-md transition-colors duration-200";
 ---
 
 <section
@@ -24,7 +25,7 @@ const optBtnBase =
   <!-- subtle background grid of every command -->
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute inset-0 select-none px-6 pt-8 pb-40 opacity-50"
+    class="pointer-events-none absolute inset-0 select-none px-6 pt-8 pb-40 opacity-20"
   >
     <div
       class="mx-auto grid max-w-7xl grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3"
@@ -52,10 +53,10 @@ const optBtnBase =
   </div>
 
   <!-- foreground card -->
-  <div class="relative mx-auto max-w-6xl px-6 py-24">
+  <div class="relative mx-auto max-w-6xl px-6 sm:px-8 py-16 md:py-20">
     <div
       data-reveal
-      class="relative overflow-hidden rounded-2xl border border-gold-3/40 bg-linear-to-b from-card-top to-card-bottom p-[clamp(2.5rem,6vw,4.5rem)] text-center shadow-[0_40px_120px_-20px_rgba(1,10,19,0.9)] backdrop-blur-[var(--blur-card)]"
+      class="relative overflow-hidden rounded-xl border border-gold-2/25 bg-linear-to-b from-card-top to-card-bottom px-6 py-10 sm:p-12 md:p-16 text-center"
     >
       <!-- teal glow -->
       <div
@@ -67,30 +68,30 @@ const optBtnBase =
       <div class="flex flex-row justify-center">
         <Eyebrow>Ready up</Eyebrow>
       </div>
-      <h2 class="relative mt-3 mb-4 text-[clamp(2rem,5vw,3rem)] text-gold-1">
+      <h2 class="relative mt-3 mb-4 font-display font-bold leading-tight text-[clamp(2rem,5vw,3rem)] text-gold-1">
         Add PoroScout in seconds.
       </h2>
-      <p class="relative mx-auto mb-0 max-w-xl text-[1.08rem] text-grey-1">
+      <p class="relative mx-auto mb-0 max-w-xl text-sm sm:text-base leading-relaxed text-grey-1">
         Invite the bot to your server for the whole squad, or add it straight to
         your account and use it in any DM or server. No setup required, just
         type <code class="text-hex-teal">/</code> and scout.
       </p>
 
-      <div class="relative my-10 grid gap-5 text-left sm:grid-cols-2">
+      <div class="relative mx-auto my-8 grid max-w-3xl gap-5 text-left sm:grid-cols-2">
         <a
           href={inviteGuildUrl}
           target="_blank"
           rel="noopener"
-          class="group grid gap-2 rounded-xl border border-gold-3/20 bg-void-1/55 p-6 transition-[transform,border-color,background] duration-200 hover:-translate-y-1 hover:border-gold-2 hover:bg-hex-blue/50"
+          class="group grid grid-rows-[auto_auto_1fr_auto] gap-2 rounded-lg border border-gold-3/20 bg-void-1/55 p-5 sm:p-6 transition-[border-color,background-color] duration-200 hover:border-gold-2 hover:bg-hex-blue/50"
         >
-          <span class="text-[1.8rem]" aria-hidden="true">🏰</span>
+          <Icon name="lucide:server" size={24} class="mb-2 text-gold-2" aria-hidden="true" />
           <span class="font-display text-xl text-gold-1">Add to a Server</span>
-          <span class="min-h-[2.6em] text-[0.95rem] text-grey-1 max-sm:min-h-0">
+          <span class="text-sm leading-relaxed text-grey-1">
             For your whole community. Allows all users in your server to access
             PoroScout.
           </span>
           <span
-            class={`${optBtnBase} bg-linear-to-b from-hex-teal to-hex-teal-dim text-void-0 border-hex-teal group-hover:shadow-[0_8px_30px_-8px_rgba(10,200,185,0.55)]`}
+            class={`${optBtnBase} bg-gold-2 text-void-0 border-gold-3 group-hover:bg-gold-1`}
           >
             Invite to Server
           </span>
@@ -100,17 +101,17 @@ const optBtnBase =
           href={inviteUserUrl}
           target="_blank"
           rel="noopener"
-          class="group grid gap-2 rounded-xl border border-gold-3/20 bg-void-1/55 p-6 transition-[transform,border-color,background] duration-200 hover:-translate-y-1 hover:border-gold-2 hover:bg-hex-blue/50"
+          class="group grid grid-rows-[auto_auto_1fr_auto] gap-2 rounded-lg border border-gold-3/20 bg-void-1/55 p-5 sm:p-6 transition-[border-color,background-color] duration-200 hover:border-gold-2 hover:bg-hex-blue/50"
         >
-          <span class="text-[1.8rem]" aria-hidden="true">🧑‍💻</span>
+          <Icon name="lucide:user-round" size={24} class="mb-2 text-gold-2" aria-hidden="true" />
           <span class="font-display text-xl text-gold-1"
             >Add to Your Account</span
           >
-          <span class="min-h-[2.6em] text-[0.95rem] text-grey-1 max-sm:min-h-0">
+          <span class="text-sm leading-relaxed text-grey-1">
             Use PoroScout anywhere: DMs, group chats, any server.
           </span>
           <span
-            class={`${optBtnBase} bg-transparent text-gold-1 border-gold-4 group-hover:border-gold-2 group-hover:bg-[rgba(10,200,185,0.06)] group-hover:shadow-[0_8px_30px_-10px_rgba(10,200,185,0.4)]`}
+            class={`${optBtnBase} bg-transparent text-gold-1 border-gold-2/60 group-hover:border-gold-2 group-hover:bg-void-1`}
           >
             Add to Me
           </span>

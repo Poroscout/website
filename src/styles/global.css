@@ -1,5 +1,39 @@
 @import "tailwindcss";
 
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-padding-top: 6rem;
+  }
+
+  ::selection {
+    background: var(--color-gold-2);
+    color: var(--color-void-0);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-hex-teal);
+    outline-offset: 4px;
+  }
+
+  a.absolute:focus-visible {
+    outline-offset: -4px;
+  }
+
+  [aria-current="page"] {
+    color: var(--color-hex-teal);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
 @theme inline {
   --font-subhead: var(--font-montserrat);
   --font-display: var(--font-crimson-text);

@@ -15,6 +15,7 @@ import FeatureRow from "../components/FeatureRow.astro";
 import Divider from "../components/Divider.astro";
 import Button from "../components/Button.astro";
 import CTA from "../components/CTA.astro";
+import ScoutingBackdrop from "../components/ScoutingBackdrop.astro";
 
 import HeroBackground from "../assets/piltover-wall.png";
 import PoroReading from "../assets/poro-read.jpg";
@@ -40,104 +41,98 @@ const latestBlog = await getCollection("blog").then(
   }}
 >
   <!-- Hero -->
-  <div class="relative">
+  <section class="home-hero relative isolate flex flex-col">
     <BlurImage
       src={HeroBackground}
-      alt="Piltover background"
+      alt=""
       height={1900}
       priority
-      class="w-full h-screen object-cover"
+      wrapperClass="absolute inset-0 -z-20"
+      class="w-full h-full object-cover"
     />
 
     <!-- fade to black -->
     <div
-      class="absolute inset-0 bg-gradient-to-b from-black/30 to-gray-950 from-70%"
+      class="absolute inset-0 -z-10 bg-gradient-to-b from-void-0/35 via-void-0/20 to-gray-950"
     >
     </div>
+
+    <Navbar class="z-50" />
 
     <div
-      class="absolute inset-0 flex flex-col py-96 w-full h-screen justify-center"
+      class="hero-copy max-w-6xl w-full mx-auto text-primary font-display px-6 sm:px-8 flex grow flex-col justify-center"
     >
-      <Navbar class="z-50" />
-
+      <p
+        class="mb-4 font-subhead text-xs font-semibold uppercase text-gold-2 tracking-[0.16em]"
+      >
+        Piltover's Finest
+      </p>
+      <h1
+        class="hero-title font-bold mb-5 text-gold-1 leading-[1.04] tracking-[-0.02em]"
+      >
+        League of Legends
+        <br />Discord Bot
+      </h1>
+      <p class="mb-8 max-w-xl font-body text-sm sm:text-base leading-relaxed text-gold-1/85">
+        Your ultimate chat companion for tracking player statistics, champion
+        builds, and more!
+      </p>
       <div
-        class="max-w-7xl w-full mx-auto text-primary font-display pb-32 px-4 sm:px-6 lg:px-8"
+        class="flex flex-col sm:flex-row gap-3 items-start sm:items-center"
       >
-        <h2
-          class="text-base sm:text-lg font-semibold uppercase text-grey-1 tracking-widest"
-        >
-          Piltover's Finest
-        </h2>
-        <h1
-          class="text-5xl sm:text-6xl md:text-7xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-b from-primary to-gray-400 from-70% leading-[1.125]"
-        >
-          League of Legends
-          <br />Discord Bot
-        </h1>
-        <p class="mb-6 font-body text-sm sm:text-base">
-          Your ultimate chat companion for tracking player statistics, champion
-          builds, and more!
-        </p>
-        <div
-          class="flex flex-col sm:flex-row gap-4 items-start sm:items-center"
-        >
-          <Button href="/explore" label="Explore Now" href="/invite">
-            <span aria-hidden="true">＋</span> Add to a Server
-          </Button>
-          <Button href="/invite-user" label="Explore Now" variant="ghost">
-            Add to Your Account
-          </Button>
-        </div>
+        <Button href="/invite">
+          <span aria-hidden="true">＋</span> Add to a Server
+        </Button>
+        <Button href="/invite-user" variant="ghost">
+          Add to Your Account
+        </Button>
       </div>
-
-      <!-- latest blog -->
-      <section
-        class="absolute bottom-8 pb-8 px-8 w-full hidden md:flex flex-row overflow-x-auto justify-end lg:max-h-[30vh] pt-12"
-      >
-        <div
-          class="flex flex-row justify-end xl:w-7xl min-[1921px]:max-w-7xl gap-4 w-full mx-auto [&>*]:shadow-lg px-4"
-        >
-          <ImageCard
-            image={latestBlog.data.cover}
-            title={latestBlog.data.title}
-            subtitle={latestBlog.data.description}
-            tooltip={latestBlog.data.pubDate.toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-          >
-            <a
-              href={`/post/${latestBlog.data.slug ?? latestBlog.id}`}
-              class="absolute inset-0"
-              data-astro-prefetch></a>
-          </ImageCard>
-
-          <ImageCard
-            image={PoroReading}
-            title="Wiki"
-            subtitle="Check out all of PoroScout's features and commands in our wiki!"
-          >
-            <a href="/docs" class="absolute inset-0" data-astro-prefetch></a>
-          </ImageCard>
-        </div>
-      </section>
     </div>
-  </div>
 
-  <Statistics />
+    <!-- latest blog -->
+    <section
+      aria-label="News and documentation"
+      class="max-w-6xl mx-auto w-full px-6 sm:px-8 pb-10 md:pb-12"
+    >
+      <div
+        class="grid gap-3 sm:grid-cols-2 md:ml-auto md:max-w-[680px]"
+      >
+        <ImageCard
+          class="hero-card"
+          image={latestBlog.data.cover}
+          title={latestBlog.data.title}
+          subtitle={latestBlog.data.description}
+          tooltip={latestBlog.data.pubDate.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })}
+        >
+          <a
+            href={`/post/${latestBlog.data.slug ?? latestBlog.id}`}
+            class="absolute inset-0"
+            aria-label={`Read ${latestBlog.data.title}`}
+            data-astro-prefetch></a>
+        </ImageCard>
 
-  <section class="bg-hex-blue-deep">
-    <div class="mx-auto max-w-6xl px-8">
-      <!-- <div class="text-center max-w-[760px] mx-auto" data-reveal>
-        <p class="eyebrow justify-center">What PoroScout does</p>
-        <h2 class="section-title">Pro-grade League data, inside Discord</h2>
-        <p class="lead mx-auto">
-          From champion builds to MMR curves and live match breakdowns —
-          PoroScout pulls accurate, up-to-date data so your squad always shows
-          up prepared.
-        </p>
-      </div> -->
+        <ImageCard
+          class="hero-card"
+          image={PoroReading}
+          title="Wiki"
+          subtitle="Check out all of PoroScout's features and commands in our wiki!"
+        >
+          <a href="/docs" class="absolute inset-0" aria-label="Explore the PoroScout wiki" data-astro-prefetch></a>
+        </ImageCard>
+      </div>
+    </section>
+  </section>
+
+  <div class="relative isolate overflow-clip">
+    <ScoutingBackdrop />
+    <Statistics />
+
+  <section class="home-features relative bg-hex-blue-deep">
+    <div class="relative z-10 mx-auto max-w-6xl px-6 sm:px-8">
 
       <FeatureRow
         id="champion"
@@ -172,7 +167,7 @@ const latestBlog = await getCollection("blog").then(
         image={FeatureGraphs}
         imageAlt="PoroScout /graph and /mmr commands showing MMR and LP graphs"
         reverse
-        wikiSlug={undefined}
+        wikiSlug="commands/graph-lp"
       />
 
       <Divider />
@@ -230,6 +225,165 @@ const latestBlog = await getCollection("blog").then(
       />
     </div>
   </section>
+  </div>
 
   <CTA />
 </MainLayout>
+
+<script>
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const visuals = document.querySelectorAll<HTMLElement>("[data-feature-visual]");
+  const backdrop = document.querySelector<HTMLElement>("[data-scouting-backdrop]");
+  const lines = document.querySelector<HTMLElement>("[data-scouting-lines]");
+  const revealed = new WeakSet<HTMLElement>();
+  const revealThreshold = 0.25;
+  const revealTopInset = 80;
+  const revealBottomInset = 120;
+  let backdropVisible = false;
+  let frame = 0;
+
+  function reveal(visual: HTMLElement): boolean {
+    if (revealed.has(visual)) return true;
+    if (reducedMotion.matches) return false;
+    const bounds = visual.getBoundingClientRect();
+    const visibleHeight = Math.min(bounds.bottom, window.innerHeight - revealBottomInset)
+      - Math.max(bounds.top, revealTopInset);
+    // Check again after image loading, since the visitor may have scrolled away.
+    if (bounds.height <= 0 || visibleHeight / bounds.height < revealThreshold) return false;
+
+    revealed.add(visual);
+    // Animate the artwork inside the stable observer target.
+    visual.dataset.revealState = "revealed";
+    return true;
+  }
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting || entry.intersectionRatio < revealThreshold) continue;
+        const visual = entry.target as HTMLElement;
+        const image = visual.querySelector("img");
+        if (!image || image.complete) {
+          if (reveal(visual)) revealObserver.unobserve(visual);
+        } else {
+          revealObserver.unobserve(visual);
+          image.addEventListener("load", () => {
+            if (!reveal(visual) && !reducedMotion.matches) {
+              revealObserver.observe(visual);
+            }
+          }, { once: true });
+        }
+      }
+    },
+    {
+      threshold: revealThreshold,
+      rootMargin: `-${revealTopInset}px 0px -${revealBottomInset}px 0px`,
+    },
+  );
+
+  function updateDrift() {
+    frame = 0;
+    if (!backdrop || !lines) return;
+    const bounds = backdrop.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1,
+      (window.innerHeight - bounds.top) / (window.innerHeight + bounds.height),
+    ));
+    lines.style.setProperty("--scout-drift", `${((progress - 0.5) * 24).toFixed(2)}px`);
+  }
+
+  function requestDrift() {
+    if (!frame && backdropVisible && !reducedMotion.matches && !document.hidden) {
+      frame = requestAnimationFrame(updateDrift);
+    }
+  }
+
+  const backdropObserver = new IntersectionObserver(([entry]) => {
+    backdropVisible = entry.isIntersecting;
+    requestDrift();
+  });
+  if (backdrop) backdropObserver.observe(backdrop);
+
+  function updateMotionPreference() {
+    revealObserver.disconnect();
+    if (reducedMotion.matches) {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      visuals.forEach((visual) => delete visual.dataset.revealState);
+      lines?.style.removeProperty("--scout-drift");
+    } else {
+      visuals.forEach((visual) => {
+        if (revealed.has(visual)) return;
+        // Never hide artwork that the visitor can already see, including
+        // restored scroll positions and direct links to a feature.
+        if (visual.getBoundingClientRect().top < window.innerHeight) {
+          revealed.add(visual);
+          return;
+        }
+        visual.dataset.revealState = "pending";
+        revealObserver.observe(visual);
+      });
+      requestDrift();
+    }
+  }
+
+  window.addEventListener("scroll", requestDrift, { passive: true });
+  window.addEventListener("resize", requestDrift, { passive: true });
+  document.addEventListener("visibilitychange", requestDrift);
+  reducedMotion.addEventListener("change", updateMotionPreference);
+  updateMotionPreference();
+</script>
+
+<style>
+  .home-features {
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-gray-950),
+      var(--color-hex-blue-deep) clamp(16rem, 24vw, 24rem)
+    );
+  }
+
+  .home-hero {
+    min-height: max(48rem, 100svh);
+    padding-top: 5rem;
+  }
+
+  .hero-copy {
+    padding-block: 5rem 3rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.75rem, 5.5vw, 4.75rem);
+  }
+
+  .home-hero :global(.hero-card) {
+    height: 11rem;
+    max-width: none;
+  }
+
+  .home-hero :global(.hero-card h2) {
+    font-size: 1.5rem;
+  }
+
+  .home-hero :global(.hero-card p) {
+    font-size: 0.75rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 639px) {
+    .home-hero {
+      min-height: 100svh;
+    }
+
+    .hero-copy {
+      padding-block: 4rem;
+    }
+
+    .home-hero :global(.hero-card) {
+      height: 7rem;
+    }
+
+    .home-hero :global(.hero-card p) {
+      display: none;
+    }
+  }
+</style>
