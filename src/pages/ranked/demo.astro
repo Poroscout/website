@@ -1,0 +1,11 @@
+---
+export const prerender = false;
+import Main from "../../layouts/Main.astro";
+import Navbar from "../../partials/Navbar.astro";
+import RankedTracker from "../../components/ranked/RankedTracker";
+import { createRankedDemo } from "../../data/ranked-demo";
+---
+<Main content={{ title: "Ranked graph demo · PoroScout", description: "Try PoroScout’s interactive ranked LP graph with simulated Solo/Duo and Flex history." }}>
+  <Navbar forceBackground />
+  <RankedTracker client:load siteKey="" demoData={createRankedDemo()} />
+</Main>

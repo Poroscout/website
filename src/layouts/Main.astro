@@ -11,6 +11,7 @@ export interface Props {
   content: {
     title: string;
     description?: string;
+    canonicalPath?: string;
   };
 
   class?: string;
@@ -20,7 +21,7 @@ const description =
   content.description ||
   "PoroScout is a League of Legends Discord Bot for tracking player's statistics, match history, ranked information, champion masteries, champion builds, winrates, and more!";
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const canonicalURL = new URL(content.canonicalPath ?? Astro.url.pathname, Astro.site).href;
 const ogImage = new URL("/poroxmoba.webp", Astro.site).href;
 ---
 
@@ -81,16 +82,16 @@ const ogImage = new URL("/poroxmoba.webp", Astro.site).href;
       async
       src="https://stats.derock.dev/js/pa-RFK0Ug7n_sQuxPSthF0Lc.js"></script>
     <script is:inline>
-      ((window.plausible =
+      window.plausible =
         window.plausible ||
-        function () {
-          (plausible.q = plausible.q || []).push(arguments);
-        }),
-        (plausible.init =
-          plausible.init ||
-          function (i) {
-            plausible.o = i || {};
-          }));
+        function (...args) {
+          (plausible.q = plausible.q || []).push(args);
+        };
+      plausible.init =
+        plausible.init ||
+        function (options) {
+          plausible.o = options || {};
+        };
       plausible.init();
     </script>
   </body>

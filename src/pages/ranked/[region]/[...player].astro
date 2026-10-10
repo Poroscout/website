@@ -1,0 +1,26 @@
+---
+export const prerender = false;
+import Main from "../../../layouts/Main.astro";
+import Navbar from "../../../partials/Navbar.astro";
+import RankedTracker from "../../../components/ranked/RankedTracker";
+import { parsePlayerPath, playerPath } from "../../../lib/tracking";
+import { loadRankedPlayer, rankedPageMetadata } from "../../../lib/ranked-page";
+
+const player = parsePlayerPath(Astro.url.pathname);
+const initialData = player ? await loadRankedPlayer(player) : undefined;
+const account = initialData?.status === "ready" ? initialData.account : undefined;
+const content = player
+  ? {
+      ...rankedPageMetadata(player, initialData),
+      canonicalPath: playerPath(account?.ign ?? player.riotId, account?.region ?? player.region),
+    }
+  : {
+      title: "Player not found · Ranked · PoroScout",
+      description: "Search with a full Riot ID and League region to find ranked history on PoroScout.",
+    };
+if (!player) Astro.response.status = 404;
+---
+<Main content={content}>
+  <Navbar forceBackground />
+  <RankedTracker client:load player={player ?? undefined} invalidRoute={!player} initialData={initialData} siteKey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || ""} />
+</Main>

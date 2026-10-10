@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
       // Strip frontmatter/markdown to a plain-text body for searching.
       const text = (e.body ?? "")
         .replace(/```[\s\S]*?```/g, " ")
-        .replace(/[#>*`_|\-]+/g, " ")
+        .replace(/[#>*`_|-]+/g, " ")
         .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
         .replace(/\s+/g, " ")
         .trim();

@@ -15,5 +15,9 @@
 	],
 	"observability": {
 		"enabled": true
-	}
+	},
+  "vars": {
+    "PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAFOtXhZjLr8aapca",
+    "TRACKING_API_ORIGIN": "https://api.poroscout.gg"
+  }
 }

@@ -208,7 +208,7 @@
     };
 
     // Expose globally so the navbar trigger can open it.
-    (window as any).openSearchPalette = openPalette;
+    window.openSearchPalette = openPalette;
 
     input.addEventListener("input", () => render(input.value));
 
@@ -246,7 +246,8 @@
       // Open: Cmd/Ctrl+K, or "/" when not already typing.
       if ((ev.metaKey || ev.ctrlKey) && ev.key.toLowerCase() === "k") {
         ev.preventDefault();
-        open ? closePalette() : openPalette();
+        if (open) closePalette();
+        else openPalette();
         return;
       }
       if (ev.key === "/" && !typing && !open) {

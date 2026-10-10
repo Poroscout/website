@@ -1,12 +1,12 @@
 ---
 import { twMerge } from "tailwind-merge";
+import type { HTMLAttributes } from "astro/types";
 
-interface Props {
+type Props = (HTMLAttributes<"a"> | HTMLAttributes<"button">) & {
   variant?: "default" | "ghost" | "teal";
   href?: string;
   class?: string;
-  [key: string]: any;
-}
+};
 
 const { variant = "default", href, class: className, ...rest } = Astro.props;
 

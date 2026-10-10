@@ -16,6 +16,10 @@ declare module "cloudflare:workers" {
   export const env: Env;
 }
 
+interface Window {
+  openSearchPalette?: () => void;
+}
+
 declare namespace App {
   interface Locals {
     /** Cloudflare ExecutionContext (Astro v6). Use for waitUntil(). */

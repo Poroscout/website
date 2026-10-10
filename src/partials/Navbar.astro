@@ -11,6 +11,7 @@ type NavbarItem = {
 };
 
 const navbarItems = [
+  // { href: "/ranked", label: "Ranked" }, // WIP: restore when ranked tracking is ready.
   { href: "/about", label: "About" },
   { href: "/docs", label: "Wiki" },
   { href: "/news", label: "News" },
@@ -234,7 +235,7 @@ const props = {
   const triggers = document.querySelectorAll("[data-search-trigger]");
   triggers.forEach((trigger) =>
     trigger.addEventListener("click", () => {
-      (window as any).openSearchPalette?.();
+      window.openSearchPalette?.();
       closeMobileMenu();
     }),
   );

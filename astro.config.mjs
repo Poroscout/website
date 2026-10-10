@@ -43,6 +43,11 @@ export default defineConfig({
   },
 
   vite: {
+    // Build-time prerendering also optimizes dependencies. Keep its production
+    // React runtime out of a running dev server's dependency cache.
+    cacheDir: isDevServer ? ".astro/vite/dev" : ".astro/vite/build",
+    // The API origin is public configuration used by direct browser requests.
+    envPrefix: ["PUBLIC_", "TRACKING_API_ORIGIN"],
     plugins: [tailwindcss()],
     define: {
       __BUILD_ID__: JSON.stringify(BUILD_ID),
@@ -84,5 +89,5 @@ export default defineConfig({
     },
   ],
 
-  integrations: [sitemap(), mdx(), icon()],
+  integrations: [sitemap(), mdx(), icon(), react()],
 });
