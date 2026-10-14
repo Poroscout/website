@@ -28,6 +28,12 @@ export const RANK_COLORS = [
   "#e9c777",
 ];
 
+const POINT_COLORS = {
+  victory: "#6cd7ba",
+  defeat: "#ef969e",
+  unknown: "#e9b86e",
+};
+
 export function SnapshotDetail({
   point,
   previous,
@@ -139,6 +145,23 @@ export default function LPChart({
   const geometry = useMemo(
     () => createChartGeometry(snapshots, width, axis, windowRange),
     [snapshots, width, axis, windowRange],
+  );
+  // Use the full history so the first point in a filtered view keeps its result.
+  const pointColors = useMemo(
+    () =>
+      new Map(
+        fullSeries.map((point, index) => {
+          const result = outcome(point, fullSeries[index - 1]);
+          const color =
+            result === "Victory"
+              ? POINT_COLORS.victory
+              : result === "Defeat"
+                ? POINT_COLORS.defeat
+                : POINT_COLORS.unknown;
+          return [point.id, color];
+        }),
+      ),
+    [fullSeries],
   );
   const {
     data,
@@ -400,14 +423,15 @@ export default function LPChart({
                   index === selected);
               if (!showPoint || value === null) return null;
               const isReset = point.reason === "Reset";
+              const color = pointColors.get(point.id) ?? POINT_COLORS.unknown;
               return (
                 <circle
                   key={point.id}
                   cx={x(index)}
                   cy={y(value)}
                   r={isReset ? 4.5 : 3}
-                  fill={isReset ? "#c8aa6e" : "#06141f"}
-                  stroke={isReset ? "#c8aa6e" : "#5edacc"}
+                  fill={color}
+                  stroke="#06121d"
                   strokeWidth="1.5"
                 />
               );
@@ -428,7 +452,7 @@ export default function LPChart({
                     cx={chosenX}
                     cy={y(chosen.value)}
                     r="6"
-                    fill="#5edacc"
+                    fill={pointColors.get(chosen.point.id) ?? POINT_COLORS.unknown}
                     stroke="#010a13"
                     strokeWidth="3"
                   />
@@ -450,7 +474,7 @@ export default function LPChart({
         </svg>
         {chosen && (
           <div
-            className="chart-tooltip"
+            className={`chart-tooltip${pinned ? " is-pinned" : ""}`}
             role="status"
             style={{ left: tooltipLeft, top: 48 }}
           >
@@ -477,7 +501,16 @@ export default function LPChart({
       </div>
       <div className="chart-caption">
         <span>
-          <i className="baseline-dot" /> Baseline / reset
+          <i className="outcome-dot" style={{ background: POINT_COLORS.victory }} />
+          Victory
+        </span>
+        <span>
+          <i className="outcome-dot" style={{ background: POINT_COLORS.defeat }} />
+          Defeat
+        </span>
+        <span>
+          <i className="outcome-dot" style={{ background: POINT_COLORS.unknown }} />
+          Unknown / reset
         </span>
       </div>
     </div>

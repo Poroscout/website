@@ -466,6 +466,8 @@
   font-weight:700
 }
 .chart-tooltip {
+  /* Hover previews must not interrupt the SVG's pointer tracking. */
+  pointer-events:none;
   position:absolute;
   width:264px;
   background:#101f2b;
@@ -475,6 +477,9 @@
   box-shadow:0 12px 32px rgb(0 0 0/.35);
   font-size:13px;
   z-index:2
+}
+.chart-tooltip.is-pinned {
+  pointer-events:auto
 }
 .detail-top {
   display:flex;
@@ -546,24 +551,23 @@
 }
 .chart-caption {
   display:flex;
-  justify-content:space-between;
+  flex-wrap:wrap;
   gap:12px;
   padding:0 16px 20px;
   font-size:12px;
   color:#9babba
 }
-.chart-caption>span:last-child {
+.chart-caption>span {
   display:flex;
   align-items:center;
   gap:6px;
   white-space:nowrap
 }
-.baseline-dot {
+.outcome-dot {
   height:7px;
   width:7px;
   display:inline-block;
-  border-radius:50%;
-  background:#c8aa6e
+  border-radius:50%
 }
 .lp-chart>.tracker-note {
   padding:0 16px 16px
@@ -861,6 +865,14 @@
     flex-wrap:wrap;
     gap:12px
   }
+  .history-panel {
+    margin-inline:-16px;
+    border-inline:0;
+    border-radius:0
+  }
+  .lp-chart {
+    padding:0
+  }
   .history-filters {
     width:100%
   }
@@ -888,7 +900,7 @@
     font-size:11px
   }
   .chart-tools {
-    padding:8px;
+    padding:8px 12px;
     flex-wrap:wrap;
     gap:12px
   }
@@ -898,10 +910,15 @@
   .chart-tool-buttons {
     margin-left:auto
   }
+  .chart-tool-buttons button,.chart-tool-buttons select {
+    min-height:44px
+  }
+  .chart-tool-buttons button {
+    min-width:44px
+  }
   .chart-caption {
-    flex-direction:column;
-    padding-inline:8px;
-    gap:8px;
+    padding-inline:12px;
+    gap:12px;
     font-size:11px
   }
   .history-status {
